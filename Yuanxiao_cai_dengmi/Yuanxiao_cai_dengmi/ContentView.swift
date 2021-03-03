@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Shared
+//  Yuanxiao_cai_dengmi
 //
 //  Created by 徐浩恩 on 2021/3/3.
 //
@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        HStack{
+            Text("阿拉花瓜").foregroundColor(Color.orange)
+            Text("阿拉萬歲")
+        }
     }
 }
 
