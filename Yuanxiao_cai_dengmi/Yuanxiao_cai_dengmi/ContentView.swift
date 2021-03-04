@@ -55,19 +55,19 @@ struct ContentView: View {
                 Text("\(AnsStr)")
                 Button( action:{
                     if(buttonState==0){
-                        quesCount+=1
-                        Counts=String(quesCount)
-                        dengmis.shuffle()
-                        QuesStr=dengmis[0].Ques
+                        QuesStr=dengmis[quesCount].Ques
                         AnsStr=constAns
                         buttonLabel=displayText
                         buttonState=1
+                        quesCount+=1
+                        Counts=String(quesCount)
                     }
                     else if(buttonState==1){
-                        AnsStr=dengmis[0].Ans
+                        AnsStr=dengmis[quesCount].Ans
                         if(quesCount>=10){
                             buttonLabel=playAnginText
                             Counts=blankText
+                            dengmis.shuffle()
                             quesCount=0
                         }
                         else{
@@ -80,6 +80,9 @@ struct ContentView: View {
                     Text("\(buttonLabel)")
                 })
             }
+            .onAppear(perform: {
+                dengmis.shuffle()
+            })
         }
     }
 }
