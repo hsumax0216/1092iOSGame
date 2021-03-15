@@ -38,8 +38,10 @@ func ShufflePoker(arra:Array<poker>)->Array<poker>{
     return a
 }
 
+let sample=["3","4","5","6","7","8","9","10","J","Q","K","A","2"]
 func PrintPoker(card:poker){
-    print("suit:"+card.suit,", number:"+String(card.num))
+    let temp = sample[card.num]
+    print("suit:"+card.suit,", suitNum:"+String(card.suitnum),", number:"+temp)
 }
 
 func PrintCards(cards:Array<poker>){
@@ -48,8 +50,16 @@ func PrintCards(cards:Array<poker>){
     }
 }
 
+func PokerCompare(this:poker,that:poker)->Bool{
+    guard !(this.num==that.num) else {
+        return this.suitnum < that.suitnum
+    }
+    return this.num < that.num
+}
+
 func GamePlay(DECK:Array<poker>,peoples:Int){
-    guard peoples<2 || peoples>13 || !((peoples%2) == 0) else{
+    print("In GamePlay.")
+    guard peoples>1 && peoples<13 && ((peoples%2) == 0) else{
         print("The numbers of player out of setting.")
         return
     }
@@ -58,10 +68,12 @@ func GamePlay(DECK:Array<poker>,peoples:Int){
     var i=0,j=0,compCount=peoples-1
     let deck=DECK.shuffled()
     let perCards=Int(52/peoples)
+    print("perCards:"+String(perCards))
     while(j<perCards){
         plr.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
         j+=1
     }
+    plr.sort(by:PokerCompare)
     while(i<compCount){
         var temp=[poker]()
         var times=0
@@ -73,9 +85,14 @@ func GamePlay(DECK:Array<poker>,peoples:Int){
         comp.append(temp)
         i+=1
     }
-    
-    PrintCards(cards: plr)
-    
+//    print("Player:")
+//    PrintCards(cards: plr)
+//    i=0
+//    while(i<compCount){
+//        print("\nComputer "+String(i+1)+":")
+//        PrintCards(cards: comp[i])
+//        i+=1
+//    }
     
     
     
