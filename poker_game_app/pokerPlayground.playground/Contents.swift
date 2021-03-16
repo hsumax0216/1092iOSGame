@@ -21,11 +21,19 @@ import Foundation
 //arr.remove(at: 3)
 //print(arr.count)
 //arr
-func test(desk:player?){
-    return print(desk==nil)
-}
-
-var desk:player?
-test(desk:desk)
+print("testing")
+var samp=fakeGeneratePokers()
+samp.sort(by:PokerNumCompare)
+print("After Num Sort:")
+PrintCards(cards:samp)
+samp.sort(by:PokerSuitCompare)
+print("After Suit Sort:")
+PrintCards(cards:samp)
+//func test(desk:player?){
+//    return print(desk==nil)
+//}
+//
+//var desk:player?
+//test(desk:desk)
 print("testing")
 
