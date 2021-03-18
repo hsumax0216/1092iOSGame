@@ -79,21 +79,108 @@ public func PokerSuitCompare(this:poker,that:poker)->Bool{
     }
     return this.suitnum > that.suitnum
 }
-
+let SHUNZI=[[12,0,1,2,3],
+            [7,8,9,10,11],
+            [6,7,8,9,10],
+            [5,6,7,8,9],
+            [4,5,6,7,8],
+            [3,4,5,6,7],
+            [2,3,4,5,6],
+            [1,2,3,4,5],
+            [0,1,2,3,4],
+            [11,12,0,1,2]]
 func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
-    var tmp=origins.sorted(by:PokerSuitCompare)
+    var tmpSuit=origins.sorted(by:PokerSuitCompare)
+    var pokersArray=[pokerClass]()
+    var hulu=[pokerClass]()
+    var tonghua=[pokerClass]()
+    var suntiao=[pokerClass]()
+    var yidui=[pokerClass]()
+    //var classingNum=7//同花順=7,同花=4
     var suitsCount = 0
-    for ele in 1...tmp.count{
-        if(tmp[ele-1].suitnum==tmp[ele].suitnum){
+    var ele = 1
+    while(ele<tmpSuit.count)/*for ele in 1...tmpSuit.count*/{
+        if(tmpSuit[ele-1].suitnum==tmpSuit[ele].suitnum){
             suitsCount+=1
         }
         else{
             suitsCount=0
         }
-        if(suitsCount>=4){
+        if(suitsCount>=4){//至少有同花
+            //var pokerTmp=Array<poker>()
+            var breakloop=false
+            for cmp in SHUNZI{
+                for times in ele-4...ele{
+                    if(tmpSuit[times].num==cmp[times]){
+                        breakloop=true
+                    }
+                    else{
+                        breakloop=false
+                        break
+                    }
+                }
+                if(breakloop) {//同花順
+                    let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]]
+                    pokersArray.append(pokerClass(cards: ttmp, classing: 7))
+                    for _ in 0...4{ tmpSuit.remove(at: ele-4) }
+                    ele-=5
+                }
+                else{//同花
+                    let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]]
+                    tonghua.append(pokerClass(cards: ttmp, classing: 4))
+                }
+            }
+        }
+        ele+=1
+    }
+    
+    
+    var tmpNum=tmpSuit.sorted(by:PokerNumCompare)
+    var numCount = 0
+    ele = 1
+    while(ele<tmpNum.count){
+        if(tmpNum[ele-1].num==tmpNum[ele].num){
+            numCount+=1
+        }
+        else if(numCount>=2){//三條ele-3...ele-1
+            let ttmp=[tmpNum[ele-3],tmpNum[ele-2],tmpNum[ele-1]]
+            suntiao.append(pokerClass(cards: ttmp, classing: 2))
+        }
+        else if(numCount>=1){//一對ele-2...ele-1
+            let ttmp=[tmpNum[ele-2],tmpNum[ele-1]]
+            yidui.append(pokerClass(cards: ttmp, classing: 1))
+        }
+        if(numCount>=3){//四條ele-3...ele
+            let ttmp=[tmpNum[ele-3],tmpNum[ele-2],tmpNum[ele-1],tmpNum[ele]]
+            pokersArray.append(pokerClass(cards: ttmp, classing: 6))
+            for _ in 0...3{ tmpNum.remove(at: ele-3) }//在剩下牌堆中刪除四條組合
+            ele-=4
+        }
+        
+        let sun_duiCount = suntiao.count < yidui.count ? suntiao.count : yidui.count
+        for _ in 1...sun_duiCount{//三條一對 轉 葫蘆
+            hulu.append(pokerClass(cards: suntiao[0].cards+yidui[0].cards, classing: 5))
+            for t in 0...4{//在剩下牌堆中刪除葫蘆組合
+                var times=0
+                while(times<tmpNum.count){
+                    if(tmpNum[times].num==hulu.last!.cards[t].num && tmpNum[times].suitnum==hulu.last!.cards[t].suitnum){
+                        tmpNum.remove(at: times)
+                        times-=1
+                    }
+                    times+=1
+                }
+            }
+            suntiao.remove(at: 0)
+            yidui.remove(at: 0)
+        }
+        
+        if(tonghua.count>0){
             
         }
+        
+        ele+=1
     }
+    //classingNum=4
 //    for element in stride(from: tmp.count-1, through: 0,by:-1){
 //
 //    }
