@@ -21,16 +21,28 @@ import Foundation
 //arr.remove(at: 3)
 //print(arr.count)
 //arr
-let SHUNZI=[[12,0,1,2,3],
-            [7,8,9,10,11],
-            [6,7,8,9,10],
-            [5,6,7,8,9],
-            [4,5,6,7,8],
-            [3,4,5,6,7],
-            [2,3,4,5,6],
-            [1,2,3,4,5],
-            [0,1,2,3,4],
-            [11,12,0,1,2]]
+
+let SHUNZI=[[12,3,2,1,0],
+            [11,10,9,8,7],
+           [10,9,8,7,6],
+           [9,8,7,6,5],
+           [8,7,6,5,4],
+           [7,6,5,4,3],
+           [6,5,4,3,2],
+           [5,4,3,2,1],
+           [4,3,2,1,0],
+           [12,11,2,1,0]]
+
+let SHUNZINOR=[[11,10,9,8,7],
+               [10,9,8,7,6],
+               [9,8,7,6,5],
+               [8,7,6,5,4],
+               [7,6,5,4,3],
+               [6,5,4,3,2],
+               [5,4,3,2,1],
+               [4,3,2,1,0]]
+let SHUNZISP=[[12,3,2,1,0],//2,6,5,4,3
+              [12,11,2,1,0]]//2,A,5,4,3
 
 print("testing")
 
@@ -46,6 +58,7 @@ let origins=samp
 
 var tmpSuit=origins.sorted(by:PokerSuitCompare)
 var pokersArray=[pokerClass]()
+var miniTonghuaShun=[pokerClass]()
 var hulu=[pokerClass]()
 var tonghua=[pokerClass]()
 var suntiao=[pokerClass]()
@@ -53,8 +66,60 @@ var yidui=[pokerClass]()
 //var classingNum=7//同花順=7,同花=4
 var suitsCount = 0
 var ele = 1
+//print("tmpSuit:\(tmpSuit.count)")
+
+/*同花順最大分類begin*/
+while(ele<tmpSuit.count){
+    var maxValue=true
+    if(tmpSuit[ele].num==12/*SHUNZISP[0][0]*/){
+        if(tmpSuit[ele+1]==11/*SHUNZISP[1][1]*/){
+            maxValue=false
+        }
+    }
+    
+    {
+        var srh=tmpSuit.count-1,shunC=SHUNZISP[0].count-1
+        print("tmpSuit.count=\(tmpSuit.count) SHUNZISP[0].count=\(SHUNZISP[0].count)")
+        var boolloop=true
+        var loc=[Int]()
+        while(srh>=0 && shunC>(maxValue ? 0 : 1)){
+            if(tmpSuit[srh].num==SHUNZISP[0][shunC] && tmpSuit[srh].suitnum==tmpSuit[ele].suitnum){
+                print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) SHUNZISP[0][\(shunC)]=\(SHUNZISP[0][shunC])")
+                shunC-=1
+                loc.append(srh)
+            }
+            else{
+                print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) SHUNZISP[0][\(shunC)]=\(SHUNZISP[0][shunC])")
+                print("loc:\(loc)")
+                print("boolloop false")
+                boolloop=false
+                break
+            }
+            srh-=1
+        }
+        if(boolloop){
+            loc.append(ele)
+            let ttmp=[tmpSuit[loc[0]],tmpSuit[loc[1]],tmpSuit[loc[2]],tmpSuit[loc[3]],tmpSuit[loc[4]]].sorted(by: PokerNumCompare)
+            if(maxValue){
+                pokersArray.append(pokerClass(cards: ttmp, classing: 7))
+                for cun in 0...4{ tmpSuit.remove(at: loc[cun]) }
+            }
+            else{
+                miniTonghuaShun.append(pokerClass(cards: ttmp, classing: 7))
+            }
+            ele-=1
+        }
+    }
+    ele+=1
+}
+print("最大同花順篩選:")
+PrintCards(cards:tmpSuit)
+
+ele=1
+/*同花順最大分類end*/
+
 while(ele<tmpSuit.count)/*for ele in 1...tmpSuit.count*/{
-    print("ele:\(ele)")
+    //print("ele:\(ele)")
     if(tmpSuit[ele-1].suitnum==tmpSuit[ele].suitnum){
         suitsCount+=1
     }
@@ -63,10 +128,14 @@ while(ele<tmpSuit.count)/*for ele in 1...tmpSuit.count*/{
     }
     if(suitsCount>=4){//至少有同花
         //var pokerTmp=Array<poker>()
+        
+        
         var breakloop=false
         for cmp in SHUNZI{
-            for times in ele-4...ele{
-                if(tmpSuit[times].num==cmp[times]){
+            var eleS=ele-4
+            
+            for times in 0...4{
+                if(tmpSuit[eleS+times].num==cmp[times]){
                     breakloop=true
                 }
                 else{
@@ -74,6 +143,7 @@ while(ele<tmpSuit.count)/*for ele in 1...tmpSuit.count*/{
                     break
                 }
             }
+            
             if(breakloop) {//同花順
                 let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]].sorted(by: PokerNumCompare)
                 pokersArray.append(pokerClass(cards: ttmp, classing: 7))
@@ -88,12 +158,19 @@ while(ele<tmpSuit.count)/*for ele in 1...tmpSuit.count*/{
     }
     ele+=1
 }
+print("最大同花順篩選:")
+PrintCards(cards:tmpSuit)
+
+
 
 
 var tmpNum=tmpSuit.sorted(by:PokerNumCompare)
-var numCount = 0
 ele = 1
+var numCount = 0
 while(ele<tmpNum.count){
+    print("tmpNum:\(tmpNum.count)")
+    print("ele:\(ele)")
+    if(ele<1){ ele=1 }
     if(tmpNum[ele-1].num==tmpNum[ele].num){
         numCount+=1
     }
@@ -101,16 +178,21 @@ while(ele<tmpNum.count){
         let ttmp=[tmpNum[ele-3],tmpNum[ele-2],tmpNum[ele-1]]
         suntiao.append(pokerClass(cards: ttmp, classing: 2))
         for _ in 0...2{ tmpNum.remove(at: ele-3) }//在剩下牌堆中刪除三條組合
+        numCount=0
+        ele-=3
     }
     else if(numCount>=1){//一對ele-2...ele-1
         let ttmp=[tmpNum[ele-2],tmpNum[ele-1]]
         yidui.append(pokerClass(cards: ttmp, classing: 1))
         for _ in 0...1{ tmpNum.remove(at: ele-2) }//在剩下牌堆中刪除一對組合
+        numCount=0
+        ele-=2
     }
     if(numCount>=3){//四條ele-3...ele
         let ttmp=[tmpNum[ele-3],tmpNum[ele-2],tmpNum[ele-1],tmpNum[ele]]
         pokersArray.append(pokerClass(cards: ttmp, classing: 6))
         for _ in 0...3{ tmpNum.remove(at: ele-3) }//在剩下牌堆中刪除四條組合
+        numCount=0
         ele-=4
     }
     ele+=1

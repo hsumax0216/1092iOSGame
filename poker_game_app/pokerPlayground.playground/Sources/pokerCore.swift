@@ -23,6 +23,12 @@ public struct pokerClass{
     //同花順=7,四條=6,葫蘆=5,同花=4,順子=3,三條=2,一對=1,單張=0
 }
 
+extension poker {
+  static func == (left: poker, right: poker) -> Bool {
+    return left.num==right.num && left.suitnum==right.suitnum
+  }
+}
+
 public func GeneratePokers()->Array<poker>{
     //♣♦♥♠
     let suits=["♣","♦","♥","♠"]
@@ -43,8 +49,10 @@ public func fakeGeneratePokers()->Array<poker>{
     let cards=13
     var i=0
     let suits=["♣","♦","♥","♠"]
-    let pokernum=[2,3,4,5,6,6,6,6,2,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
-    let pokersuit=[0,0,0,0,0,1,2,3,1,2,3,3,3]//♣0♦1♥2♠3
+    let pokernum=[12,11,10,9,8,7,2,1,0,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
+    //let pokernum=[2,3,4,5,6,6,6,6,2,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
+    let pokersuit=[0,0,0,0,0,0,0,0,0,2,3,3,3]//♣0♦1♥2♠3
+    //let pokersuit=[0,0,0,0,0,1,2,3,1,2,3,3,3]//♣0♦1♥2♠3
     var arra=[poker]()
     while(i<cards){
         arra.append(poker(suit:suits[pokersuit[i]],suitnum: pokersuit[i],num:pokernum[i]))
