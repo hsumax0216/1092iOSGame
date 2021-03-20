@@ -158,6 +158,8 @@ let SHUNZI=[[12,0,1,2,3],
             [1,2,3,4,5],
             [0,1,2,3,4],
             [11,12,0,1,2]]
+let SHUNZISP=[[12,3,2,1,0],//2,6,5,4,3  //2,3,4,5,6
+              [12,11,2,1,0]]//2,A,5,4,3 //A,2,3,4,5
 public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
     var tmpSuit=origins.sorted(by:PokerSuitCompare)
     var pokersArray=[pokerClass]()
