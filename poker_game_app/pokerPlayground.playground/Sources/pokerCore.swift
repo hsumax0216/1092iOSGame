@@ -11,22 +11,47 @@ public struct poker{
     public let num: Int //num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
 }
 
+extension poker {
+  static func == (left: poker, right: poker) -> Bool {
+    return left.num==right.num && left.suitnum==right.suitnum
+  }
+}
+
 public struct pokerClass{
 //    public var cards=[poker]()
 //    public var classing=Int()
+    public var level: Int
     public var cards: Array<poker>
     public var classing: Int
     public init(cards:Array<poker>,classing:Int) {
         self.cards=cards
         self.classing=classing
+        self.level=0
+    }
+    public init(cards:Array<poker>,classing:Int,level:Int) {
+        self.cards=cards
+        self.classing=classing
+        self.level=level
     }
     //同花順=7,四條=6,葫蘆=5,同花=4,順子=3,三條=2,一對=1,單張=0
 }
 
-extension poker {
-  static func == (left: poker, right: poker) -> Bool {
-    return left.num==right.num && left.suitnum==right.suitnum
-  }
+extension pokerClass {
+    static func == (left: pokerClass, right: pokerClass) -> Bool {
+        return left.classing==right.classing && left.level==right.level
+    }
+    static func > (left: pokerClass, right: pokerClass) -> Bool{
+        if(left.classing==right.classing){
+            return left.level>right.level
+        }
+        return false
+    }
+    static func < (left: pokerClass, right: pokerClass) -> Bool{
+        if(left.classing==right.classing){
+            return left.level<right.level
+        }
+        return false
+    }
 }
 
 public func GeneratePokers()->Array<poker>{
@@ -49,9 +74,13 @@ public func fakeGeneratePokers()->Array<poker>{
     let cards=13
     var i=0
     let suits=["♣","♦","♥","♠"]
-    let pokernum=[12,11,10,9,8,7,2,1,0,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
+//    let  pokernum = [12,11,10, 9, 8, 7, 6, 5, 5, 5, 5, 4, 4]
+//    let pokersuit = [ 3, 3, 3, 2, 1, 0, 3, 3, 2, 1, 0, 3, 2]
+//    let  pokernum = [10, 8, 6, 4, 2, 1,12, 2, 1, 8, 2, 8, 2]
+//    let pokersuit = [ 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3]
+    let pokernum=[12,11,10,9,8,7,6,2,1,0,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
     //let pokernum=[2,3,4,5,6,6,6,6,2,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
-    let pokersuit=[0,0,0,0,0,0,0,0,0,2,3,3,3]//♣0♦1♥2♠3
+    let pokersuit=[1,1,0,0,0,0,0,1,1,1,3,3,3]//♣0♦1♥2♠3
     //let pokersuit=[0,0,0,0,0,1,2,3,1,2,3,3,3]//♣0♦1♥2♠3
     var arra=[poker]()
     while(i<cards){
@@ -76,6 +105,10 @@ func PrintPoker(card:poker){
 }
 
 public func PrintCards(cards:Array<poker>)->Int{
+    if(cards.count==0){
+        print("空牌組")
+        return 0
+    }
     var count=0
     for card in cards{
         PrintPoker(card: card)
@@ -112,6 +145,9 @@ public func PokerSuitCompare(this:poker,that:poker)->Bool{
     }
     return this.suitnum > that.suitnum
 }
+//public func PokerClassCompare(this:pokerClass,that:poker)->Bool{
+//    
+//}
 let SHUNZI=[[12,0,1,2,3],
             [7,8,9,10,11],
             [6,7,8,9,10],
