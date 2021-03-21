@@ -158,6 +158,14 @@ let SHUNZI=[[12,0,1,2,3],
             [1,2,3,4,5],
             [0,1,2,3,4],
             [11,12,0,1,2]]
+//let SHUNZINOR=[[11,10,9,8,7],
+//               [10,9,8,7,6],
+//               [9,8,7,6,5],
+//               [8,7,6,5,4],
+//               [7,6,5,4,3],
+//               [6,5,4,3,2],
+//               [5,4,3,2,1],
+//               [4,3,2,1,0]]
 let SHUNZISP=[[12,3,2,1,0],//2,6,5,4,3  //2,3,4,5,6
               [12,11,2,1,0]]//2,A,5,4,3 //A,2,3,4,5
 public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
@@ -171,168 +179,87 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
     //var classingNum=7//同花順=7,同花=4
     var suitsCount = 0
     var ele = 1
-    //print("tmpSuit:\(tmpSuit.count)")
 
-    /*同花順最大分類begin*/
-    //while(ele<tmpSuit.count){
-    //    var firLoc=Int()
-    //    if(tmpSuit[ele].num==12/*SHUNZISP[0][0]*/){
-    //        firLoc=ele
-    //        //print("firLoc=\(firLoc)")
-    //    }
-    //    else{
-    //        ele+=1
-    //        continue
-    //    }
-    //
-    //    var srh=ele+1,shunC=1
-    //    //print("tmpSuit.count=\(tmpSuit.count) SHUNZISP[0].count=\(SHUNZISP[0].count)")
-    //    var boolloop=true
-    //    var loc=[Int]()
-    //    while(srh<tmpSuit.count && shunC<SHUNZISP[0].count){
-    //        if(tmpSuit[srh].num==SHUNZISP[0][shunC] && tmpSuit[srh].suitnum==tmpSuit[ele].suitnum){
-    //            //print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) SHUNZISP[0][\(shunC)]=\(SHUNZISP[0][shunC])")
-    //            shunC+=1
-    //            //print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) loc: \(srh)")
-    //            loc.append(srh)
-    //            boolloop=true
-    //        }
-    //        else{
-    //            //print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) SHUNZISP[0][\(shunC)]=\(SHUNZISP[0][shunC])")
-    //            //print("loc:\(loc)")
-    //            //print("boolloop false\n")
-    //            boolloop=false
-    //        }
-    //        srh+=1
-    //    }
-    //    if(boolloop){
-    //        loc.append(firLoc)
-    //        loc.sort(by: >)
-    //        //print("loc:\(loc)")
-    //        let ttmp=[tmpSuit[loc[0]],tmpSuit[loc[1]],tmpSuit[loc[2]],tmpSuit[loc[3]],tmpSuit[loc[4]]].sorted(by: PokerNumCompare)
-    //        pokersArray.append(pokerClass(cards: ttmp, classing: 7))
-    //        for cun in 0...4{ tmpSuit.remove(at: loc[cun]) }
-    //        ele-=1
-    //        print("\nAdd: ",terminator: "")
-    //        PrintCards(cards:ttmp)
-    //        print("")
-    //    }
-    //    ele+=1
-    //}
-    //print("最大同花順篩選:")
-    //PrintCards(cards:tmpSuit)
-    //print("")
-    //samp.sort(by:PokerSuitCompare)
-    //print("After Suit Sort:")
-    //PrintCards(cards:samp)
-
-    /*同花順最大分類end*/
-
-    ///*同花順最大分類begin*/
-    //while(ele<tmpSuit.count){
-    //    var firLoc=Int()
-    //    if(tmpSuit[ele].num==12/*SHUNZISP[0][0]*/){
-    //        firLoc=ele
-    //        print("firLoc=\(firLoc)")
-    //    }
-    //    else{
-    //        ele+=1
-    //        continue
-    //    }
-    //
-    //    var srh=tmpSuit.count-1,shunC=SHUNZISP[0].count-1
-    //    print("tmpSuit.count=\(tmpSuit.count) SHUNZISP[0].count=\(SHUNZISP[0].count)")
-    //    var boolloop=true
-    //    var loc=[Int]()
-    //    while(srh>=0 && shunC>0){
-    //        if(tmpSuit[srh].num==SHUNZISP[0][shunC] && tmpSuit[srh].suitnum==tmpSuit[ele].suitnum){
-    //            print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) SHUNZISP[0][\(shunC)]=\(SHUNZISP[0][shunC])")
-    //            shunC-=1
-    //            print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) loc: \(srh)")
-    //            loc.append(srh)
-    //            boolloop=true
-    //        }
-    //        else{
-    //            print("tmpSuit[\(srh)].num=\(tmpSuit[srh].num) SHUNZISP[0][\(shunC)]=\(SHUNZISP[0][shunC])")
-    //            print("loc:\(loc)")
-    //            print("boolloop false\n")
-    //            boolloop=false
-    //        }
-    //        srh-=1
-    //    }
-    //    if(boolloop){
-    //        loc.append(firLoc)
-    //        print("loc:\(loc)")
-    //        let ttmp=[tmpSuit[loc[0]],tmpSuit[loc[1]],tmpSuit[loc[2]],tmpSuit[loc[3]],tmpSuit[loc[4]]].sorted(by: PokerNumCompare)
-    //        pokersArray.append(pokerClass(cards: ttmp, classing: 7))
-    //        for cun in 0...4{ tmpSuit.remove(at: loc[cun]) }
-    //        ele-=1
-    //        print("\nAdd: ",terminator: "")
-    //        PrintCards(cards:ttmp)
-    //        print("")
-    //    }
-    //    ele+=1
-    //}
-    //print("最大同花順篩選:")
-    //PrintCards(cards:tmpSuit)
-    //
-    ////samp.sort(by:PokerSuitCompare)
-    ////print("After Suit Sort:")
-    ////PrintCards(cards:samp)
-    //
-    //ele=1
-    ///*同花順最大分類end*/
-
-    ele=1
+    ele=0
     while(ele<tmpSuit.count)/*for ele in 1...tmpSuit.count*/{
-        //print("ele:\(ele)")
-        if(tmpSuit[ele-1].suitnum==tmpSuit[ele].suitnum){
-            suitsCount+=1
+        var coun=ele
+        var suitS=ele
+        var suitE=suitS
+        var suitreg=tmpSuit[suitS].suitnum
+        while(coun<tmpSuit.count){
+            if(!(tmpSuit[coun].suitnum==suitreg)){
+                ele=coun
+                break
+            }
+            coun+=1
         }
-        else{
-            suitsCount=0
-        }
-        if(suitsCount>=4){//至少有同花
-            var breakloop=false
-            var level=SHUNZI.count
+        suitE=coun-1
+        if(!(suitS==suitE)){
+            coun=suitS
             var cmp=0
-            while(cmp<SHUNZI.count)/*for cmp in SHUNZI*/{
-                let eleS=ele-4
-                print("eleS=\(eleS)")
-                for times in 0...4{
-                    if(tmpSuit[eleS+times].num==SHUNZI[cmp][times]){
-                        breakloop=true
-                    }
-                    else{
-                        breakloop=false
-                        break
+            while(coun<suitE-3){
+                if(tmpSuit[coun].num==SHUNZI[cmp][0]){
+                    while(coun<suitE){
+                        //TODO:檢查是否有同花順 並加入pokerArray
                     }
                 }
-                if(breakloop){ break }
+                if(cmp>=SHUNZI.count){
+                    coun+=1
+                    cmp=0
+                }
                 cmp+=1
             }
-            level-=cmp
-            if(breakloop) {//同花順
-                let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]].sorted(by: PokerNumCompare)
-                pokersArray.append(pokerClass(cards: ttmp, classing: 7,level: level))
-                for _ in 0...4{ tmpSuit.remove(at: ele-4) }
-                ele-=5
-                
-                print("\nAdd LV\(level).: ",terminator: "")
-                PrintCards(cards:ttmp)
-                print("")
-                //break
-            }
-    //        else{//同花
-    //            let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]]
-    //            tonghua.append(pokerClass(cards: ttmp, classing: 4))
-    //
-    //            print("\nAdd tonghua: ",terminator: "")
-    //            PrintCards(cards:ttmp)
-    //            print("")
-    //        }
         }
-        ele+=1
+        /*舊同花順begin*/
+//        //print("ele:\(ele)")
+//        if(suitsCount>=4){//至少有同花(dont care同花)
+//
+//            //var breakloop=false
+//            var level=SHUNZI.count
+//            var cmp=0
+//            var eleS=ele-4
+//            var times=0
+//            while(cmp<SHUNZI.count && times < 5)/*for cmp in SHUNZI*/{
+//                if(!(tmpSuit[ele-4].num==SHUNZI[cmp][0])){
+//                    cmp+=1
+//                    continue
+//                }
+//                print("eleS=\(eleS)")
+//                if(tmpSuit[eleS].num==SHUNZI[cmp][times]){
+//                    times+=1
+//                    //breakloop=true
+//                }
+//                else{
+//                    //breakloop=false
+//                    times=1
+//                    cmp+=1
+//                    eleS=ele-4
+//                    continue
+//                }
+//                eleS+=1
+////                if(breakloop){ break }
+////                cmp+=1
+//            }
+//            level-=cmp
+//            if(times==5) {//同花順
+//                let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]].sorted(by: PokerNumCompare)
+//                pokersArray.append(pokerClass(cards: ttmp, classing: 7,level: level))
+//                for _ in 0...4{ tmpSuit.remove(at: ele-4) }
+//                ele-=5
+//
+//                print("\nAdd LV\(level).: ",terminator: "")
+//                PrintCards(cards:ttmp)
+//                print("")
+//                //break
+//            }
+//        }
+//        if(tmpSuit[ele-1].suitnum==tmpSuit[ele].suitnum){
+//            suitsCount+=1
+//        }
+//        else{
+//            suitsCount=0
+//        }
+        /*舊同花順end*/
     }
     print("同花順篩選:")
     PrintCards(cards:tmpSuit)
@@ -522,8 +449,8 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
     //            print("")
     //            //break
     //        }
-            let ttmp=[tmpSuit[ele-4],tmpSuit[ele-3],tmpSuit[ele-2],tmpSuit[ele-1],tmpSuit[ele]]
-            for _ in 0...4{ tmpSuit.remove(at: ele-4) }
+            let ttmp=[tmpNum[ele-4],tmpNum[ele-3],tmpNum[ele-2],tmpNum[ele-1],tmpNum[ele]]
+            for _ in 0...4{ tmpNum.remove(at: ele-4) }
             pokersArray.append(pokerClass(cards: ttmp, classing: 4))
             ele-=5
             
@@ -576,7 +503,7 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
             print("SHUNZI[\(cmp)]:\(SHUNZI[cmp])\nsearching...\n")
             var times=1
             var eleS=ele
-            var level=10-cmp
+            let level=10-cmp
             var loc=[Int]()
             while(eleS<tmpNum.count && times<SHUNZI[cmp].count/*5*/){
                 if(tmpNum[eleS].num==SHUNZI[cmp][times]){
