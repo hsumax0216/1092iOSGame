@@ -520,7 +520,7 @@ public func GamePlay(DECK:Array<poker>,peoples:Int){
     var currentAct=0
     while(false/* simulatArray.count > 0 */){
         (deskTmp,last)=ComputerPoker(cards: simulatArray[currentPlay].cards!, desk: desk.cards, action: currentAct)
-        if(deskTmp==nil){//this player passed
+        if(deskTmp==nil){//this player passed //desk除了第一回以外不可能為nil
             passCount+=1
             if(passCount>simulatArray.count){
                 passCount=0
