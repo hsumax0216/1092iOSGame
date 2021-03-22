@@ -1,8 +1,22 @@
 import Foundation
 
 public struct player{
-    public var cards: Array<poker>? = nil
-    public var name: String = "empty"
+    public var cards: Array<poker>?
+    public var desk: pokerClass?
+    public var name: String
+    public init(cards: Array<poker>,name: String){
+        self.cards=cards
+        self.name=name
+    }
+    public init(desk:pokerClass,name: String){
+        self.desk=desk
+        self.name=name
+    }
+    public init(){
+        self.cards=nil
+        self.desk=nil
+        self.name="empty"
+    }
 }
 
 public struct poker{
@@ -33,6 +47,11 @@ public struct pokerClass{
         self.classing=classing
         self.level=level
     }
+    public init(){
+        self.cards=[poker]()
+        self.classing = -1
+        self.level=0
+    }
     //同花順=7,四條=6,葫蘆=5,同花=4,順子=3,三條=2,一對=1,單張=0
 }
 
@@ -44,13 +63,13 @@ extension pokerClass {
         if(left.classing==right.classing){
             return left.level>right.level
         }
-        return false
+        return left.classing>right.classing
     }
     static func < (left: pokerClass, right: pokerClass) -> Bool{
         if(left.classing==right.classing){
             return left.level<right.level
         }
-        return false
+        return left.classing<right.classing
     }
 }
 
@@ -168,7 +187,7 @@ let SHUNZI=[[12,3,2,1,0],
 //               [4,3,2,1,0]]
 let SHUNZISP=[[12,3,2,1,0],//2,6,5,4,3  //2,3,4,5,6
               [12,11,2,1,0]]//2,A,5,4,3 //A,2,3,4,5
-public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
+public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     var tmpSuit=origins.sorted(by:PokerSuitCompare)
     var pokersArray=[pokerClass]()
     var hulu=[pokerClass]()
@@ -411,22 +430,107 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>?{
     return pokersArray
 }
 
-func ComputerPoker(cards:Array<poker>,desk:Array<poker>?,action:Int)->(Array<poker>?,Array<poker>?){
-    let/*var*/ rtn=[poker]()
-    let/*var*/ last=[poker]()
+func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?,Array<poker>?){
+    var rtn=pokerClass()
+    var last=cards
     switch action {
-    case 0://start play
-        print("first start")
-        let/*var*/ cardsCount=0
-//        for card in cards{
-//
-//        }
-    print(cardsCount)
-    case 1://contiune(normial) play
+    case 0://start play with ♣3
+        print("first start:")
+        let tmp=ClassingPokers(origins: cards).sorted(by: <)
+        var i=0
+        var pass=false
+        while(i<tmp.count){
+            var j=0
+            while(j<tmp[i].cards.count){
+                if(tmp[i].cards[j].num==0 && tmp[i].cards[j].suitnum==0){
+                    pass=true
+                    break
+                }
+                j+=1
+            }
+            if(pass){ break }
+            i+=1
+        }
+        rtn=tmp[i]
+        i=0
+        while(i<rtn.cards.count){
+            var j=0
+            var pass=false
+            while(j<last.count){
+                if(last[j]==rtn.cards[i]){
+                    last.remove(at: j)
+                    pass=true
+                    break
+                }
+                if(pass){break}
+                j+=1
+            }
+            i+=1
+        }
+        
+    case 1://start without ♣3
+        print("start play")
+    case 2://contiune(normial) play
         print("normial")
+        let tmp=ClassingPokers(origins: cards).sorted(by: <)
+        var i=0
+        var pass=false
+        while(i<tmp.count){
+            if(desk!.classing>2){
+                //TODO 順子 同花 葫蘆 四條 同花順
+                if(tmp[i].classing>desk!.classing){
+                    //TODO
+                }
+                else if(tmp[i].classing==desk!.classing){
+                    //TODO
+                }
+            }
+            else{
+                if(tmp[i].classing==desk!.classing){
+                    //TODO 單張 一對 三條
+                }
+            }
+            if(pass){ break }
+            i+=1
+//            if(tmp[i].classing==desk!.classing){
+//                if(tmp[i].level>desk!.level){
+//
+//                    pass=true
+//                }
+//                else if(tmp[i].level==desk!.level){
+//                    switch desk!.classing{
+//                    case 7://同花順
+//                        if(tmp[i].cards[0].suitnum > desk!.cards[0].suitnum){
+//                            pass=true
+//                        }
+//                        print("同花順")
+//                    case 6://四條
+//                        print("四條")
+//                    case 5://葫蘆
+//                        print("葫蘆")
+//                    case 4://同花
+//                        print("同花")
+//                    case 3://順子
+//                        print("順子")
+//                    case 2://三條
+//                        print("三條")
+//                    case 1://一對
+//                        print("一對")
+//                    case 0://單張
+//                        print("單張")
+//                    default:
+//                        print("select should not be here, classing=\(desk!.classing), level=\(desk!.level)")
+//                    }
+//                }
+//            }
+        }
     default:
         print("ComputerPoker occur error!")
     }
+    print("rtn : ")
+    PrintPokerClass(clas:[rtn])
+    print("last : ",terminator: "")
+    PrintCards(cards: last)
     
     return (rtn,last)
 }
@@ -516,11 +620,11 @@ public func GamePlay(DECK:Array<poker>,peoples:Int){
     
     var desk = player()
     var passCount=0
-    var (deskTmp,last):(Array<poker>?,Array<poker>?)
+    var (deskTmp,last):(pokerClass?,Array<poker>?)
     var currentAct=0
     while(false/* simulatArray.count > 0 */){
-        (deskTmp,last)=ComputerPoker(cards: simulatArray[currentPlay].cards!, desk: desk.cards, action: currentAct)
-        if(deskTmp==nil){//this player passed //desk除了第一回以外不可能為nil
+        (deskTmp,last)=ComputerPoker(cards: simulatArray[currentPlay].cards!, desk: desk.desk, action: currentAct)
+        if(deskTmp==nil){//this player passed
             passCount+=1
             if(passCount>simulatArray.count){
                 passCount=0
@@ -531,13 +635,15 @@ public func GamePlay(DECK:Array<poker>,peoples:Int){
             }
             continue
         }
-        currentAct=1
+        currentAct=2
         if(last==nil){//this player was finished its game
             winnerRank.append(simulatArray.remove(at:currentPlay).name)
             continue
         }
         simulatArray[currentPlay].cards=last!
-        desk.cards=deskTmp
+        if(!(deskTmp==nil)){
+            desk.desk = deskTmp
+        }
         desk.name=simulatArray[currentPlay].name
         currentPlay=(currentPlay+1)%simulatArray.count
     }

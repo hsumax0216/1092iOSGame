@@ -15,7 +15,19 @@ print("testing")
 //let tmp=ClassingPokers(origins:samp)!
 //PrintPokerClass(clas:tmp)
 /*ClassingPokers test end*/
+let act=4
+switch act{
+case 4|6:
+    print("4|6: \(act)")
+case 4:
+    print("4")
+case 6:
+    print("6")
+default:
+    print("default")
+}
 
+print(3|6)
 
 print("testing")
 
