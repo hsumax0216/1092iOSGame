@@ -455,14 +455,15 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
 func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?,Array<poker>?){
     var rtn=pokerClass()
     var last=cards
+    let tmp=ClassingPokers(origins: cards).sorted(by: <)
     switch action {
     case 0://start play with ♣3
         print("first start:")
-        let tmp=ClassingPokers(origins: cards).sorted(by: <)
+//        let tmp=ClassingPokers(origins: cards).sorted(by: <)
         var i=0
-        var pass=false
         while(i<tmp.count){
             var j=0
+            var pass=false
             while(j<tmp[i].cards.count){
                 if(tmp[i].cards[j].num==0 && tmp[i].cards[j].suitnum==0){
                     pass=true
@@ -474,29 +475,31 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
             i+=1
         }
         rtn=tmp[i]
-        i=0
-        while(i<rtn.cards.count){
-            var j=0
-            var pass=false
-            while(j<last.count){
-                if(last[j]==rtn.cards[i]){
-                    last.remove(at: j)
-                    pass=true
-                    break
-                }
-                if(pass){break}
-                j+=1
-            }
-            i+=1
-        }
+//        i=0
+//        while(i<rtn.cards.count){
+//            var j=0
+//            var pass=false
+//            while(j<last.count){
+//                if(last[j]==rtn.cards[i]){
+//                    last.remove(at: j)
+//                    pass=true
+//                    break
+//                }
+//                if(pass){break}
+//                j+=1
+//            }
+//            i+=1
+//        }
         
     case 1://start without ♣3
         print("start play")
+//        let tmp=ClassingPokers(origins: cards).sorted(by: <)
+        rtn=tmp.last!
     case 2://contiune(normial) play
         print("normial")
-        let tmp=ClassingPokers(origins: cards).sorted(by: <)
+//        let tmp=ClassingPokers(origins: cards).sorted(by: <)
         var i=0
-        var pass=false
+        var paied=false
         while(i<tmp.count){
             let tmpI=tmp[i].cards.sorted(by: <)
             let deskJ=desk!.cards.sorted(by: <)
@@ -504,23 +507,23 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
                 //TODO 順子 同花 葫蘆 四條 同花順
                 if(tmp[i].classing>desk!.classing){
                     //TODO
-                    pass=true
+                    paied=true
                 }
                 else if(tmp[i].classing==desk!.classing){
                     //TODO
                     switch desk!.classing {
                     case 7,3://順子 同花順
                         if(tmp[i].level>desk!.level){
-                            pass=true
+                            paied=true
                         }
                         else if(tmp[i].level==desk!.level){
                             if(tmpI[0].suitnum > deskJ[0].suitnum){
-                                pass=true
+                                paied=true
                             }
                         }
                     case 6://四條
                         if(tmpI.last! > deskJ.last!){
-                            pass=true
+                            paied=true
                         }
                     case 5://葫蘆
                         var j=0,coun=0
@@ -556,7 +559,7 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
                             }
                         }
                         if(tmpT>tmpD){
-                            pass=true
+                            paied=true
                         }
                         print("")
                     case 4://同花
@@ -570,12 +573,12 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
                         }
                         if(j==deskJ.count){
                             if(tmpI[j].suitnum>deskJ[j].suitnum){
-                                pass=true
+                                paied=true
                             }
                         }
                         else{
                             if(tmpI[j].num>deskJ[j].num){
-                                pass=true
+                                paied=true
                             }
                         }
                         print("")
@@ -587,51 +590,41 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
             else{
                 if(tmp[i].classing==desk!.classing){
                     //TODO 單張 一對 三條
-//                    let tmpI=tmp[i].cards.sorted(by: >)
-//                    let deskJ=desk!.cards.sorted(by: >)
                     if(tmpI.last! > deskJ.last!){
-                        pass=true
+                        paied=true
                     }
                 }
             }
-            if(pass){ break }
+            if(paied){ break }
             i+=1
-//            if(tmp[i].classing==desk!.classing){
-//                if(tmp[i].level>desk!.level){
-//
-//                    pass=true
-//                }
-//                else if(tmp[i].level==desk!.level){
-//                    switch desk!.classing{
-//                    case 7://同花順
-//                        if(tmp[i].cards[0].suitnum > desk!.cards[0].suitnum){
-//                            pass=true
-//                        }
-//                        print("同花順")
-//                    case 6://四條
-//                        print("四條")
-//                    case 5://葫蘆
-//                        print("葫蘆")
-//                    case 4://同花
-//                        print("同花")
-//                    case 3://順子
-//                        print("順子")
-//                    case 2://三條
-//                        print("三條")
-//                    case 1://一對
-//                        print("一對")
-//                    case 0://單張
-//                        print("單張")
-//                    default:
-//                        print("select should not be here, classing=\(desk!.classing), level=\(desk!.level)")
-//                    }
-//                }
-//            }
+        }
+        if(paied){
+            rtn=tmp[i]
+            
         }
         
     default:
         print("ComputerPoker occur error!")
     }
+    
+    /*於last(cards)中刪除含rtn之元素 begin*/
+    var i=0
+    while(i<rtn.cards.count){
+        var j=0
+        var pass=false
+        while(j<last.count){
+            if(last[j]==rtn.cards[i]){
+                last.remove(at: j)
+                pass=true
+                break
+            }
+            if(pass){break}
+            j+=1
+        }
+        i+=1
+    }
+    /*於last(cards)中刪除含rtn之元素end*/
+    
     print("rtn : ")
     PrintPokerClass(clas:[rtn])
     print("last : ",terminator: "")
