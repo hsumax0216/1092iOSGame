@@ -23,12 +23,34 @@ public struct poker{
     public let suit: String
     public let suitnum: Int
     public let num: Int //num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
+    public init(suit: String, suitnum: Int, num: Int){
+        self.suit=suit
+        self.num=num
+        self.suitnum=suitnum
+    }
+    public init(){
+        self.suitnum=0
+        self.num=0
+        self.suit="♣"
+    }
 }
 
 extension poker {
-  static func == (left: poker, right: poker) -> Bool {
+    static func == (left: poker, right: poker) -> Bool {
     return left.num==right.num && left.suitnum==right.suitnum
-  }
+    }
+    static func > (left: poker, right: poker) -> Bool {
+        if(left.num==right.num){
+            return left.suitnum>right.suitnum
+        }
+        return left.num>right.num
+    }
+    static func < (left: poker, right: poker) -> Bool {
+        if(left.num==right.num){
+            return left.suitnum<right.suitnum
+        }
+        return left.num<right.num
+    }
 }
 
 public struct pokerClass{
@@ -476,18 +498,100 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
         var i=0
         var pass=false
         while(i<tmp.count){
+            let tmpI=tmp[i].cards.sorted(by: <)
+            let deskJ=desk!.cards.sorted(by: <)
             if(desk!.classing>2){
                 //TODO 順子 同花 葫蘆 四條 同花順
                 if(tmp[i].classing>desk!.classing){
                     //TODO
+                    pass=true
                 }
                 else if(tmp[i].classing==desk!.classing){
                     //TODO
+                    switch desk!.classing {
+                    case 7,3://順子 同花順
+                        if(tmp[i].level>desk!.level){
+                            pass=true
+                        }
+                        else if(tmp[i].level==desk!.level){
+                            if(tmpI[0].suitnum > deskJ[0].suitnum){
+                                pass=true
+                            }
+                        }
+                    case 6://四條
+                        if(tmpI.last! > deskJ.last!){
+                            pass=true
+                        }
+                    case 5://葫蘆
+                        var j=0,coun=0
+                        var tmpD=poker(),tmpT=poker()
+                        while(j<4){
+                            j+=1
+                            if(deskJ[j].num==deskJ[j-1].num){
+                                coun+=1
+                            }
+                            if(coun<j && j==3){
+                                tmpD=deskJ[2]
+                                break
+                            }
+                            else{
+                                tmpD=deskJ[3]
+                                break
+                            }
+                        }
+                        j=1
+                        coun=0
+                        while(j<4){
+                            j+=1
+                            if(tmpI[j].num==tmpI[j-1].num){
+                                coun+=1
+                            }
+                            if(coun<j && j==3){
+                                tmpT=tmpI[2]
+                                break
+                            }
+                            else{
+                                tmpT=tmpI[3]
+                                break
+                            }
+                        }
+                        if(tmpT>tmpD){
+                            pass=true
+                        }
+                        print("")
+                    case 4://同花
+                        var j=0
+                        while(j<deskJ.count){
+                            if(tmpI[j].num==deskJ[j].num){
+                                j+=1
+                                continue
+                            }
+                            break
+                        }
+                        if(j==deskJ.count){
+                            if(tmpI[j].suitnum>deskJ[j].suitnum){
+                                pass=true
+                            }
+                        }
+                        else{
+                            if(tmpI[j].num>deskJ[j].num){
+                                pass=true
+                            }
+                        }
+                        print("")
+                    default:
+                        print("default")
+                    }
                 }
             }
             else{
                 if(tmp[i].classing==desk!.classing){
                     //TODO 單張 一對 三條
+//                    let tmpI=tmp[i].cards.sorted(by: >)
+//                    let deskJ=desk!.cards.sorted(by: >)
+                    if(tmpI.last! > deskJ.last!){
+                        pass=true
+                    }
                 }
             }
             if(pass){ break }
@@ -524,6 +628,7 @@ func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?
 //                }
 //            }
         }
+        
     default:
         print("ComputerPoker occur error!")
     }
