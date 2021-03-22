@@ -276,9 +276,9 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
                         cmp = 0
                         breakloop=true
                         
-                        print("\nAdd LV\(level).: ",terminator: "")
-                        PrintCards(cards:ttmp)
-                        print("")
+                        //print("\nAdd LV\(level).: ",terminator: "")
+                        //PrintCards(cards:ttmp)
+                        //print("")
                     }
                 }
                 if(breakloop){//已加同花順 需跳出迴圈 找下一個同花順
@@ -299,8 +299,8 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
             break
         }
     }
-    print("同花順篩選:")
-    PrintCards(cards:tmpSuit)
+    //print("同花順篩選:")
+    //PrintCards(cards:tmpSuit)
 
     var tmpNum=tmpSuit.sorted(by:PokerNumCompare)
 
@@ -322,9 +322,9 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
             for _ in 0...2{ tmpNum.remove(at: ele-3) }//在剩下牌堆中刪除三條組合
             numCount=0
             ele-=3
-            print("\nAdd 三條: ",terminator: "")
-            PrintCards(cards:ttmp)
-            print("")
+            //print("\nAdd 三條: ",terminator: "")
+            //PrintCards(cards:ttmp)
+            //print("")
         }
         else if(numCount>=1){//一對ele-2...ele-1
             let ttmp=[tmpNum[ele-2],tmpNum[ele-1]]
@@ -332,9 +332,9 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
             for _ in 0...1{ tmpNum.remove(at: ele-2) }//在剩下牌堆中刪除一對組合
             numCount=0
             ele-=2
-            print("\nAdd 一對: ",terminator: "")
-            PrintCards(cards:ttmp)
-            print("")
+            //print("\nAdd 一對: ",terminator: "")
+            //PrintCards(cards:ttmp)
+            //print("")
         }
         
         if(numCount>=3){//四條ele-3...ele
@@ -343,14 +343,14 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
             for _ in 0...3{ tmpNum.remove(at: ele-3) }//在剩下牌堆中刪除四條組合
             numCount=0
             ele-=4
-            print("\nAdd 四條: ",terminator: "")
-            PrintCards(cards:ttmp)
-            print("")
+            //print("\nAdd 四條: ",terminator: "")
+            //PrintCards(cards:ttmp)
+            //print("")
         }
         ele+=1
     }
-    print("四條三條一對篩選:")
-    PrintCards(cards:tmpNum)
+    //print("四條三條一對篩選:")
+    //PrintCards(cards:tmpNum)
 
     let sun_duiCount = suntiao.count < yidui.count ? suntiao.count : yidui.count
     //print("sun_duiCount:\(sun_duiCount)\n")
@@ -358,20 +358,20 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     while(coun<sun_duiCount)/*for _ in 1...sun_duiCount*/{//三條一對 轉 葫蘆
         let ttmp = (suntiao[0].cards+yidui[0].cards).sorted(by: PokerNumCompare)
         hulu.append(pokerClass(cards: ttmp, classing: 5))
-        print("\nAdd 葫蘆: ",terminator: "")
-        PrintCards(cards:ttmp)
+        //print("\nAdd 葫蘆: ",terminator: "")
+        //PrintCards(cards:ttmp)
         suntiao.removeFirst()
         yidui.removeFirst()
         coun+=1
     }
     if(hulu.count > 0){ pokersArray+=hulu }
-    print("\n葫蘆篩選:")
-    PrintCards(cards:tmpNum)
+    //print("\n葫蘆篩選:")
+    //PrintCards(cards:tmpNum)
 
 
     tmpNum.sort(by:PokerSuitCompare)
-    print("After Suit Sort:")
-    PrintCards(cards:tmpNum)
+    //print("After Suit Sort:")
+    //PrintCards(cards:tmpNum)
 
     ele=1
     suitsCount=0
@@ -389,15 +389,15 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
             pokersArray.append(pokerClass(cards: ttmp, classing: 4))
             ele-=5
             
-            print("\nAdd tonghua: ",terminator: "")
-            PrintCards(cards:ttmp)
-            print("")
+            //print("\nAdd tonghua: ",terminator: "")
+            //PrintCards(cards:ttmp)
+            //print("")
         }
         ele+=1
     }
     tmpNum.sort(by:PokerNumCompare)
-    print("\n同花篩選:")
-    PrintCards(cards:tmpNum)
+    //print("\n同花篩選:")
+    //PrintCards(cards:tmpNum)
 
     ele = 1
     var cmp=0
@@ -423,9 +423,9 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
                 pokersArray.append(pokerClass(cards: ttmp, classing: 3,level: level))
                 for _ in 0...4{ tmpNum.remove(at: loc.removeFirst()) }
         
-                print("\nAdd LV\(level).: ",terminator: "")
-                PrintCards(cards:ttmp)
-                print("")
+                //print("\nAdd LV\(level).: ",terminator: "")
+                //PrintCards(cards:ttmp)
+                //print("")
             }
         }
         else{
@@ -435,8 +435,8 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
         }
         ele+=1
     }
-    print("\n順子篩選:")
-    PrintCards(cards:tmpNum)
+    //print("\n順子篩選:")
+    //PrintCards(cards:tmpNum)
 
     if(suntiao.count>0){ pokersArray+=suntiao }
 
@@ -446,13 +446,13 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     while(tmpNum.count>0){
         pokersArray.append(pokerClass(cards: [tmpNum.removeFirst()], classing: 0))
     }
-    print("\n單張篩選:")
-    PrintCards(cards:tmpNum)
+    //print("\n單張篩選:")
+    //PrintCards(cards:tmpNum)
     
     return pokersArray
 }
 
-func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?,Array<poker>?){
+public func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?,Array<poker>?){
     var rtn=pokerClass()
     var last=cards
     let tmp=ClassingPokers(origins: cards).sorted(by: <)
