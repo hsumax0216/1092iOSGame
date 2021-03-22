@@ -35,7 +35,7 @@ public struct poker{
     }
 }
 
-extension poker {
+public extension poker {
     static func == (left: poker, right: poker) -> Bool {
     return left.num==right.num && left.suitnum==right.suitnum
     }
@@ -77,7 +77,7 @@ public struct pokerClass{
     //同花順=7,四條=6,葫蘆=5,同花=4,順子=3,三條=2,一對=1,單張=0
 }
 
-extension pokerClass {
+public extension pokerClass {
     static func == (left: pokerClass, right: pokerClass) -> Bool {
         return left.classing==right.classing && left.level==right.level
     }
@@ -119,10 +119,24 @@ public func fakeGeneratePokers()->Array<poker>{
 //    let pokersuit = [ 3, 3, 3, 2, 1, 0, 3, 3, 2, 1, 0, 3, 2]
 //    let  pokernum = [10, 8, 6, 4, 2, 1,12, 2, 1, 8, 2, 8, 2]
 //    let pokersuit = [ 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3]
-//    let pokernum=[12,11,10,9,8,7,6,2,1,0,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
-//    let pokersuit=[1,1,0,0,0,0,0,1,1,1,3,3,3]//♣0♦1♥2♠3
-    let pokernum=[2,3,4,5,6,6,6,6,2,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
-    let pokersuit=[0,0,0,0,0,1,2,3,1,2,3,3,3]//♣0♦1♥2♠3
+    let pokernum=[12,11,10,9,8,7,6,2,1,0,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
+    let pokersuit=[0,0,1,1,1,1,1,0,0,0,3,3,3]//♣0♦1♥2♠3
+//    let pokernum=[2,3,4,5,6,6,6,6,2,2,7,8,9]//num: 0=3 1=4 2=5 ... 8=J 9=Q 10=K 11=A 12=2
+//    let pokersuit=[0,0,0,0,0,1,2,3,1,2,3,3,3]//♣0♦1♥2♠3
+    var arra=[poker]()
+    while(i<cards){
+        arra.append(poker(suit:suits[pokersuit[i]],suitnum: pokersuit[i],num:pokernum[i]))
+        i+=1
+    }
+    PrintCards(cards: arra)
+    
+    return arra
+}
+
+public func fakeGeneratePokers(pokernum:Array<Int>,pokersuit:Array<Int>)->Array<poker>{
+    let cards=13
+    var i=0
+    let suits=["♣","♦","♥","♠"]
     var arra=[poker]()
     while(i<cards){
         arra.append(poker(suit:suits[pokersuit[i]],suitnum: pokersuit[i],num:pokernum[i]))

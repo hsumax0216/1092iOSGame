@@ -12,6 +12,7 @@
 		3D81148D25FF65AF00C2E75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D81148C25FF65AF00C2E75B /* Assets.xcassets */; };
 		3D81149025FF65AF00C2E75B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D81148F25FF65AF00C2E75B /* Preview Assets.xcassets */; };
 		3D81149825FF904000C2E75B /* pokerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81149725FF904000C2E75B /* pokerCore.swift */; };
+		3DA30B2626090955005C4147 /* testground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA30B2526090955005C4147 /* testground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		3D81148F25FF65AF00C2E75B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D81149125FF65AF00C2E75B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D81149725FF904000C2E75B /* pokerCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pokerCore.swift; sourceTree = "<group>"; };
+		3DA30B2526090955005C4147 /* testground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +56,10 @@
 		3D81148725FF65AC00C2E75B /* poker_game_app */ = {
 			isa = PBXGroup;
 			children = (
+				3D81148A25FF65AC00C2E75B /* ContentView.swift */,
+				3DA30B2526090955005C4147 /* testground.swift */,
 				3D81148825FF65AC00C2E75B /* poker_game_appApp.swift */,
 				3D81149725FF904000C2E75B /* pokerCore.swift */,
-				3D81148A25FF65AC00C2E75B /* ContentView.swift */,
 				3D81148C25FF65AF00C2E75B /* Assets.xcassets */,
 				3D81149125FF65AF00C2E75B /* Info.plist */,
 				3D81148E25FF65AF00C2E75B /* Preview Content */,
@@ -143,6 +146,7 @@
 			files = (
 				3D81148B25FF65AC00C2E75B /* ContentView.swift in Sources */,
 				3D81148925FF65AC00C2E75B /* poker_game_appApp.swift in Sources */,
+				3DA30B2626090955005C4147 /* testground.swift in Sources */,
 				3D81149825FF904000C2E75B /* pokerCore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

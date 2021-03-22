@@ -13,8 +13,10 @@ struct ContentView: View {
             Text("Hello, world!")
                 .padding()
             Button( action:{
-                let a=GeneratePokers()
-                GamePlay(DECK: a, peoples: 1)
+                //let a=GeneratePokers()
+                //GamePlay(DECK: a, peoples: 1)
+                //print("fuck you xcode")
+                testfunc()
                 },label:{
                     Text("test")
                 }
@@ -25,6 +27,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+        }
     }
 }

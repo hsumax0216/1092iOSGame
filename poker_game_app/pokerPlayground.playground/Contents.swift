@@ -18,12 +18,23 @@ print("testing")
 
 
 /*ComputerPoker test begin*/
+
+var simp=fakeGeneratePokers(pokernum:[6,5,6,5,12,11,5,4,10,9,8,7,6],pokersuit:[3,3,2,2,1,1,1,1,0,0,0,0,0])
+print("simp After Suit Sort:")
+PrintCards(cards:simp)
+simp.sort(by:PokerNumCompare)
+print("simp After Num Sort:")
+PrintCards(cards:simp)
+let simpClass=ClassingPokers(origins: simp).sorted(by: <)
+
+
+
 var samp=fakeGeneratePokers()
 samp.sort(by:PokerSuitCompare)
-print("After Suit Sort:")
+print("samp After Suit Sort:")
 PrintCards(cards:samp)
 samp.sort(by:PokerNumCompare)
-print("After Num Sort:")
+print("samp After Num Sort:")
 PrintCards(cards:samp)
 
 
@@ -31,15 +42,20 @@ let testD=pokerClass()
 
 
 let cards=samp
-let desk:pokerClass?=nil
-let action
+let desk:pokerClass?=simpClass.last!
+let action=0
 
 
 var rtn=pokerClass()
 var last=cards
 let tmp=ClassingPokers(origins: cards).sorted(by: <)
+
+/*print*/
+PrintPokerClass(clas:tmp)
+/*print*/
+
 switch action {
-case 0://start play with ♣3
+case 0://start play with ♣3//cards must be have ♣3
     print("first start:")
 //        let tmp=ClassingPokers(origins: cards).sorted(by: <)
     var i=0
