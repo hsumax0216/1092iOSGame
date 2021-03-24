@@ -8,21 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		3D81148925FF65AC00C2E75B /* poker_game_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81148825FF65AC00C2E75B /* poker_game_appApp.swift */; };
-		3D81148B25FF65AC00C2E75B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81148A25FF65AC00C2E75B /* ContentView.swift */; };
+		3D81148B25FF65AC00C2E75B /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81148A25FF65AC00C2E75B /* GamePage.swift */; };
 		3D81148D25FF65AF00C2E75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D81148C25FF65AF00C2E75B /* Assets.xcassets */; };
 		3D81149025FF65AF00C2E75B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D81148F25FF65AF00C2E75B /* Preview Assets.xcassets */; };
 		3D81149825FF904000C2E75B /* pokerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81149725FF904000C2E75B /* pokerCore.swift */; };
+		3D83A94E260A26A200D73F5C /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83A94D260A26A200D73F5C /* HomePage.swift */; };
+		3D83A950260B4C5B00D73F5C /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83A94F260B4C5B00D73F5C /* ScorePage.swift */; };
 		3DA30B2626090955005C4147 /* testground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA30B2526090955005C4147 /* testground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3D81148525FF65AC00C2E75B /* poker_game_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poker_game_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D81148825FF65AC00C2E75B /* poker_game_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = poker_game_appApp.swift; sourceTree = "<group>"; };
-		3D81148A25FF65AC00C2E75B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3D81148A25FF65AC00C2E75B /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
 		3D81148C25FF65AF00C2E75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D81148F25FF65AF00C2E75B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D81149125FF65AF00C2E75B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D81149725FF904000C2E75B /* pokerCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pokerCore.swift; sourceTree = "<group>"; };
+		3D83A94D260A26A200D73F5C /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		3D83A94F260B4C5B00D73F5C /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
 		3DA30B2526090955005C4147 /* testground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +60,9 @@
 		3D81148725FF65AC00C2E75B /* poker_game_app */ = {
 			isa = PBXGroup;
 			children = (
-				3D81148A25FF65AC00C2E75B /* ContentView.swift */,
+				3D83A94D260A26A200D73F5C /* HomePage.swift */,
+				3D81148A25FF65AC00C2E75B /* GamePage.swift */,
+				3D83A94F260B4C5B00D73F5C /* ScorePage.swift */,
 				3DA30B2526090955005C4147 /* testground.swift */,
 				3D81148825FF65AC00C2E75B /* poker_game_appApp.swift */,
 				3D81149725FF904000C2E75B /* pokerCore.swift */,
@@ -144,7 +150,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D81148B25FF65AC00C2E75B /* ContentView.swift in Sources */,
+				3D83A94E260A26A200D73F5C /* HomePage.swift in Sources */,
+				3D83A950260B4C5B00D73F5C /* ScorePage.swift in Sources */,
+				3D81148B25FF65AC00C2E75B /* GamePage.swift in Sources */,
 				3D81148925FF65AC00C2E75B /* poker_game_appApp.swift in Sources */,
 				3DA30B2626090955005C4147 /* testground.swift in Sources */,
 				3D81149825FF904000C2E75B /* pokerCore.swift in Sources */,

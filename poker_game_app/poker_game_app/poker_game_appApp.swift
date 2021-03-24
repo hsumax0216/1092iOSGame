@@ -11,6 +11,7 @@ import SwiftUI
 struct poker_game_appApp: App {
     var body: some Scene {
         WindowGroup {
+            //GamePage()
             HomePage()
         }
     }
