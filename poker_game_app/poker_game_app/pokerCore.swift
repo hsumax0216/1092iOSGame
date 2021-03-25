@@ -95,7 +95,7 @@ public extension pokerClass {
     }
 }
 
-public func GeneratePokers()->Array<poker>{
+func GeneratePokers()->Array<poker>{
     //♣♦♥♠
     let suits=["♣","♦","♥","♠"]
     var arra=[poker]()
@@ -645,6 +645,63 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(poke
     PrintCards(cards: last)
     
     return (rtn,last)
+}
+
+func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
+    let peoples=4
+    var plr=[poker]()
+    var comp=[Array<poker>]()
+    var i=0,j=0,compCount=peoples-1
+    let deck=DECK.shuffled()
+    let perCards=Int(52/peoples)
+    print("perCards:"+String(perCards))
+    
+    
+    var firstPrior = 0//Int.random(in: 0...peoples-1)
+    
+    while(j<perCards){
+        plr.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
+        if(deck[j].suitnum==0 && deck[j].num==0){
+            print("Human have ♣3.")
+            firstPrior = 0
+        }
+        j+=1
+    }
+    //plr.sort(by:PokerCompare)
+    while(i<compCount){
+        var temp=[poker]()
+        var times=0
+        while(times<perCards){
+            temp.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
+            if(deck[j].suitnum==0 && deck[j].num==0){
+                print("Computer ",i+1," have ♣3.")
+                firstPrior = i+1
+            }
+            j+=1
+            times+=1
+        }
+        comp.append(temp)
+        i+=1
+    }
+    print("J:",j)
+//    print("Player:")
+//    PrintCards(cards: plr)
+//    i=0
+//    while(i<compCount){
+//        print("\nComputer "+String(i+1)+":")
+//        PrintCards(cards: comp[i])
+//        i+=1
+//    }
+    print("firstPrior: ",firstPrior)
+    
+    var simulatArray=[player]()
+    simulatArray.append(player(cards: plr, name: "Human"))
+    var ppp=0
+    while(ppp<compCount){
+        simulatArray.append(player(cards: comp[ppp], name: "Computer "+String(ppp+1)))
+        ppp+=1
+    }
+    return (simulatArray,firstPrior)
 }
 
 public func GamePlay(DECK:Array<poker>,peoples:Int){

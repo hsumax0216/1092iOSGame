@@ -17,6 +17,12 @@ struct GamePage: View {
     @State var playerTopConfirm = false
     @State var playerRightConfirm = false
     @State var showScorePage = false
+    func initialGame(){
+        let pokers=GeneratePokers()
+        var (players,firstPrior)=assignPoker(DECK:pokers)//players[0] must be human
+        
+    }
+    
     var body: some View {
         GeometryReader{
             geometry in
@@ -77,6 +83,10 @@ struct GamePage: View {
             })
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear
+        {
+            initialGame()
         }
     }
 }
