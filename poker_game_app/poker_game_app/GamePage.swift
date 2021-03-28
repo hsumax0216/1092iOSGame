@@ -10,6 +10,7 @@ import SwiftUI
 
 struct GamePage: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var desk = player()
     @State private var players = [player]()
     @State private var playerscount = Int()
     @State private var firstPriority = Int()
@@ -18,6 +19,7 @@ struct GamePage: View {
     @State private var winnedPlayer  = [Bool]()
     
     @State private var userPlayerCards  = [poker]()
+    @State private var userDeskCards    = [poker]()
     @State private var userPreDeskCards = [poker]()
     @State private var leftPlayerCards  = [poker]()
     @State private var leftDeskCards    = [poker]()
@@ -29,8 +31,9 @@ struct GamePage: View {
     @State private var currentAct = Int()
     @State private var currentPlay = Int()
     
+    
     @State private var gobackMenuAlert = false
-    @State private var playerBottomConfirm = false
+    @State private var confirmAlert = false
 //    @State var playerLeftConfirm = false
 //    @State var playerTopConfirm = false
 //    @State var playerRightConfirm = false
@@ -39,15 +42,15 @@ struct GamePage: View {
         let pokers=GeneratePokers()
         (players,firstPriority)=assignPoker(DECK:pokers)//players[0] must be human
         print("assing pass")
-//        userPlayerCards  = players[0].cards
-//        leftPlayerCards  = players[1].cards
-//        topPlayerCards   = players[2].cards
-//        rightPlayerCards = players[3].cards
+        userPlayerCards  = players[0].cards
+        leftPlayerCards  = players[1].cards
+        topPlayerCards   = players[2].cards
+        rightPlayerCards = players[3].cards
         print("view cards pass")
         playerscount = players.count
         for coun in 0...playersPassed.count-1 {
             playersPassed[coun] = false
-            winnedPlayer[coun]  = false
+            winnedPlayer.append(false)
         }
         currentAct = 0
         currentPlay = firstPriority
@@ -65,10 +68,10 @@ struct GamePage: View {
     
     func gamePlay(){
 //        let testEmpty=Int()
-//        print("testEmpty:\(testEmpty)") 
+//        print("testEmpty:\(testEmpty)")
         //var winnerRank=[String]()
         
-        var desk = player()
+        //var desk = player()
         players[0].cards = userPlayerCards
         
         var (deskTmp,last):(pokerClass,Array<poker>)
@@ -104,9 +107,11 @@ struct GamePage: View {
             players[currentPlay].cards = last
             if(!(deskTmp.isEmpty())){
                 desk.desk = deskTmp
-                players[currentPlay].desk = deskTmp
+                players[currentPlay].desk.cards = deskTmp.cards
+                players[currentPlay].desk.classing = deskTmp.classing
+                players[currentPlay].desk.level = deskTmp.level
             }
-            desk.name=players[currentPlay].name
+            desk.name = players[currentPlay].name
             currentPlay=(currentPlay+1)%players.count
         }
         //currentAct=1
@@ -168,7 +173,7 @@ struct GamePage: View {
                 },label:{
                     Text("score page test")
                 })
-                playerBottomView(playerCards: $userPlayerCards, deskCards: $userPreDeskCards, playerPassed: $playersPassed, currentPlay: $currentPlay,currentAct:$currentAct,playerscount: $playerscount)
+                playerBottomView
                 playerLeftView(playerCards: $leftPlayerCards, deskCards: $leftDeskCards/*lastPlayerConfirm: $playerBottomConfirm, playerConfirm: $playerLeftConfirm*/)
                 playerTopView(playerCards: $topPlayerCards, deskCards: $topDeskCards/*lastPlayerConfirm: $playerLeftConfirm, playerConfirm: $playerTopConfirm*/)
                 playerRightView(playerCards: $rightPlayerCards, deskCards: $rightDeskCards/*lastPlayerConfirm: $playerTopConfirm, playerConfirm: $playerRightConfirm*/)
@@ -182,9 +187,9 @@ struct GamePage: View {
         }
         .onAppear
         {
-            //gamePlay()
+            initialGame()
+            gamePlay()
             //userPlayerCards = fakeGeneratePokers()
-            //initialGame()
             print("on Apper!!")
         }
     }
@@ -203,23 +208,23 @@ func isPassed(boolarr:[Bool])->Bool{
     return boolarr[0]
 }
 
-struct playerBottomView: View {
-    @Binding var playerCards:[poker]
-    @Binding var deskCards:[poker]
-    @Binding var playerPassed:[Bool]
-    @Binding var currentPlay:Int
-    @Binding var currentAct:Int
-    @Binding var playerscount:Int
-    @State private var preDeskCards=[poker]()
-    var body: some View {
+extension GamePage{
+//    @Binding var playerCards:[poker]
+//    @Binding var deskCards:[poker]
+//    @Binding var playerPassed:[Bool]
+//    @Binding var currentPlay:Int
+//    @Binding var currentAct:Int
+//    @Binding var playerscount:Int
+//    @State private var preDeskCards=[poker]()
+    var playerBottomView: some View {
         VStack(){
             Spacer()
             /*Bottom desk cards begin*/
             HStack(alignment: .center,spacing:-15){
                 Group{
-                    ForEach(deskCards.indices,id:\.self){
+                    ForEach(userDeskCards.indices,id:\.self){
                         (index) in
-                        Image(pokerSample[deskCards[index].num]+"_of_"+pokerSuitsSample[deskCards[index].suitnum])
+                        Image(pokerSample[userDeskCards[index].num]+"_of_"+pokerSuitsSample[userDeskCards[index].suitnum])
                             .resizable()
                             .background(Color.white)
                             .frame(width: 46.165, height: 70, alignment: .center)
@@ -229,7 +234,7 @@ struct playerBottomView: View {
                     }
                 }
             }
-            .overlay(Text(isPassed(boolarr: playerPassed) ? "PASS" : "")
+            .overlay(Text(isPassed(boolarr: playersPassed) ? "PASS" : "")
                     .font(.system(size: 30,weight: .bold,design:.monospaced))
                     //.fontWeight(.bold)
                     //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
@@ -241,9 +246,10 @@ struct playerBottomView: View {
                 /*pass button begin*/
                 Button(action:{
                     print("pass")
-                    currentPlay = (currentPlay+1)%playerscount
                     currentAct = 2
-                    playerPassed[0] = true
+                    playersPassed[currentPlay] = true//currentPlay==0
+                    currentPlay = (currentPlay+1)%playerscount
+                    gamePlay()
                 }
                 , label:
                 {
@@ -259,6 +265,34 @@ struct playerBottomView: View {
                 /*confirm button begin*/
                 Button(action:{
                     print("confirm")
+                    let (deskTmp,last) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
+                    
+                    if(last.isEmpty){//this player was finished its game
+                        winnerRank.append(currentPlay)
+                        winnedPlayer[currentPlay] = true
+                        playersPassed[currentPlay] = true
+                        currentPlay=(currentPlay+1)%players.count
+                        return
+                    }
+                    if(deskTmp.isEmpty()){
+                        confirmAlert = true
+                    }
+                    else{
+                        currentAct = 2
+                        playersPassed[currentPlay] = false
+                        desk.desk = deskTmp
+                        desk.name = players[currentPlay].name//currentPlay==0
+                        players[currentPlay].desk.cards = deskTmp.cards
+                        players[currentPlay].desk.classing = deskTmp.classing
+                        players[currentPlay].desk.level = deskTmp.level
+                        players[currentPlay].cards = last
+                        print("players[0].cards : ",terminator: "")
+                        _ = PrintCards(cards: last)
+                        userDeskCards = userPreDeskCards
+                        userPreDeskCards.removeAll()
+                        currentPlay = (currentPlay+1)%players.count
+                        gamePlay()
+                    }
                     //playerConfirm=false
                 }
                 , label:
@@ -271,20 +305,24 @@ struct playerBottomView: View {
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing:10))
                         .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 255/255, green: 0/255, blue: 0/255)))
                 })
+                .alert(isPresented: $confirmAlert)
+                { () -> Alert in
+                    Alert(title: Text("This isn't a legal pokers"), message: Text("Please check CAREFULLY!!"), dismissButton: .default(Text("OK")))
+                }
                 /*confirm button end*/
             }
             HStack(alignment: .center,spacing:5){
                 Group{
-                    ForEach(preDeskCards.indices,id:\.self){
+                    ForEach(userPreDeskCards.indices,id:\.self){
                         (index) in
                         Button(action:{
                             print("button action\"\(index)\"")
-                            if(preDeskCards.count > 0 && preDeskCards.count < 6 && playerCards.count < 13){
-                                playerCards.append(preDeskCards.remove(at:index))
-                                playerCards.sort(by: >)
+                            if(userPreDeskCards.count > 0 && userPreDeskCards.count < 6 && userPlayerCards.count < 13){
+                                userPlayerCards.append(userPreDeskCards.remove(at:index))
+                                userPlayerCards.sort(by: >)
                             }
                         },label:{
-                            Image(pokerSample[preDeskCards[index].num]+"_of_"+pokerSuitsSample[preDeskCards[index].suitnum])
+                            Image(pokerSample[userPreDeskCards[index].num]+"_of_"+pokerSuitsSample[userPreDeskCards[index].suitnum])
                                 .resizable()
                                 .background(Color.white)
                                 .frame(width: 52.76, height: 80, alignment: .center)
@@ -299,16 +337,16 @@ struct playerBottomView: View {
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             HStack(alignment: .center,spacing:-30){
                 Group{
-                    ForEach(playerCards.indices,id:\.self){
+                    ForEach(userPlayerCards.indices,id:\.self){
                         (index) in
                         Button(action:{
                             print("button action\"\(index)\"")
-                            if(playerCards.count > 0 && preDeskCards.count < 5 ){
-                                preDeskCards.append(playerCards.remove(at:index))
-                                preDeskCards.sort(by: >)
+                            if(userPlayerCards.count > 0 && userPreDeskCards.count < 5 ){
+                                userPreDeskCards.append(userPlayerCards.remove(at:index))
+                                userPreDeskCards.sort(by: >)
                             }
                         },label:{
-                            Image(pokerSample[playerCards[index].num]+"_of_"+pokerSuitsSample[playerCards[index].suitnum])
+                            Image(pokerSample[userPlayerCards[index].num]+"_of_"+pokerSuitsSample[userPlayerCards[index].suitnum])
                                 .resizable()
                                 .background(Color.white)
                                 .frame(width: 52.76, height: 80, alignment: .center)
