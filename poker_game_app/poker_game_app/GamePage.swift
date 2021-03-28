@@ -14,7 +14,7 @@ struct GamePage: View {
     @State private var playerscount = Int()
     @State private var firstPriority = Int()
     @State private var winnerRank = [Int]()
-    @State private var playersPassed = [Bool]()
+    @State private var playersPassed = [false,false,false,false]
     @State private var winnedPlayer  = [Bool]()
     
     @State private var userPlayerCards  = [poker]()
@@ -37,7 +37,7 @@ struct GamePage: View {
     @State var showScorePage = false
     func initialGame(){
         let pokers=GeneratePokers()
-//        (players,firstPriority)=assignPoker(DECK:pokers)//players[0] must be human
+        (players,firstPriority)=assignPoker(DECK:pokers)//players[0] must be human
         print("assing pass")
 //        userPlayerCards  = players[0].cards
 //        leftPlayerCards  = players[1].cards
@@ -65,10 +65,7 @@ struct GamePage: View {
     
     func gamePlay(){
 //        let testEmpty=Int()
-//        print("testEmpty:\(testEmpty)")
-        
-        
-        
+//        print("testEmpty:\(testEmpty)") 
         //var winnerRank=[String]()
         
         var desk = player()
@@ -241,10 +238,12 @@ struct playerBottomView: View {
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 55/*215*/, trailing: 0))
             /*Bottom desk cards end*/
             HStack(alignment: .center,spacing:5){
+                /*pass button begin*/
                 Button(action:{
                     print("pass")
                     currentPlay = (currentPlay+1)%playerscount
                     currentAct = 2
+                    playerPassed[0] = true
                 }
                 , label:
                 {
@@ -256,6 +255,8 @@ struct playerBottomView: View {
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing:10))
                         .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 204/255, green: 255/255, blue: 204/255)))
                 })
+                /*pass button end*/
+                /*confirm button begin*/
                 Button(action:{
                     print("confirm")
                     //playerConfirm=false
@@ -270,7 +271,7 @@ struct playerBottomView: View {
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing:10))
                         .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 255/255, green: 0/255, blue: 0/255)))
                 })
-                
+                /*confirm button end*/
             }
             HStack(alignment: .center,spacing:5){
                 Group{
