@@ -1,20 +1,22 @@
 import Foundation
 
 public struct player{
-    public var cards: Array<poker>?
-    public var desk: pokerClass?
+    public var cards: Array<poker>
+    public var desk: pokerClass
     public var name: String
     public init(cards: Array<poker>,name: String){
         self.cards=cards
+        self.desk=pokerClass()
         self.name=name
     }
     public init(desk:pokerClass,name: String){
+        self.cards=[poker]()
         self.desk=desk
         self.name=name
     }
     public init(){
-        self.cards=nil
-        self.desk=nil
+        self.cards=[poker]()
+        self.desk=pokerClass()
         self.name="empty"
     }
 }
@@ -59,6 +61,9 @@ public struct pokerClass{
     public var level: Int
     public var cards: Array<poker>
     public var classing: Int
+    func isEmpty()->Bool{
+        return (self.cards.isEmpty || self.classing == -1)
+    }
     public init(cards:Array<poker>,classing:Int) {
         self.cards=cards
         self.classing=classing
@@ -151,7 +156,8 @@ func ShufflePoker(arra:Array<poker>)->Array<poker>{
     let a=arra.shuffled()
     return a
 }
-
+let pokerSuitsSample=["clubs","diamonds","hearts","spades"]
+let pokerSample=["3","4","5","6","7","8","9","10","jack","queen","king","ace","2"]
 let sample=["3","4","5","6","7","8","9","10","J","Q","K","A","2"]
 func PrintPoker(card:poker){
     let temp = sample[card.num]
@@ -466,7 +472,7 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     return pokersArray
 }
 
-public func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(pokerClass?,Array<poker>?){
+public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(pokerClass,Array<poker>){
     var rtn=pokerClass()
     var last=cards
     let tmp=ClassingPokers(origins: cards).sorted(by: <)
@@ -516,21 +522,21 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(poke
         var paied=false
         while(i<tmp.count){
             let tmpI=tmp[i].cards.sorted(by: <)
-            let deskJ=desk!.cards.sorted(by: <)
-            if(desk!.classing>2){
+            let deskJ=desk.cards.sorted(by: <)
+            if(desk.classing>2){
                 //TODO 順子 同花 葫蘆 四條 同花順
-                if(tmp[i].classing>desk!.classing){
+                if(tmp[i].classing>desk.classing){
                     //TODO
                     paied=true
                 }
-                else if(tmp[i].classing==desk!.classing){
+                else if(tmp[i].classing==desk.classing){
                     //TODO
-                    switch desk!.classing {
+                    switch desk.classing {
                     case 7,3://順子 同花順
-                        if(tmp[i].level>desk!.level){
+                        if(tmp[i].level>desk.level){
                             paied=true
                         }
-                        else if(tmp[i].level==desk!.level){
+                        else if(tmp[i].level==desk.level){
                             if(tmpI[0].suitnum > deskJ[0].suitnum){
                                 paied=true
                             }
@@ -602,7 +608,7 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass?,action:Int)->(poke
                 }
             }
             else{
-                if(tmp[i].classing==desk!.classing){
+                if(tmp[i].classing==desk.classing){
                     //TODO 單張 一對 三條
                     if(tmpI.last! > deskJ.last!){
                         paied=true
@@ -780,7 +786,7 @@ public func GamePlay(DECK:Array<poker>,peoples:Int){
     }
     
     if(peoples==3){
-        simulatArray[0].cards?.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
+        simulatArray[0].cards.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
         j+=1
     }
     
@@ -789,11 +795,11 @@ public func GamePlay(DECK:Array<poker>,peoples:Int){
     
     var desk = player()
     var passCount=0
-    var (deskTmp,last):(pokerClass?,Array<poker>?)
+    var (deskTmp,last):(pokerClass,Array<poker>)
     var currentAct=0
     while(false/* simulatArray.count > 0 */){
-        (deskTmp,last)=ComputerPoker(cards: simulatArray[currentPlay].cards!, desk: desk.desk, action: currentAct)
-        if(deskTmp==nil){//this player passed
+        (deskTmp,last)=ComputerPoker(cards: simulatArray[currentPlay].cards, desk: desk.desk, action: currentAct)
+        if(deskTmp.isEmpty)(){//this player passed
             passCount+=1
             if(passCount>simulatArray.count){
                 passCount=0
@@ -805,12 +811,12 @@ public func GamePlay(DECK:Array<poker>,peoples:Int){
             continue
         }
         currentAct=2
-        if(last==nil){//this player was finished its game
+        if(last.isEmpty){//this player was finished its game
             winnerRank.append(simulatArray.remove(at:currentPlay).name)
             continue
         }
-        simulatArray[currentPlay].cards=last!
-        if(!(deskTmp==nil)){
+        simulatArray[currentPlay].cards=last
+        if(!(deskTmp.isEmpty())){
             desk.desk = deskTmp
         }
         desk.name=simulatArray[currentPlay].name

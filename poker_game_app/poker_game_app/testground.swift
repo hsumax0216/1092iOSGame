@@ -19,7 +19,7 @@ public func testfunc(){
     //PrintCards(cards:samp)
     //
     //
-    //let tmp=ClassingPokers(origins:samp)!
+    //let tmp=ClassingPokers(origins:samp)
     //PrintPokerClass(clas:tmp)
     /*ClassingPokers test end*/
 
