@@ -37,11 +37,13 @@ struct GamePage: View {
     @State var showScorePage = false
     func initialGame(){
         let pokers=GeneratePokers()
-        (players,firstPriority)=assignPoker(DECK:pokers)//players[0] must be human
-        userPlayerCards  = players[0].cards
-        leftPlayerCards  = players[1].cards
-        topPlayerCards   = players[2].cards
-        rightPlayerCards = players[3].cards
+//        (players,firstPriority)=assignPoker(DECK:pokers)//players[0] must be human
+        print("assing pass")
+//        userPlayerCards  = players[0].cards
+//        leftPlayerCards  = players[1].cards
+//        topPlayerCards   = players[2].cards
+//        rightPlayerCards = players[3].cards
+        print("view cards pass")
         playerscount = players.count
         for coun in 0...playersPassed.count-1 {
             playersPassed[coun] = false
@@ -169,11 +171,11 @@ struct GamePage: View {
                 },label:{
                     Text("score page test")
                 })
-                playerBottomView(playerCards: $userPlayerCards, deskCards: $userPreDeskCards, playerPassed: $playersPassed[0], currentPlay: $currentPlay,currentAct:$currentAct,playerscount: $playerscount)
-                playerLeftView(/*playerCards: $leftPlayerCard*//*lastPlayerConfirm: $playerBottomConfirm, playerConfirm: $playerLeftConfirm*/)
-                playerTopView(/*playerCards: $topPlayerCard*//*lastPlayerConfirm: $playerLeftConfirm, playerConfirm: $playerTopConfirm*/)
-                playerRightView(/*playerCards: $rightPlayerCard*//*lastPlayerConfirm: $playerTopConfirm, playerConfirm: $playerRightConfirm*/)
-                DeskView()
+                playerBottomView(playerCards: $userPlayerCards, deskCards: $userPreDeskCards, playerPassed: $playersPassed, currentPlay: $currentPlay,currentAct:$currentAct,playerscount: $playerscount)
+                playerLeftView(playerCards: $leftPlayerCards, deskCards: $leftDeskCards/*lastPlayerConfirm: $playerBottomConfirm, playerConfirm: $playerLeftConfirm*/)
+                playerTopView(playerCards: $topPlayerCards, deskCards: $topDeskCards/*lastPlayerConfirm: $playerLeftConfirm, playerConfirm: $playerTopConfirm*/)
+                playerRightView(playerCards: $rightPlayerCards, deskCards: $rightDeskCards/*lastPlayerConfirm: $playerTopConfirm, playerConfirm: $playerRightConfirm*/)
+                DeskView(leftPlayerCards: $leftDeskCards, topPlayerCards: $topDeskCards, rightPlayerCards: $rightDeskCards)
             }
             .fullScreenCover(isPresented:$showScorePage,content:{
                 ScorePage(showScorePage: $showScorePage)
@@ -184,7 +186,7 @@ struct GamePage: View {
         .onAppear
         {
             //gamePlay()
-            userPlayerCards = fakeGeneratePokers()
+            //userPlayerCards = fakeGeneratePokers()
             //initialGame()
             print("on Apper!!")
         }
@@ -199,10 +201,15 @@ struct GamePage_Previews: PreviewProvider {
     }
 }
 
+func isPassed(boolarr:[Bool])->Bool{
+    if(boolarr.isEmpty) {return false}
+    return boolarr[0]
+}
+
 struct playerBottomView: View {
     @Binding var playerCards:[poker]
     @Binding var deskCards:[poker]
-    @Binding var playerPassed:Bool
+    @Binding var playerPassed:[Bool]
     @Binding var currentPlay:Int
     @Binding var currentAct:Int
     @Binding var playerscount:Int
@@ -215,7 +222,7 @@ struct playerBottomView: View {
                 Group{
                     ForEach(deskCards.indices,id:\.self){
                         (index) in
-                        Image("2_of_spades")
+                        Image(pokerSample[deskCards[index].num]+"_of_"+pokerSuitsSample[deskCards[index].suitnum])
                             .resizable()
                             .background(Color.white)
                             .frame(width: 46.165, height: 70, alignment: .center)
@@ -225,7 +232,7 @@ struct playerBottomView: View {
                     }
                 }
             }
-            .overlay(Text("PASS")
+            .overlay(Text(isPassed(boolarr: playerPassed) ? "PASS" : "")
                     .font(.system(size: 30,weight: .bold,design:.monospaced))
                     //.fontWeight(.bold)
                     //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
@@ -241,7 +248,7 @@ struct playerBottomView: View {
                 }
                 , label:
                 {
-                    Text(playerPassed ? "pass" : "")
+                    Text("pass")
                     .font(Font.custom("San Francisco", size: 15))
                     .fontWeight(.bold)
                         .foregroundColor(Color.black)
@@ -319,15 +326,15 @@ struct playerBottomView: View {
 }
 
 struct playerTopView: View {
-    //@Binding var playerCards:[poker]
+    @Binding var playerCards:[poker]
+    @Binding var deskCards:[poker]
     //@Binding var lastPlayerConfirm:Bool
     //@Binding var playerConfirm:Bool
     var body: some View {
-        let playerCard=[1,1,1,1,1,1,1,1,1,1,1,1,1]
         VStack(){
             HStack(alignment: .center,spacing:-30){
                 Group{
-                    ForEach(playerCard.indices,id:\.self){
+                    ForEach(playerCards.indices,id:\.self){
                         (index) in
                         Image("back")
                             .resizable()
@@ -347,15 +354,15 @@ struct playerTopView: View {
 }
 
 struct playerLeftView: View {
-    //@Binding var playerCards:[]
+    @Binding var playerCards:[poker]
+    @Binding var deskCards:[poker]
     //@Binding var lastPlayerConfirm:Bool
     //@Binding var playerConfirm:Bool
     var body: some View {
-        let playerCard=[1,1,1,1,1,1,1,1,1,1,1,1,1]
         HStack(){
             VStack(alignment: .center,spacing:-30){
                 Group{
-                    ForEach(playerCard.indices,id:\.self){
+                    ForEach(playerCards.indices,id:\.self){
                         (index) in
                         Image("back")
                             .resizable()
@@ -375,16 +382,16 @@ struct playerLeftView: View {
 }
 
 struct playerRightView: View {
-    //@Binding var playerCards:[]
+    @Binding var playerCards:[poker]
+    @Binding var deskCards:[poker]
     //@Binding var lastPlayerConfirm:Bool
     //@Binding var playerConfirm:Bool
     var body: some View {
-        let playerCard=[1,1,1,1,1,1,1,1,1,1,1,1,1]
         HStack(){
             Spacer()
             VStack(alignment: .center,spacing:-30){
                 Group{
-                    ForEach(playerCard.indices,id:\.self){
+                    ForEach(playerCards.indices,id:\.self){
                         (index) in
                         Image("back")
                             .resizable()
@@ -403,22 +410,18 @@ struct playerRightView: View {
 }
 
 struct DeskView: View {
-    //@Binding var leftPlayerCards:[poker]()
-    //@Binding var topPlayerCards:[poker]()
-    //@Binding var rightPlayerCards:[poker]()
-    var testplayercards=[[1,1,1,1,1],
-                        [1,1,1,1,1],
-                        [1,1,1,1,1],
-                        [1,1,1,1,1]]
+    @Binding var leftPlayerCards:[poker]
+    @Binding var topPlayerCards:[poker]
+    @Binding var rightPlayerCards:[poker]
     var body: some View {
         ZStack{
             /*Top desk cards begin*/
             VStack{
                 HStack(alignment: .center,spacing:-15){
                     Group{
-                        ForEach(testplayercards[2].indices,id:\.self){
+                        ForEach(topPlayerCards.indices,id:\.self){
                             (index) in
-                            Image("2_of_spades")
+                            Image(pokerSample[topPlayerCards[index].num]+"_of_"+pokerSuitsSample[topPlayerCards[index].suitnum])
                                 .resizable()
                                 .background(Color.white)
                                 .frame(width: 46.165, height: 70, alignment: .center)
@@ -465,9 +468,9 @@ struct DeskView: View {
                 Spacer()
                 HStack(alignment: .center,spacing:-15){
                     Group{
-                        ForEach(testplayercards[0].indices,id:\.self){
+                        ForEach(leftPlayerCards.indices,id:\.self){
                             (index) in
-                            Image("2_of_spades")
+                            Image(pokerSample[leftPlayerCards[index].num]+"_of_"+pokerSuitsSample[leftPlayerCards[index].suitnum])
                                 .resizable()
                                 .background(Color.white)
                                 .frame(width: 46.165, height: 70, alignment: .center)
@@ -493,9 +496,9 @@ struct DeskView: View {
                 Spacer()
                 HStack(alignment: .center,spacing:-15){
                     Group{
-                        ForEach(testplayercards[0].indices,id:\.self){
+                        ForEach(rightPlayerCards.indices,id:\.self){
                             (index) in
-                            Image("2_of_spades")
+                            Image(pokerSample[rightPlayerCards[index].num]+"_of_"+pokerSuitsSample[rightPlayerCards[index].suitnum])
                                 .resizable()
                                 .background(Color.white)
                                 .frame(width: 46.165, height: 70, alignment: .center)
