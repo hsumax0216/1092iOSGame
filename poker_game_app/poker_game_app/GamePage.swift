@@ -67,6 +67,7 @@ struct GamePage: View {
     }
     
     func gamePlay(){
+        //TODO:need fakeGeneratePokers for 4 players
 //        let testEmpty=Int()
 //        print("testEmpty:\(testEmpty)")
         //var winnerRank=[String]()
