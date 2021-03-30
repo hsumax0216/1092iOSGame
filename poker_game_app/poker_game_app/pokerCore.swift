@@ -139,7 +139,7 @@ public func fakeGeneratePokers()->Array<poker>{
 }
 
 public func fakeGeneratePokers(pokernum:Array<Int>,pokersuit:Array<Int>)->Array<poker>{
-    let cards=13
+    let cards=pokernum.count
     var i=0
     let suits=["♣","♦","♥","♠"]
     var arra=[poker]()
@@ -147,7 +147,8 @@ public func fakeGeneratePokers(pokernum:Array<Int>,pokersuit:Array<Int>)->Array<
         arra.append(poker(suit:suits[pokersuit[i]],suitnum: pokersuit[i],num:pokernum[i]))
         i+=1
     }
-    PrintCards(cards: arra)
+    //print("fakeGeneratePokers : ")
+    //PrintCards(cards: arra)
     
     return arra
 }
@@ -658,7 +659,7 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
     var plr=[poker]()
     var comp=[Array<poker>]()
     var i=0,j=0,compCount=peoples-1
-    let deck=DECK.shuffled()
+    let deck=DECK//.shuffled()
     let perCards=Int(52/peoples)
     print("perCards:"+String(perCards))
     
@@ -689,7 +690,7 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
         comp.append(temp)
         i+=1
     }
-    print("J:",j)
+//    print("J:",j)
 //    print("Player:")
 //    PrintCards(cards: plr)
 //    i=0
@@ -698,7 +699,7 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
 //        PrintCards(cards: comp[i])
 //        i+=1
 //    }
-    print("firstPrior: ",firstPrior)
+//    print("firstPrior: ",firstPrior)
     
     var simulatArray=[player]()
     simulatArray.append(player(cards: plr, name: "Human"))

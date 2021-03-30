@@ -39,10 +39,19 @@ struct GamePage: View {
 //    @State var playerRightConfirm = false
     @State var showScorePage = false
     func initialGame(){
-        let pokers=GeneratePokers()
-        (players,firstPriority)=assignPoker(DECK:pokers)//players[0] must be human
+        //let pokers=GeneratePokers()
+        let pokers = fakeGeneratePokers(pokernum: [3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
+                                                   2, 4, 9, 8, 7, 10, 7, 2, 11, 5, 12, 3, 0,
+                                                   9, 8, 12, 4, 10, 9, 8, 7, 2, 3, 4, 6, 0,
+                                                   10, 11, 0, 1, 5, 11, 6, 8, 4, 1, 10, 6, 3]
+                                     , pokersuit: [1, 0, 0, 3, 1, 2, 2, 3, 1, 3, 2, 1, 0,
+                                                   0, 2, 3, 3, 1, 0, 3, 1, 1, 2, 3, 2, 3,
+                                                   2, 2, 0, 1, 1, 0, 1, 2, 2, 3, 0, 2, 1,
+                                                   2, 3, 2, 1, 0, 0, 1, 0, 3, 0, 3, 3, 0])
+        print("pokers.count : \(pokers.count)")
+        (players,firstPriority) = assignPoker(DECK:pokers)//players[0] must be human
         print("assing pass")
-        userPlayerCards  = players[0].cards
+        userPlayerCards  = players[0].cards.sorted(by: >)
         leftPlayerCards  = players[1].cards
         topPlayerCards   = players[2].cards
         rightPlayerCards = players[3].cards
@@ -57,10 +66,10 @@ struct GamePage: View {
     }
     
     func othersPassed(current:Int)->Bool{
-        var p=current+1
+        var p=(current+1)%playersPassed.count
         var rtn:Bool = true
         for _ in 1...3{
-            rtn = rtn || playersPassed[p]
+            rtn = rtn && playersPassed[p]
             p=(p+1)%playersPassed.count
         }
         return rtn
@@ -266,34 +275,52 @@ extension GamePage{
                 /*confirm button begin*/
                 Button(action:{
                     print("confirm")
-                    let (deskTmp,last) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
-                    
-                    if(last.isEmpty){//this player was finished its game
-                        winnerRank.append(currentPlay)
-                        winnedPlayer[currentPlay] = true
-                        playersPassed[currentPlay] = true
-                        currentPlay=(currentPlay+1)%players.count
-                        return
-                    }
-                    if(deskTmp.isEmpty()){
-                        confirmAlert = true
+                    if(userPreDeskCards.count>0){
+                        let (deskTmp,last) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
+                        //user選擇的牌 last應為空array
+                        print("出的牌 : ",terminator: "")
+                        PrintPokerClass(clas: [deskTmp])
+                        print("last : ",terminator: "")
+                        _ = PrintCards(cards: last)
+                        
+                        if(userPlayerCards.isEmpty){//this player was finished its game
+                            winnerRank.append(currentPlay)
+                            winnedPlayer[currentPlay] = true
+                            playersPassed[currentPlay] = true
+                            
+                            desk.desk = deskTmp
+                            desk.name = players[currentPlay].name//currentPlay==0
+                            userDeskCards = userPreDeskCards
+                            userPreDeskCards.removeAll()
+                            currentPlay=(currentPlay+1)%players.count
+                            gamePlay()
+                            return
+                        }
+                        if(deskTmp.isEmpty()){
+                            confirmAlert = true
+                        }
+//                        else if(currentPlay==0 && currentAct==0){
+//                            print("currentPlay==0 && currentAct==0")
+//                        }
+                        else{
+                            currentAct = 2
+                            playersPassed[currentPlay] = false
+                            desk.desk = deskTmp
+                            desk.name = players[currentPlay].name//currentPlay==0
+                            players[currentPlay].desk.cards = deskTmp.cards
+                            players[currentPlay].desk.classing = deskTmp.classing
+                            players[currentPlay].desk.level = deskTmp.level
+                            print("players[0].cards : ",terminator: "")
+                            _ = PrintCards(cards: last)
+                            userDeskCards = userPreDeskCards
+                            userPreDeskCards.removeAll()
+                            currentPlay = (currentPlay+1)%players.count
+                            gamePlay()
+                        }
                     }
                     else{
-                        currentAct = 2
-                        playersPassed[currentPlay] = false
-                        desk.desk = deskTmp
-                        desk.name = players[currentPlay].name//currentPlay==0
-                        players[currentPlay].desk.cards = deskTmp.cards
-                        players[currentPlay].desk.classing = deskTmp.classing
-                        players[currentPlay].desk.level = deskTmp.level
-                        players[currentPlay].cards = last
-                        print("players[0].cards : ",terminator: "")
-                        _ = PrintCards(cards: last)
-                        userDeskCards = userPreDeskCards
-                        userPreDeskCards.removeAll()
-                        currentPlay = (currentPlay+1)%players.count
-                        gamePlay()
-                    }
+                        confirmAlert = true
+                    }                    
                     //playerConfirm=false
                 }
                 , label:
