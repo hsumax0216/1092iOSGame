@@ -187,7 +187,11 @@ public func PrintPokerClass(clas:Array<pokerClass>){
     var count=0
     var pokerC=0
     for set in clas{
-        print(pokerRank[set.classing])
+        if(set.isEmpty()){
+            print("空牌組\n")
+            continue
+        }
+        print("\(pokerRank[set.classing]) : ",terminator: "")
         pokerC+=PrintCards(cards: set.cards)
         count+=1
     }
@@ -452,6 +456,10 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
         else{
             //print("SHUNZI[\(cmp)]:\(SHUNZI[cmp])\ncontinue\n")
             cmp+=1
+            if(cmp>=SHUNZI.count){
+                cmp = 0
+                ele += 1
+            }
             continue
         }
         ele+=1
@@ -621,7 +629,6 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
         }
         if(paied){
             rtn=tmp[i]
-            
         }
         
     default:
@@ -702,10 +709,10 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
 //    print("firstPrior: ",firstPrior)
     
     var simulatArray=[player]()
-    simulatArray.append(player(cards: plr, name: "Human"))
+    simulatArray.append(player(cards: plr.sorted(by: >), name: "Human"))
     var ppp=0
     while(ppp<compCount){
-        simulatArray.append(player(cards: comp[ppp], name: "Computer "+String(ppp+1)))
+        simulatArray.append(player(cards: comp[ppp].sorted(by: >), name: "Computer "+String(ppp+1)))
         ppp+=1
     }
     return (simulatArray,firstPrior)

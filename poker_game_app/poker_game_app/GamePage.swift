@@ -51,7 +51,7 @@ struct GamePage: View {
         print("pokers.count : \(pokers.count)")
         (players,firstPriority) = assignPoker(DECK:pokers)//players[0] must be human
         print("assing pass")
-        userPlayerCards  = players[0].cards.sorted(by: >)
+        userPlayerCards  = players[0].cards
         leftPlayerCards  = players[1].cards
         topPlayerCards   = players[2].cards
         rightPlayerCards = players[3].cards
@@ -76,12 +76,12 @@ struct GamePage: View {
     }
     
     func gamePlay(){
-        //TODO:need fakeGeneratePokers for 4 players
 //        let testEmpty=Int()
 //        print("testEmpty:\(testEmpty)")
         //var winnerRank=[String]()
         
         //var desk = player()
+        print("in gamePlay()")
         players[0].cards = userPlayerCards
         
         var (deskTmp,last):(pokerClass,Array<poker>)
@@ -91,37 +91,54 @@ struct GamePage: View {
                 currentPlay=(currentPlay+1)%players.count
                 continue
             }
-            
+            print("if(winnedPlayer[currentPlay]) PASS")
             if(othersPassed(current: currentPlay)){
                 currentAct = 1
                 print("others all PASSED, current player \"\(currentPlay)\" take control.")
             }//others all PASSED, current player take control.
             
             
+            print("players[\(currentPlay)].cards : ",terminator: "")
+            _ = PrintCards(cards: players[currentPlay].cards)
+            
+            
+            //players[2].cards : ♦K ♥10 ♥9 ♠6 ♥5 ♦3
+            //stock in ComputerPoker
             (deskTmp,last) = ComputerPoker(cards: players[currentPlay].cards , desk: desk.desk, action: currentAct)
+            
+            
+            print("\(players[currentPlay].name)出的牌 : ",terminator: "")
+            PrintPokerClass(clas: [deskTmp])
+            print("last : ",terminator: "")
+            _ = PrintCards(cards: last)
+            
+            print("ComputerPoker PASS")
             if(deskTmp.isEmpty()){//this player passed
                 playersPassed[currentPlay] = true
-                
+                print("\"\(players[currentPlay].name)\" was PASSed.")
                 currentPlay=(currentPlay+1)%players.count
                 continue
             }
             playersPassed[currentPlay] = false
             currentAct=2
+            
+            desk.desk = deskTmp
+            players[currentPlay].cards = last
+//            if(!(deskTmp.isEmpty())){
+            players[currentPlay].desk.cards = deskTmp.cards
+            players[currentPlay].desk.classing = deskTmp.classing
+            players[currentPlay].desk.level = deskTmp.level
+//            }
+            desk.name = players[currentPlay].name
+            
             if(last.isEmpty){//this player was finished its game
                 winnerRank.append(currentPlay)
                 winnedPlayer[currentPlay] = true
                 playersPassed[currentPlay] = true
-                currentPlay=(currentPlay+1)%players.count
-                continue
+                print("\"\(players[currentPlay].name)\" was FINISHED run.")
+//                currentPlay=(currentPlay+1)%players.count
+//                continue
             }
-            players[currentPlay].cards = last
-            if(!(deskTmp.isEmpty())){
-                desk.desk = deskTmp
-                players[currentPlay].desk.cards = deskTmp.cards
-                players[currentPlay].desk.classing = deskTmp.classing
-                players[currentPlay].desk.level = deskTmp.level
-            }
-            desk.name = players[currentPlay].name
             currentPlay=(currentPlay+1)%players.count
         }
         //currentAct=1
@@ -282,41 +299,32 @@ extension GamePage{
                         PrintPokerClass(clas: [deskTmp])
                         print("last : ",terminator: "")
                         _ = PrintCards(cards: last)
-                        
-                        if(userPlayerCards.isEmpty){//this player was finished its game
-                            winnerRank.append(currentPlay)
-                            winnedPlayer[currentPlay] = true
-                            playersPassed[currentPlay] = true
-                            
-                            desk.desk = deskTmp
-                            desk.name = players[currentPlay].name//currentPlay==0
-                            userDeskCards = userPreDeskCards
-                            userPreDeskCards.removeAll()
-                            currentPlay=(currentPlay+1)%players.count
-                            gamePlay()
-                            return
-                        }
                         if(deskTmp.isEmpty()){
                             confirmAlert = true
                         }
-//                        else if(currentPlay==0 && currentAct==0){
-//                            print("currentPlay==0 && currentAct==0")
-//                        }
                         else{
                             currentAct = 2
                             playersPassed[currentPlay] = false
+                            
                             desk.desk = deskTmp
                             desk.name = players[currentPlay].name//currentPlay==0
                             players[currentPlay].desk.cards = deskTmp.cards
                             players[currentPlay].desk.classing = deskTmp.classing
                             players[currentPlay].desk.level = deskTmp.level
-                            print("players[0].cards : ",terminator: "")
-                            _ = PrintCards(cards: last)
                             userDeskCards = userPreDeskCards
                             userPreDeskCards.removeAll()
-                            currentPlay = (currentPlay+1)%players.count
-                            gamePlay()
+                            
+                            print("players[0].cards : ",terminator: "")
+                            _ = PrintCards(cards: last)
                         }
+                        
+                        if(userPlayerCards.isEmpty){//this player was finished its game
+                            winnerRank.append(currentPlay)
+                            winnedPlayer[currentPlay] = true
+                            playersPassed[currentPlay] = true
+                        }
+                        currentPlay = (currentPlay+1)%players.count
+                        gamePlay()
                     }
                     else{
                         confirmAlert = true
