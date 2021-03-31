@@ -39,6 +39,16 @@ struct GamePage: View {
 //    @State var playerRightConfirm = false
     @State var showScorePage = false
     func initialGame(){
+        userPlayerCards.removeAll()
+        userDeskCards.removeAll()
+        userPreDeskCards.removeAll()
+        leftPlayerCards.removeAll()
+        leftDeskCards.removeAll()
+        topPlayerCards.removeAll()
+        topDeskCards.removeAll()
+        rightPlayerCards.removeAll()
+        rightDeskCards.removeAll()       
+        
         //let pokers=GeneratePokers()
         let pokers = fakeGeneratePokers(pokernum: [3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
                                                    2, 4, 9, 8, 7, 10, 7, 2, 11, 5, 12, 3, 0,
@@ -65,6 +75,24 @@ struct GamePage: View {
         currentPlay = firstPriority
     }
     
+    func othersWinned(current:Int = -1)->Bool{//-1 == AllWinned
+        if(current == -1){
+            var rtn:Bool = true
+            for p in winnedPlayer{
+                rtn = rtn && p
+            }
+            return rtn
+        }
+        
+        var p=(current+1)%winnedPlayer.count
+        var rtn:Bool = true
+        for _ in 1...3{
+            rtn = rtn && winnedPlayer[p]
+            p=(p+1)%winnedPlayer.count
+        }
+        return rtn
+    }
+    
     func othersPassed(current:Int)->Bool{
         var p=(current+1)%playersPassed.count
         var rtn:Bool = true
@@ -82,11 +110,13 @@ struct GamePage: View {
         
         //var desk = player()
         print("in gamePlay()")
+        
         players[0].cards = userPlayerCards
         
         var (deskTmp,last):(pokerClass,Array<poker>)
         
         while(currentPlay > 0){
+            players[currentPlay].desk.cards.removeAll()
             if(winnedPlayer[currentPlay]){
                 currentPlay=(currentPlay+1)%players.count
                 continue
@@ -150,6 +180,19 @@ struct GamePage: View {
         topDeskCards     = players[2].desk.cards
         rightPlayerCards = players[3].cards
         rightDeskCards   = players[3].desk.cards
+        if(winnedPlayer[0] && !(othersWinned(current: 0))){
+            currentAct = 2
+            currentPlay = (currentPlay+1)%playerscount
+            print("\n\nAUTO ",terminator: "")
+            gamePlay()
+        }
+        else if (othersWinned()){
+            for i in 0...players.count-1{
+                players[i].cards.removeAll()
+                players[i].desk.cards.removeAll()
+            }
+            showScorePage = true
+        }
     }
     var body: some View {
         GeometryReader{
@@ -204,20 +247,26 @@ struct GamePage: View {
                 playerLeftView(playerCards: $leftPlayerCards, deskCards: $leftDeskCards/*lastPlayerConfirm: $playerBottomConfirm, playerConfirm: $playerLeftConfirm*/)
                 playerTopView(playerCards: $topPlayerCards, deskCards: $topDeskCards/*lastPlayerConfirm: $playerLeftConfirm, playerConfirm: $playerTopConfirm*/)
                 playerRightView(playerCards: $rightPlayerCards, deskCards: $rightDeskCards/*lastPlayerConfirm: $playerTopConfirm, playerConfirm: $playerRightConfirm*/)
-                DeskView(leftPlayerCards: $leftDeskCards, topPlayerCards: $topDeskCards, rightPlayerCards: $rightDeskCards)
+                DeskView(leftPlayerCards: $leftDeskCards, topPlayerCards: $topDeskCards, rightPlayerCards: $rightDeskCards,playersPassed:$playersPassed)
             }
             .fullScreenCover(isPresented:$showScorePage,content:{
-                ScorePage(showScorePage: $showScorePage)
+                ScorePage
             })
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear
         {
+            //userPlayerCards = fakeGeneratePokers()
+//            let desk = pokerClass()
+//            let tmp = fakeGeneratePokers(pokernum: [10,7,6,3,2,0], pokersuit: [1,2,2,3,2,1])
+//            let (deskTmp,last) = ComputerPoker(cards: tmp , desk: desk, action: 1)
+//            PrintPokerClass(clas: [deskTmp])
+//            PrintCards(cards: last)
+            print("on Apper begin!!\n")
             initialGame()
             gamePlay()
-            //userPlayerCards = fakeGeneratePokers()
-            print("on Apper!!")
+            print("\non Apper end!!")
         }
     }
 }
@@ -247,32 +296,41 @@ extension GamePage{
         VStack(){
             Spacer()
             /*Bottom desk cards begin*/
-            HStack(alignment: .center,spacing:-15){
-                Group{
-                    ForEach(userDeskCards.indices,id:\.self){
-                        (index) in
-                        Image(pokerSample[userDeskCards[index].num]+"_of_"+pokerSuitsSample[userDeskCards[index].suitnum])
-                            .resizable()
-                            .background(Color.white)
-                            .frame(width: 46.165, height: 70, alignment: .center)
-                            .scaledToFill()
-                            .clipped()
-                            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+            ZStack{
+                HStack(alignment: .center,spacing:-15){
+                    Group{
+                        ForEach(userDeskCards.indices,id:\.self){
+                            (index) in
+                            Image(pokerSample[userDeskCards[index].num]+"_of_"+pokerSuitsSample[userDeskCards[index].suitnum])
+                                .resizable()
+                                .background(Color.white)
+                                .frame(width: 46.165, height: 70, alignment: .center)
+                                .scaledToFill()
+                                .clipped()
+                                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+                        }
                     }
                 }
+                Text(isPassed(boolarr: playersPassed) ? "PASS" : "")
+                .font(.system(size: 30,weight: .bold,design:.monospaced))
+                //.fontWeight(.bold)
+                //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+                .multilineTextAlignment(.center)
+                .frame(height: 70)
+//                .overlay(Text(isPassed(boolarr: playersPassed) ? "PASS" : "")
+//                        .font(.system(size: 30,weight: .bold,design:.monospaced))
+//                        //.fontWeight(.bold)
+//                        //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+//                        .multilineTextAlignment(.center)
+//                        .frame(height: 70))
             }
-            .overlay(Text(isPassed(boolarr: playersPassed) ? "PASS" : "")
-                    .font(.system(size: 30,weight: .bold,design:.monospaced))
-                    //.fontWeight(.bold)
-                    //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
-                    .multilineTextAlignment(.center)
-                    .frame(height: 70))
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 55/*215*/, trailing: 0))
             /*Bottom desk cards end*/
             HStack(alignment: .center,spacing:5){
                 /*pass button begin*/
                 Button(action:{
                     print("pass")
+                    userDeskCards.removeAll()
                     currentAct = 2
                     playersPassed[currentPlay] = true//currentPlay==0
                     currentPlay = (currentPlay+1)%playerscount
@@ -293,6 +351,10 @@ extension GamePage{
                 Button(action:{
                     print("confirm")
                     if(userPreDeskCards.count>0){
+                        if(othersPassed(current: currentPlay)){
+                            currentAct = 1
+                            print("others all PASSED, current player \"\(currentPlay)\" take control.")
+                        }
                         let (deskTmp,last) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
                         //user選擇的牌 last應為空array
                         print("出的牌 : ",terminator: "")
@@ -301,6 +363,7 @@ extension GamePage{
                         _ = PrintCards(cards: last)
                         if(deskTmp.isEmpty()){
                             confirmAlert = true
+                            return
                         }
                         else{
                             currentAct = 2
@@ -488,31 +551,40 @@ struct DeskView: View {
     @Binding var leftPlayerCards:[poker]
     @Binding var topPlayerCards:[poker]
     @Binding var rightPlayerCards:[poker]
+    @Binding var playersPassed:[Bool]
     var body: some View {
         ZStack{
             /*Top desk cards begin*/
             VStack{
-                HStack(alignment: .center,spacing:-15){
-                    Group{
-                        ForEach(topPlayerCards.indices,id:\.self){
-                            (index) in
-                            Image(pokerSample[topPlayerCards[index].num]+"_of_"+pokerSuitsSample[topPlayerCards[index].suitnum])
-                                .resizable()
-                                .background(Color.white)
-                                .frame(width: 46.165, height: 70, alignment: .center)
-                                .scaledToFill()
-                                .clipped()
-                                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+                ZStack{
+                    HStack(alignment: .center,spacing:-15){
+                        Group{
+                            ForEach(topPlayerCards.indices,id:\.self){
+                                (index) in
+                                Image(pokerSample[topPlayerCards[index].num]+"_of_"+pokerSuitsSample[topPlayerCards[index].suitnum])
+                                    .resizable()
+                                    .background(Color.white)
+                                    .frame(width: 46.165, height: 70, alignment: .center)
+                                    .scaledToFill()
+                                    .clipped()
+                                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+                            }
                         }
                     }
+                    Text(playersPassed[2] ? "PASS" : "")
+                            .font(.system(size: 30,weight: .bold,design:.monospaced))
+                            //.fontWeight(.bold)
+                            //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+                            .multilineTextAlignment(.center)
+                            .frame(height: 70)
                 }
-                .overlay(Text("PASS")
-                        .font(.system(size: 30,weight: .bold,design:.monospaced))
-                        //.fontWeight(.bold)
-                        //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
-                        .multilineTextAlignment(.center)
-                        .frame(height: 70))
                 .padding(EdgeInsets(top: 215, leading: 0, bottom: 0, trailing: 0))
+//                .overlay(Text("PASS")
+//                        .font(.system(size: 30,weight: .bold,design:.monospaced))
+//                        //.fontWeight(.bold)
+//                        //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+//                        .multilineTextAlignment(.center)
+//                        .frame(height: 70))
                 
                 Spacer()
                 /*user desk cards begin*/
@@ -539,60 +611,71 @@ struct DeskView: View {
             //IN struct playerBottomView
             /*Bottom desk cards end*/
             /*Left desk cards begin*/
-            VStack{
-                Spacer()
-                HStack(alignment: .center,spacing:-15){
-                    Group{
-                        ForEach(leftPlayerCards.indices,id:\.self){
-                            (index) in
-                            Image(pokerSample[leftPlayerCards[index].num]+"_of_"+pokerSuitsSample[leftPlayerCards[index].suitnum])
-                                .resizable()
-                                .background(Color.white)
-                                .frame(width: 46.165, height: 70, alignment: .center)
-                                .scaledToFill()
-                                .clipped()
-                                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+            HStack{
+                ZStack{
+                    HStack(alignment: .center,spacing:-15){
+                        Group{
+                            ForEach(leftPlayerCards.indices,id:\.self){
+                                (index) in
+                                Image(pokerSample[leftPlayerCards[index].num]+"_of_"+pokerSuitsSample[leftPlayerCards[index].suitnum])
+                                    .resizable()
+                                    .background(Color.white)
+                                    .frame(width: 46.165, height: 70, alignment: .center)
+                                    .scaledToFill()
+                                    .clipped()
+                                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+                            }
                         }
+                        //
                     }
-                    //
+                    Text(playersPassed[1] ? "PASS" : "")
+                    .font(.system(size: 30,weight: .bold,design:.monospaced))
+                    //.fontWeight(.bold)
+                    //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+                    .multilineTextAlignment(.center)
+                    .frame(height: 70)
                 }
-                .overlay(Text("PASS")
-                        .font(.system(size: 30,weight: .bold,design:.monospaced))
-                        //.fontWeight(.bold)
-                        //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
-                        .multilineTextAlignment(.center)
-                        .frame(height: 70))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
+                .rotationEffect(.degrees(90))
+                Spacer()
+                
+//                .overlay(Text("PASS")
+//                        .font(.system(size: 30,weight: .bold,design:.monospaced))
+//                        //.fontWeight(.bold)
+//                        //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+//                        .multilineTextAlignment(.center)
+//                        .frame(height: 70))
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 215, trailing: 0))
-            .rotationEffect(.degrees(90))
             /*Left desk cards end*/
             /*Right desk cards begin*/
-            VStack{
+            HStack{
                 Spacer()
-                HStack(alignment: .center,spacing:-15){
-                    Group{
-                        ForEach(rightPlayerCards.indices,id:\.self){
-                            (index) in
-                            Image(pokerSample[rightPlayerCards[index].num]+"_of_"+pokerSuitsSample[rightPlayerCards[index].suitnum])
-                                .resizable()
-                                .background(Color.white)
-                                .frame(width: 46.165, height: 70, alignment: .center)
-                                .scaledToFill()
-                                .clipped()
-                                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+                ZStack{
+                    HStack(alignment: .center,spacing:-15){
+                        Group{
+                            ForEach(rightPlayerCards.indices,id:\.self){
+                                (index) in
+                                Image(pokerSample[rightPlayerCards[index].num]+"_of_"+pokerSuitsSample[rightPlayerCards[index].suitnum])
+                                    .resizable()
+                                    .background(Color.white)
+                                    .frame(width: 46.165, height: 70, alignment: .center)
+                                    .scaledToFill()
+                                    .clipped()
+                                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+                            }
                         }
                     }
-                    //
+                    
+                    Text(playersPassed[3] ? "PASS" : "")
+                    .font(.system(size: 30,weight: .bold,design:.monospaced))
+                    //.fontWeight(.bold)
+                    //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
+                    .multilineTextAlignment(.center)
+                    .frame(height: 70)
                 }
-                .overlay(Text("PASS")
-                        .font(.system(size: 30,weight: .bold,design:.monospaced))
-                        //.fontWeight(.bold)
-                        //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
-                        .multilineTextAlignment(.center)
-                        .frame(height: 70))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
+                .rotationEffect(.degrees(-90))
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 215, trailing: 0))
-            .rotationEffect(.degrees(-90))
             /*Right desk cards begin*/
         }
     }

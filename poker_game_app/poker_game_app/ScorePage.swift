@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ScorePage: View {
-    @Binding var showScorePage:Bool
-    var body: some View {
+extension GamePage{
+    //@Binding var showScorePage:Bool
+    var ScorePage: some View {
         GeometryReader{
             geometry in
             ZStack{
@@ -24,6 +24,7 @@ struct ScorePage: View {
                         .foregroundColor(Color.white)
                         .padding(.bottom,10)
                     Button(action:{
+                        initialGame()
                         showScorePage=false
                     },label:{
                         Text("Next Game")
@@ -43,7 +44,7 @@ struct ScorePage: View {
 struct ScorePage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ScorePage(showScorePage: .constant(true))
+            //ScorePage
         }
     }
 }
