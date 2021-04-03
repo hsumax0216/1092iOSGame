@@ -237,7 +237,7 @@ let SHUNZISP=[[12,3,2,1,0],//2,6,5,4,3  //2,3,4,5,6
 public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
 //    print("ClassingPokers begin")
     var tmpSuit=origins.sorted(by:PokerSuitCompare)
-    _ = PrintCards(cards: tmpSuit)
+    //_ = PrintCards(cards: tmpSuit)
     var pokersArray=[pokerClass]()
     var hulu=[pokerClass]()
     var suntiao=[pokerClass]()
@@ -518,10 +518,12 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
                 }
                 j+=1
             }
-            if(pass){ break }
+            if(pass){
+                rtn=tmp[i]
+                break
+            }
             i+=1
-        }
-        rtn=tmp[i]
+        }        
 //        i=0
 //        while(i<rtn.cards.count){
 //            var j=0
@@ -671,10 +673,10 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
     }
     /*於last(cards)中刪除含rtn之元素end*/
     
-    print("rtn : ")
-    PrintPokerClass(clas:[rtn])
-    print("last : ",terminator: "")
-    _ = PrintCards(cards: last)
+//    print("rtn : ")
+//    PrintPokerClass(clas:[rtn])
+//    print("last : ",terminator: "")
+//    _ = PrintCards(cards: last)
     
     return (rtn,last)
 }

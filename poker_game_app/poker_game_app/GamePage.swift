@@ -34,6 +34,7 @@ struct GamePage: View {
     
     @State private var gobackMenuAlert = false
     @State private var confirmAlert = false
+    @State private var confirmType = Int()
 //    @State var playerLeftConfirm = false
 //    @State var playerTopConfirm = false
 //    @State var playerRightConfirm = false
@@ -47,7 +48,7 @@ struct GamePage: View {
         topPlayerCards.removeAll()
         topDeskCards.removeAll()
         rightPlayerCards.removeAll()
-        rightDeskCards.removeAll()       
+        rightDeskCards.removeAll()
         
         //let pokers=GeneratePokers()
         let pokers = fakeGeneratePokers(pokernum: [3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
@@ -72,6 +73,7 @@ struct GamePage: View {
             winnedPlayer.append(false)
         }
         currentAct = 0
+        confirmType = 0
         currentPlay = firstPriority
     }
     
@@ -284,6 +286,20 @@ func isPassed(boolarr:[Bool])->Bool{
     return boolarr[0]
 }
 
+func comfirmAlert(alertType:Int=0) -> Alert{
+    var title:String = "This isn't a legal pokers"
+    var message:String = "Please check CAREFULLY!!"
+    let dismissButton:String = "OK"
+    switch alertType{
+    case 1://♣3
+        title = "Those pokers aren't containing ♣3!"
+        message = "Please change your choice."
+    default:
+        print("default")
+    }
+    return Alert(title: Text(title), message: Text(message), dismissButton: .default(Text(dismissButton)))
+}
+
 extension GamePage{
 //    @Binding var playerCards:[poker]
 //    @Binding var deskCards:[poker]
@@ -355,14 +371,27 @@ extension GamePage{
                             currentAct = 1
                             print("others all PASSED, current player \"\(currentPlay)\" take control.")
                         }
+                        print("USER currentAct : \(currentAct)")
+                        print("desk.desk(playerclass) : ")
+                        PrintPokerClass(clas: [desk.desk])
+                        print("userPreDeskCards : ")
+                        _ = PrintCards(cards: userPreDeskCards)
+                        
                         let (deskTmp,last) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
                         //user選擇的牌 last應為空array
-                        print("出的牌 : ",terminator: "")
+                        print("出的牌---",terminator: "")
                         PrintPokerClass(clas: [deskTmp])
                         print("last : ",terminator: "")
                         _ = PrintCards(cards: last)
+                        //return
                         if(deskTmp.isEmpty()){
                             confirmAlert = true
+//                            if(currentAct == 0){
+//                                confirmType = 1
+//                            }
+//                            else{
+//                                confirmType = 0
+//                            }
                             return
                         }
                         else{
@@ -374,14 +403,26 @@ extension GamePage{
                             players[currentPlay].desk.cards = deskTmp.cards
                             players[currentPlay].desk.classing = deskTmp.classing
                             players[currentPlay].desk.level = deskTmp.level
-                            userDeskCards = userPreDeskCards
-                            userPreDeskCards.removeAll()
+                            userDeskCards = deskTmp.cards
+                            var counD = 0
+                            while(counD < deskTmp.cards.count){
+                                var coun = 0
+                                while(coun < userPreDeskCards.count){
+                                    if(userPreDeskCards[coun] == deskTmp.cards[counD]){
+                                        userPreDeskCards.remove(at:coun)
+                                        break
+                                    }
+                                    coun+=1
+                                }
+                                counD+=1
+                            }
+                            //userPreDeskCards.removeAll()
                             
                             print("players[0].cards : ",terminator: "")
                             _ = PrintCards(cards: last)
                         }
                         
-                        if(userPlayerCards.isEmpty){//this player was finished its game
+                        if(userPlayerCards.isEmpty && userPreDeskCards.isEmpty){//this player was finished its game
                             winnerRank.append(currentPlay)
                             winnedPlayer[currentPlay] = true
                             playersPassed[currentPlay] = true
@@ -405,9 +446,7 @@ extension GamePage{
                         .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 255/255, green: 0/255, blue: 0/255)))
                 })
                 .alert(isPresented: $confirmAlert)
-                { () -> Alert in
-                    Alert(title: Text("This isn't a legal pokers"), message: Text("Please check CAREFULLY!!"), dismissButton: .default(Text("OK")))
-                }
+                    { () -> Alert in comfirmAlert(alertType: confirmType) }
                 /*confirm button end*/
             }
             HStack(alignment: .center,spacing:5){
