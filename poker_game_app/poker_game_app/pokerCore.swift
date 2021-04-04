@@ -227,7 +227,7 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     var ele = 1
 
     ele=0
-    while(ele<tmpSuit.count && tmpSuit.count>4 {
+    while(ele<tmpSuit.count && tmpSuit.count>4){
         if(ele<0){ ele=0 }
         var coun=ele
         let suitS=ele
