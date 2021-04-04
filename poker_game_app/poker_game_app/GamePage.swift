@@ -211,7 +211,6 @@ struct GamePage: View {
                     rightDeskCards   = players[3].desk.cards
                     viewPlayersPass[3] = playersPassed[3]
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                        
                         if(passConfirmable){
                             passConfirmable = false
                         }
