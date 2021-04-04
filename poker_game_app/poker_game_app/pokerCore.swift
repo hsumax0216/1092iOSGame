@@ -505,7 +505,7 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
 //    print("\nswitch action begin")
     switch action {
     case 0://start play with ♣3
-        print("first start:")
+//        print("first start:")
 //        let tmp=ClassingPokers(origins: cards).sorted(by: <)
         var i=0
         while(i<tmp.count){
@@ -541,11 +541,11 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
 //        }
         
     case 1://start without ♣3
-        print("start play")
+//        print("start play")
 //        let tmp=ClassingPokers(origins: cards).sorted(by: <)
         rtn=tmp.last!
     case 2://contiune(normial) play
-        print("normial")
+//        print("normial")
 //        let tmp=ClassingPokers(origins: cards).sorted(by: <)
         var i=0
         var paied=false
@@ -610,7 +610,7 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
                         if(tmpT>tmpD){
                             paied=true
                         }
-                        print("")
+//                        print("")
                     case 4://同花
                         var j=0
                         while(j<deskJ.count){
@@ -630,7 +630,7 @@ public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(poker
                                 paied=true
                             }
                         }
-                        print("")
+//                        print("")
                     default:
                         print("default")
                     }
@@ -688,7 +688,7 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
     var i=0,j=0,compCount=peoples-1
     let deck=DECK//.shuffled()
     let perCards=Int(52/peoples)
-    print("perCards:"+String(perCards))
+//    print("perCards:"+String(perCards))
     
     
     var firstPrior = 0//Int.random(in: 0...peoples-1)
@@ -696,7 +696,7 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
     while(j<perCards){
         plr.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
         if(deck[j].suitnum==0 && deck[j].num==0){
-            print("Human have ♣3.")
+//            print("Human have ♣3.")
             firstPrior = 0
         }
         j+=1
@@ -708,7 +708,7 @@ func assignPoker(DECK:Array<poker>)->(Array<player>,Int){
         while(times<perCards){
             temp.append(poker(suit: deck[j].suit, suitnum: deck[j].suitnum, num: deck[j].num))
             if(deck[j].suitnum==0 && deck[j].num==0){
-                print("Computer ",i+1," have ♣3.")
+//                print("Computer ",i+1," have ♣3.")
                 firstPrior = i+1
             }
             j+=1

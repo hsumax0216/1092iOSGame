@@ -54,6 +54,7 @@ struct GamePage: View {
         rightPlayerCards.removeAll()
         rightDeskCards.removeAll()
         
+        passConfirmable = true
         let pokers = GeneratePokers()
 //        let pokers = fakeGeneratePokers(pokernum: [2, 4, 9, 8, 7, 10, 7, 2, 11, 5, 12, 3, 0,
 //                                                   3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
@@ -71,14 +72,14 @@ struct GamePage: View {
 //                                                   0, 2, 3, 3, 1, 0, 3, 1, 1, 2, 3, 2, 3,
 //                                                   2, 2, 0, 1, 1, 0, 1, 2, 2, 3, 0, 2, 1,
 //                                                   2, 3, 2, 1, 0, 0, 1, 0, 3, 0, 3, 3, 0])
-        print("pokers.count : \(pokers.count)")
+//        print("pokers.count : \(pokers.count)")
         (players,firstPriority) = assignPoker(DECK:pokers)//players[0] must be human
-        print("assing pass")
+//        print("assing pass")
         userPlayerCards  = players[0].cards
         leftPlayerCards  = players[1].cards
         topPlayerCards   = players[2].cards
         rightPlayerCards = players[3].cards
-        print("view cards pass")
+//        print("view cards pass")
         playerscount = players.count
         for coun in 0...playersPassed.count-1 {
             playersPassed[coun] = false
@@ -111,15 +112,15 @@ struct GamePage: View {
     }
     
     func othersPassed(current:Int)->Bool{
-        print("\nothersPassed[\(current)] : \n")
+//        print("\nothersPassed[\(current)] : \n")
         var p=(current+1)%playersPassed.count
         var rtn:Bool = true
         while(!(p==current)){
-            print("\tplayer[\(p)] : \(playersPassed[p])")
+//            print("\tplayer[\(p)] : \(playersPassed[p])")
             rtn = rtn && playersPassed[p]
             p=(p+1)%playersPassed.count
         }
-        print("othersPassed rtn: \(rtn)\n")
+//        print("othersPassed rtn: \(rtn)\n")
         return rtn
     }
     
@@ -128,7 +129,8 @@ struct GamePage: View {
 //        print("testEmpty:\(testEmpty)")
         //var winnerRank=[String]()
         //var desk = player()
-        print("in gamePlay()")
+        passConfirmable = true
+//        print("in gamePlay()")
         for coun in 0...viewPlayersPass.count-1 {
             viewPlayersPass[coun] = false
         }
@@ -143,15 +145,15 @@ struct GamePage: View {
                 currentPlay=(currentPlay+1)%players.count
                 continue
             }
-            print("if(winnedPlayer[currentPlay]) PASS")
+//            print("if(winnedPlayer[currentPlay]) PASS")
             if(othersPassed(current: currentPlay)){
                 currentAct = 1
-                print("others all PASSED, current player \"\(currentPlay)\" take control.")
+//                print("others all PASSED, current player \"\(currentPlay)\" take control.")
             }//others all PASSED, current player take control.
             
             
-            print("players[\(currentPlay)].cards : ",terminator: "")
-            _ = PrintCards(cards: players[currentPlay].cards)
+//            print("players[\(currentPlay)].cards : ",terminator: "")
+//            _ = PrintCards(cards: players[currentPlay].cards)
             
             
             //players[2].cards : ♦K ♥10 ♥9 ♠6 ♥5 ♦3
@@ -159,15 +161,15 @@ struct GamePage: View {
             (deskTmp,last) = ComputerPoker(cards: players[currentPlay].cards , desk: desk.desk, action: currentAct)
             
             
-            print("\(players[currentPlay].name)出的牌 : ",terminator: "")
-            PrintPokerClass(clas: [deskTmp])
-            print("last : ",terminator: "")
-            _ = PrintCards(cards: last)
+//            print("\(players[currentPlay].name)出的牌 : ",terminator: "")
+//            PrintPokerClass(clas: [deskTmp])
+//            print("last : ",terminator: "")
+//            _ = PrintCards(cards: last)
             
-            print("ComputerPoker PASS")
+//            print("ComputerPoker PASS")
             if(deskTmp.isEmpty()){//this player passed
                 playersPassed[currentPlay] = true
-                print("\"\(players[currentPlay].name)\" was PASSed.")
+//                print("\"\(players[currentPlay].name)\" was PASSed.")
                 currentPlay=(currentPlay+1)%players.count
                 continue
             }
@@ -187,7 +189,7 @@ struct GamePage: View {
                 winnerRank.append(currentPlay)
                 winnedPlayer[currentPlay] = true
                 playersPassed[currentPlay] = true
-                print("\"\(players[currentPlay].name)\" was FINISHED run.")
+//                print("\"\(players[currentPlay].name)\" was FINISHED run.")
 //                currentPlay=(currentPlay+1)%players.count
 //                continue
             }
@@ -209,6 +211,9 @@ struct GamePage: View {
                     rightDeskCards   = players[3].desk.cards
                     viewPlayersPass[3] = playersPassed[3]
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        if(passConfirmable){
+                            passConfirmable = false
+                        }
                         if(activeShowScorePage){
                             activeShowScorePage = false
                             showScorePage = true
@@ -220,7 +225,7 @@ struct GamePage: View {
         if(winnedPlayer[0] && !(othersWinned(current: 0))){
             currentAct = 2
             currentPlay = (currentPlay+1)%playerscount
-            print("\n\nAUTO ",terminator: "")
+//            print("\n\nAUTO ",terminator: "")
             gamePlay()
         }
         else if (othersWinned()){
@@ -230,16 +235,16 @@ struct GamePage: View {
             }
             if(winnORlose()){
                 userCoin += 50
-                print("user winned")
+//                print("user winned")
             }
             else{
                 userCoin -= 30
-                print("user losed")
-                print("ranking : ")
-                for i in 0...winnerRank.count-1{
-                    print("\(winnerRank[i]) ",terminator: "")
-                }
-                print("\n")
+//                print("user losed")
+//                print("ranking : ")
+//                for i in 0...winnerRank.count-1{
+//                    print("\(winnerRank[i]) ",terminator: "")
+//                }
+//                print("\n")
             }
 //            showScorePage = true
             activeShowScorePage = true
@@ -315,7 +320,7 @@ struct GamePage: View {
         {
             //userPlayerCards = fakeGeneratePokers()
 
-            print("on Apper begin!!\n")
+//            print("on Apper begin!!\n")
 //            let tmp = fakeGeneratePokers(pokernum: [10,9,8,7,6], pokersuit: [0,0,2,1,2])
 //            print("\n")
 //
@@ -329,7 +334,7 @@ struct GamePage: View {
             
             initialGame()
             gamePlay()
-            print("\non Apper end!!")
+//            print("\non Apper end!!")
         }
     }
 }
@@ -406,7 +411,7 @@ extension GamePage{
             HStack(alignment: .center,spacing:5){
                 /*pass button begin*/
                 Button(action:{
-                    print("pass")
+//                    print("pass")
                     userDeskCards.removeAll()
                     currentAct = 2
                     playersPassed[currentPlay] = true//currentPlay==0
@@ -418,33 +423,34 @@ extension GamePage{
                     Text("pass")
                     .font(Font.custom("San Francisco", size: 15))
                     .fontWeight(.bold)
-                        .foregroundColor(Color.black)
+                    .foregroundColor(Color.black)
                     .frame(width:45, height: 35)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing:10))
-                        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 204/255, green: 255/255, blue: 204/255)))
+                    .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 204/255, green: 255/255, blue: 204/255)))
+                    .opacity(passConfirmable ? 0.3 : 1)
                 })
                 .disabled(passConfirmable)
                 /*pass button end*/
                 /*confirm button begin*/
                 Button(action:{
-                    print("confirm")
+//                    print("confirm")
                     if(userPreDeskCards.count>0){
                         if(othersPassed(current: currentPlay)){
                             currentAct = 1
-                            print("others all PASSED, current player \"\(currentPlay)\" take control.")
+//                            print("others all PASSED, current player \"\(currentPlay)\" take control.")
                         }
-                        print("USER currentAct : \(currentAct)")
-                        print("desk.desk(playerclass) : ")
-                        PrintPokerClass(clas: [desk.desk])
-                        print("userPreDeskCards : ")
-                        _ = PrintCards(cards: userPreDeskCards)
+//                        print("USER currentAct : \(currentAct)")
+//                        print("desk.desk(playerclass) : ")
+//                        PrintPokerClass(clas: [desk.desk])
+//                        print("userPreDeskCards : ")
+//                        _ = PrintCards(cards: userPreDeskCards)
                         
-                        let (deskTmp,last) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
+                        let (deskTmp,_) = ComputerPoker(cards: userPreDeskCards, desk: desk.desk, action: currentAct)
                         //user選擇的牌 last應為空array
-                        print("出的牌---",terminator: "")
-                        PrintPokerClass(clas: [deskTmp])
-                        print("last : ",terminator: "")
-                        _ = PrintCards(cards: last)
+//                        print("出的牌---",terminator: "")
+//                        PrintPokerClass(clas: [deskTmp])
+//                        print("last : ",terminator: "")
+//                        _ = PrintCards(cards: last)
                         //return
                         if(deskTmp.isEmpty()){
                             confirmAlert = true
@@ -480,8 +486,8 @@ extension GamePage{
                             }
                             //userPreDeskCards.removeAll()
                             
-                            print("players[0].cards : ",terminator: "")
-                            _ = PrintCards(cards: last)
+//                            print("players[0].cards : ",terminator: "")
+//                            _ = PrintCards(cards: last)
                         }
                         
                         if(userPlayerCards.isEmpty && userPreDeskCards.isEmpty){//this player was finished its game
@@ -505,7 +511,8 @@ extension GamePage{
                         .foregroundColor(Color.black)
                     .frame(width:50, height: 35)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing:10))
-                        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 255/255, green: 0/255, blue: 0/255)))
+                    .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 255/255, green: 0/255, blue: 0/255)))
+                    .opacity(passConfirmable ? 0.3 : 1)
                 })
                 .alert(isPresented: $confirmAlert)
                     { () -> Alert in comfirmAlert(alertType: confirmType) }
@@ -517,7 +524,7 @@ extension GamePage{
                     ForEach(userPreDeskCards.indices,id:\.self){
                         (index) in
                         Button(action:{
-                            print("button action\"\(index)\"")
+//                            print("button action\"\(index)\"")
                             if(userPreDeskCards.count > 0 && userPreDeskCards.count < 6 && userPlayerCards.count < 13){
                                 userPlayerCards.append(userPreDeskCards.remove(at:index))
                                 userPlayerCards.sort(by: >)
@@ -541,7 +548,7 @@ extension GamePage{
                     ForEach(userPlayerCards.indices,id:\.self){
                         (index) in
                         Button(action:{
-                            print("button action\"\(index)\"")
+//                            print("button action\"\(index)\"")
                             if(userPlayerCards.count > 0 && userPreDeskCards.count < 5 ){
                                 userPreDeskCards.append(userPlayerCards.remove(at:index))
                                 userPreDeskCards.sort(by: >)
