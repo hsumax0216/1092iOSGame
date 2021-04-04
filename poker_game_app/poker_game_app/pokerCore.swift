@@ -114,7 +114,7 @@ func GeneratePokers()->Array<poker>{
     return arra.shuffled()
 }
 
-public func fakeGeneratePokers()->Array<poker>{
+func fakeGeneratePokers()->Array<poker>{
     let cards=13
     var i=0
     let suits=["♣","♦","♥","♠"]
@@ -136,7 +136,7 @@ public func fakeGeneratePokers()->Array<poker>{
     return arra
 }
 
-public func fakeGeneratePokers(pokernum:Array<Int>,pokersuit:Array<Int>)->Array<poker>{
+func fakeGeneratePokers(pokernum:Array<Int>,pokersuit:Array<Int>)->Array<poker>{
     let cards=pokernum.count
     var i=0
     let suits=["♣","♦","♥","♠"]
@@ -160,7 +160,7 @@ func PrintPoker(card:poker){
     print("\(card.suit)\(temp) ",terminator: "")
 }
 
-public func PrintCards(cards:Array<poker>)->Int{
+func PrintCards(cards:Array<poker>)->Int{
     if(cards.count==0){
         print("空牌組")
         return 0
@@ -176,7 +176,7 @@ public func PrintCards(cards:Array<poker>)->Int{
 
 let pokerRank=["單張","一對","三條","順子","同花","葫蘆","四條","同花順"]
 
-public func PrintPokerClass(clas:Array<pokerClass>){
+func PrintPokerClass(clas:Array<pokerClass>){
     print("此人持有牌組：")
     var count=0
     var pokerC=0
@@ -192,14 +192,14 @@ public func PrintPokerClass(clas:Array<pokerClass>){
     print("共 \(count) 組牌組")
     print("共 \(pokerC) 張牌")
 }
-public func PokerNumCompare(this:poker,that:poker)->Bool{
+func PokerNumCompare(this:poker,that:poker)->Bool{
     guard !(this.num==that.num) else {
         return this.suitnum > that.suitnum
     }
     return this.num > that.num
 }
 
-public func PokerSuitCompare(this:poker,that:poker)->Bool{
+func PokerSuitCompare(this:poker,that:poker)->Bool{
     guard !(this.suitnum==that.suitnum) else {
         return this.num > that.num
     }
@@ -217,7 +217,7 @@ let SHUNZI=[[12,3,2,1,0],
             [12,11,2,1,0]]
 let SHUNZISP=[[12,3,2,1,0],//2,6,5,4,3  //2,3,4,5,6
               [12,11,2,1,0]]//2,A,5,4,3 //A,2,3,4,5
-public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
+func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     var tmpSuit=origins.sorted(by:PokerSuitCompare)
     var pokersArray=[pokerClass]()
     var hulu=[pokerClass]()
@@ -405,7 +405,7 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
     return pokersArray
 }
 
-public func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(pokerClass,Array<poker>){
+func ComputerPoker(cards:Array<poker>,desk:pokerClass,action:Int)->(pokerClass,Array<poker>){
     var rtn=pokerClass()
     var last=cards
     let tmp=ClassingPokers(origins: cards).sorted(by: <)
