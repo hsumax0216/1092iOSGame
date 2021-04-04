@@ -5,7 +5,6 @@
 //  Created by 徐浩恩 on 2021/4/3.
 //
 import SwiftUI
-//extension GamePage
 extension GamePage{
     var GameOverView: some View {
         GeometryReader{
@@ -33,7 +32,6 @@ extension GamePage{
                     },label:{
                         Text("Reset Game")
                             .font(.system(size: 30,weight: .bold,design:.monospaced))
-                        //.fontWeight(.bold)
                             .foregroundColor(Color.red)
                         .multilineTextAlignment(.center)
                             .frame(width:geometry.size.width * 1 / 2, height: 45)
