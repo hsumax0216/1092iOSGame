@@ -15,6 +15,7 @@
 		3D83A94E260A26A200D73F5C /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83A94D260A26A200D73F5C /* HomePage.swift */; };
 		3D83A950260B4C5B00D73F5C /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83A94F260B4C5B00D73F5C /* ScorePage.swift */; };
 		3DA30B2626090955005C4147 /* testground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA30B2526090955005C4147 /* testground.swift */; };
+		3DFA85ED2618B2E80045DEA3 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA85EC2618B2E80045DEA3 /* GameOverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3D83A94D260A26A200D73F5C /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		3D83A94F260B4C5B00D73F5C /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
 		3DA30B2526090955005C4147 /* testground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testground.swift; sourceTree = "<group>"; };
+		3DFA85EC2618B2E80045DEA3 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				3D83A94D260A26A200D73F5C /* HomePage.swift */,
 				3D81148A25FF65AC00C2E75B /* GamePage.swift */,
 				3D83A94F260B4C5B00D73F5C /* ScorePage.swift */,
+				3DFA85EC2618B2E80045DEA3 /* GameOverView.swift */,
 				3DA30B2526090955005C4147 /* testground.swift */,
 				3D81148825FF65AC00C2E75B /* poker_game_appApp.swift */,
 				3D81149725FF904000C2E75B /* pokerCore.swift */,
@@ -156,6 +159,7 @@
 				3D81148925FF65AC00C2E75B /* poker_game_appApp.swift in Sources */,
 				3DA30B2626090955005C4147 /* testground.swift in Sources */,
 				3D81149825FF904000C2E75B /* pokerCore.swift in Sources */,
+				3DFA85ED2618B2E80045DEA3 /* GameOverView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

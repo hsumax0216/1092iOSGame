@@ -14,9 +14,11 @@ struct GamePage: View {
     @State private var players = [player]()
     @State private var playerscount = Int()
     @State private var firstPriority = Int()
-    @State private var winnerRank = [Int]()
+    @State         var winnerRank = [Int]()
     @State private var playersPassed = [false,false,false,false]
-    @State private var winnedPlayer  = [Bool]()
+    @State         var viewPlayersPass = [false,false,false,false]
+    @State private var winnedPlayer  = [false,false,false,false]
+    @State         var userCoin:Int = 50
     
     @State private var userPlayerCards  = [poker]()
     @State private var userDeskCards    = [poker]()
@@ -33,12 +35,14 @@ struct GamePage: View {
     
     
     @State private var gobackMenuAlert = false
+    @State private var passConfirmable = false
     @State private var confirmAlert = false
     @State private var confirmType = Int()
 //    @State var playerLeftConfirm = false
 //    @State var playerTopConfirm = false
 //    @State var playerRightConfirm = false
     @State var showScorePage = false
+    @State var activeShowScorePage = false
     func initialGame(){
         userPlayerCards.removeAll()
         userDeskCards.removeAll()
@@ -50,15 +54,23 @@ struct GamePage: View {
         rightPlayerCards.removeAll()
         rightDeskCards.removeAll()
         
-        //let pokers=GeneratePokers()
-        let pokers = fakeGeneratePokers(pokernum: [3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
-                                                   2, 4, 9, 8, 7, 10, 7, 2, 11, 5, 12, 3, 0,
-                                                   9, 8, 12, 4, 10, 9, 8, 7, 2, 3, 4, 6, 0,
-                                                   10, 11, 0, 1, 5, 11, 6, 8, 4, 1, 10, 6, 3]
-                                     , pokersuit: [1, 0, 0, 3, 1, 2, 2, 3, 1, 3, 2, 1, 0,
-                                                   0, 2, 3, 3, 1, 0, 3, 1, 1, 2, 3, 2, 3,
-                                                   2, 2, 0, 1, 1, 0, 1, 2, 2, 3, 0, 2, 1,
-                                                   2, 3, 2, 1, 0, 0, 1, 0, 3, 0, 3, 3, 0])
+        let pokers = GeneratePokers()
+//        let pokers = fakeGeneratePokers(pokernum: [2, 4, 9, 8, 7, 10, 7, 2, 11, 5, 12, 3, 0,
+//                                                   3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
+//                                                   10, 11, 0, 1, 5, 11, 6, 8, 4, 1, 10, 6, 3,
+//                                                   9, 8, 12, 4, 10, 9, 8, 7, 2, 3, 4, 6, 0]
+//                                     , pokersuit: [0, 2, 3, 3, 1, 0, 3, 1, 1, 2, 3, 2, 3,
+//                                                   1, 0, 0, 3, 1, 2, 2, 3, 1, 3, 2, 1, 0,
+//                                                   2, 3, 2, 1, 0, 0, 1, 0, 3, 0, 3, 3, 0,
+//                                                   2, 2, 0, 1, 1, 0, 1, 2, 2, 3, 0, 2, 1])
+//        let pokers = fakeGeneratePokers(pokernum: [3, 6, 7, 1, 5, 12, 1, 2, 9, 5, 11, 12, 0,
+//                                                   2, 4, 9, 8, 7, 10, 7, 2, 11, 5, 12, 3, 0,
+//                                                   9, 8, 12, 4, 10, 9, 8, 7, 2, 3, 4, 6, 0,
+//                                                   10, 11, 0, 1, 5, 11, 6, 8, 4, 1, 10, 6, 3]
+//                                     , pokersuit: [1, 0, 0, 3, 1, 2, 2, 3, 1, 3, 2, 1, 0,
+//                                                   0, 2, 3, 3, 1, 0, 3, 1, 1, 2, 3, 2, 3,
+//                                                   2, 2, 0, 1, 1, 0, 1, 2, 2, 3, 0, 2, 1,
+//                                                   2, 3, 2, 1, 0, 0, 1, 0, 3, 0, 3, 3, 0])
         print("pokers.count : \(pokers.count)")
         (players,firstPriority) = assignPoker(DECK:pokers)//players[0] must be human
         print("assing pass")
@@ -70,8 +82,11 @@ struct GamePage: View {
         playerscount = players.count
         for coun in 0...playersPassed.count-1 {
             playersPassed[coun] = false
-            winnedPlayer.append(false)
+            viewPlayersPass[coun] = false
+            winnedPlayer[coun] = false
+            //winnedPlayer.append(false)
         }
+        winnerRank.removeAll()
         currentAct = 0
         confirmType = 0
         currentPlay = firstPriority
@@ -96,12 +111,15 @@ struct GamePage: View {
     }
     
     func othersPassed(current:Int)->Bool{
+        print("\nothersPassed[\(current)] : \n")
         var p=(current+1)%playersPassed.count
         var rtn:Bool = true
-        for _ in 1...3{
+        while(!(p==current)){
+            print("\tplayer[\(p)] : \(playersPassed[p])")
             rtn = rtn && playersPassed[p]
             p=(p+1)%playersPassed.count
         }
+        print("othersPassed rtn: \(rtn)\n")
         return rtn
     }
     
@@ -109,9 +127,11 @@ struct GamePage: View {
 //        let testEmpty=Int()
 //        print("testEmpty:\(testEmpty)")
         //var winnerRank=[String]()
-        
         //var desk = player()
         print("in gamePlay()")
+        for coun in 0...viewPlayersPass.count-1 {
+            viewPlayersPass[coun] = false
+        }
         
         players[0].cards = userPlayerCards
         
@@ -176,12 +196,27 @@ struct GamePage: View {
         //currentAct=1
         
         //userPlayerCards  = players[0].cards
-        leftPlayerCards  = players[1].cards
-        leftDeskCards    = players[1].desk.cards
-        topPlayerCards   = players[2].cards
-        topDeskCards     = players[2].desk.cards
-        rightPlayerCards = players[3].cards
-        rightDeskCards   = players[3].desk.cards
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            leftPlayerCards  = players[1].cards
+            leftDeskCards    = players[1].desk.cards
+            viewPlayersPass[1] = playersPassed[1]
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
+                topPlayerCards   = players[2].cards
+                topDeskCards     = players[2].desk.cards
+                viewPlayersPass[2] = playersPassed[2]
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
+                    rightPlayerCards = players[3].cards
+                    rightDeskCards   = players[3].desk.cards
+                    viewPlayersPass[3] = playersPassed[3]
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        if(activeShowScorePage){
+                            activeShowScorePage = false
+                            showScorePage = true
+                        }
+                    }
+                }
+            }
+        }
         if(winnedPlayer[0] && !(othersWinned(current: 0))){
             currentAct = 2
             currentPlay = (currentPlay+1)%playerscount
@@ -193,7 +228,21 @@ struct GamePage: View {
                 players[i].cards.removeAll()
                 players[i].desk.cards.removeAll()
             }
-            showScorePage = true
+            if(winnORlose()){
+                userCoin += 50
+                print("user winned")
+            }
+            else{
+                userCoin -= 30
+                print("user losed")
+                print("ranking : ")
+                for i in 0...winnerRank.count-1{
+                    print("\(winnerRank[i]) ",terminator: "")
+                }
+                print("\n")
+            }
+//            showScorePage = true
+            activeShowScorePage = true
         }
     }
     var body: some View {
@@ -212,7 +261,7 @@ struct GamePage: View {
                                 .frame(width: 30, height: 30, alignment: .center)
                                 .scaledToFill()
                                 .padding(.leading,10)
-                            Text(":50")
+                            Text(":\(userCoin)")
                                 .font(.system(size: 30,design: .monospaced))
                                 .foregroundColor(Color.white)
                               Spacer()
@@ -240,19 +289,24 @@ struct GamePage: View {
                           }
                         Spacer()
                       }
-                Button(action:{
-                    showScorePage=true
-                },label:{
-                    Text("score page test")
-                })
+//                Button(action:{
+//                    showScorePage=true
+//                },label:{
+//                    Text("score page test")
+//                })
                 playerBottomView
                 playerLeftView(playerCards: $leftPlayerCards, deskCards: $leftDeskCards/*lastPlayerConfirm: $playerBottomConfirm, playerConfirm: $playerLeftConfirm*/)
                 playerTopView(playerCards: $topPlayerCards, deskCards: $topDeskCards/*lastPlayerConfirm: $playerLeftConfirm, playerConfirm: $playerTopConfirm*/)
                 playerRightView(playerCards: $rightPlayerCards, deskCards: $rightDeskCards/*lastPlayerConfirm: $playerTopConfirm, playerConfirm: $playerRightConfirm*/)
-                DeskView(leftPlayerCards: $leftDeskCards, topPlayerCards: $topDeskCards, rightPlayerCards: $rightDeskCards,playersPassed:$playersPassed)
+                DeskView(leftPlayerCards: $leftDeskCards, topPlayerCards: $topDeskCards, rightPlayerCards: $rightDeskCards,viewPlayersPass:$viewPlayersPass)
             }
             .fullScreenCover(isPresented:$showScorePage,content:{
-                ScorePage
+                if(userCoin <= 0){
+                    GameOverView
+                }
+                else{
+                    ScorePage
+                }
             })
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
@@ -260,12 +314,19 @@ struct GamePage: View {
         .onAppear
         {
             //userPlayerCards = fakeGeneratePokers()
-//            let desk = pokerClass()
-//            let tmp = fakeGeneratePokers(pokernum: [10,7,6,3,2,0], pokersuit: [1,2,2,3,2,1])
-//            let (deskTmp,last) = ComputerPoker(cards: tmp , desk: desk, action: 1)
-//            PrintPokerClass(clas: [deskTmp])
-//            PrintCards(cards: last)
+
             print("on Apper begin!!\n")
+//            let tmp = fakeGeneratePokers(pokernum: [10,9,8,7,6], pokersuit: [0,0,2,1,2])
+//            print("\n")
+//
+//            let desktmp =  ClassingPokers(origins: fakeGeneratePokers(pokernum: [8,7,6,5,4], pokersuit: [0,0,1,0,1]))
+//            print("")
+//            PrintPokerClass(clas: desktmp)
+//            let desk = pokerClass(cards: desktmp[0].cards, classing: desktmp[0].classing,level: desktmp[0].level)
+//            let (deskTmp,last) = ComputerPoker(cards: tmp , desk: desk, action: 2)
+//            PrintPokerClass(clas: [deskTmp])
+//            _ = PrintCards(cards: last)
+            
             initialGame()
             gamePlay()
             print("\non Apper end!!")
@@ -362,6 +423,7 @@ extension GamePage{
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing:10))
                         .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(red: 204/255, green: 255/255, blue: 204/255)))
                 })
+                .disabled(passConfirmable)
                 /*pass button end*/
                 /*confirm button begin*/
                 Button(action:{
@@ -447,6 +509,7 @@ extension GamePage{
                 })
                 .alert(isPresented: $confirmAlert)
                     { () -> Alert in comfirmAlert(alertType: confirmType) }
+                .disabled(passConfirmable)
                 /*confirm button end*/
             }
             HStack(alignment: .center,spacing:5){
@@ -590,7 +653,7 @@ struct DeskView: View {
     @Binding var leftPlayerCards:[poker]
     @Binding var topPlayerCards:[poker]
     @Binding var rightPlayerCards:[poker]
-    @Binding var playersPassed:[Bool]
+    @Binding var viewPlayersPass:[Bool]
     var body: some View {
         ZStack{
             /*Top desk cards begin*/
@@ -610,7 +673,7 @@ struct DeskView: View {
                             }
                         }
                     }
-                    Text(playersPassed[2] ? "PASS" : "")
+                    Text(viewPlayersPass[2] ? "PASS" : "")
                             .font(.system(size: 30,weight: .bold,design:.monospaced))
                             //.fontWeight(.bold)
                             //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
@@ -667,7 +730,7 @@ struct DeskView: View {
                         }
                         //
                     }
-                    Text(playersPassed[1] ? "PASS" : "")
+                    Text(viewPlayersPass[1] ? "PASS" : "")
                     .font(.system(size: 30,weight: .bold,design:.monospaced))
                     //.fontWeight(.bold)
                     //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))
@@ -705,7 +768,7 @@ struct DeskView: View {
                         }
                     }
                     
-                    Text(playersPassed[3] ? "PASS" : "")
+                    Text(viewPlayersPass[3] ? "PASS" : "")
                     .font(.system(size: 30,weight: .bold,design:.monospaced))
                     //.fontWeight(.bold)
                     //.foregroundColor(Color(red: 255/255, green: 120/255, blue: 70/255))

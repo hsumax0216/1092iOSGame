@@ -113,7 +113,7 @@ func GeneratePokers()->Array<poker>{
             i+=1
         }
     }
-    return arra
+    return arra.shuffled()
 }
 
 public func fakeGeneratePokers()->Array<poker>{
@@ -262,7 +262,7 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
         let suitreg=tmpSuit[suitS].suitnum
 //        print("while loop 2 begin")
         while(coun<tmpSuit.count){
-            PrintPoker(card: tmpSuit[coun])
+//            PrintPoker(card: tmpSuit[coun])
             if(!(tmpSuit[coun].suitnum==suitreg)){
 //                print("\nbreak")
                 break
@@ -410,8 +410,8 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
 
 
     tmpNum.sort(by:PokerSuitCompare)
-    //print("After Suit Sort:")
-    //PrintCards(cards:tmpNum)
+//    print("After Suit Sort:")
+//    _ = PrintCards(cards:tmpNum)
 
     ele=1
     suitsCount=0
@@ -439,7 +439,7 @@ public func ClassingPokers(origins:Array<poker>)->Array<pokerClass>{
 //    print("\n同花篩選:")
 //    _ = PrintCards(cards:tmpNum)
 
-    ele = 1
+    ele = 0
     var cmp=0
     while(ele<tmpNum.count && tmpNum.count > 4){
         if(tmpNum[ele].num==SHUNZI[cmp][0]){
