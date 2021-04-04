@@ -8,7 +8,6 @@
 import SwiftUI
 
 extension GamePage{
-    //@Binding var showScorePage:Bool
     func winnORlose(player:Int=0)->Bool{
         if(winnerRank[player]==0){//user first out
             return true
@@ -37,7 +36,6 @@ extension GamePage{
                             .foregroundColor(Color.white)
                     }
                     Text(winnORlose() ? "You Win!" : "You Lose...")
-                    //Text("You Win!")
                         .font(.system(size: 30,weight: .bold,design:.monospaced))
                         .foregroundColor(Color.white)
                         .padding(.bottom,10)
