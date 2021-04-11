@@ -11,7 +11,8 @@ import SwiftUI
 struct gesture_alphabetGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PageSwitch()
+            //ContentView()
         }
     }
 }
