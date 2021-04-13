@@ -11,7 +11,9 @@ struct LeaderboardPage:View {
     @Binding var currentPage : Pages
     var body: some View{
         ZStack{
-            Text("Pages.LeaderboardPage")
+            Button(action: {currentPage = Pages.HomePage}, label: {
+                Text("Pages.LeaderboardPage")
+            })
         }
     }
 }

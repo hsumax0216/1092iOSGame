@@ -13,11 +13,7 @@ struct HomePage: View {
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         let screenHeight:CGFloat = UIScreen.main.bounds.size.height
         ZStack{
-//            Image("background")
-//                .resizable()
-//                .scaledToFill()
-//                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)
-//                .edgesIgnoringSafeArea(.all)
+//            background
             VStack{
                 Text("Wortschatz!")
                     .font(.system(size: 45,weight:.bold,design:.monospaced))
@@ -53,21 +49,27 @@ struct HomePage: View {
     }
 }
 
+extension HomePage{
+    var background:some View{
+            Image("background")
+                .resizable()
+                .scaledToFill()
+                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)
+                .edgesIgnoringSafeArea(.all)
+    }
+}
+
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
         
 //        let screenWidth:CGFloat = UIScreen.main.bounds.size.width
 //        let screenHeight:CGFloat = UIScreen.main.bounds.size.height
 //        LightAndDark {
-//            Landscape {
+        Landscape {
                 Group {
                     HomePage(currentPage: .constant(Pages.HomePage))
                 }
-//                .rotationEffect(.degrees(-90))
-//                .previewLayout(.fixed(width: screenHeight, height: screenWidth))
-//                .environment(\.horizontalSizeClass, .regular)
-//                .environment(\.verticalSizeClass, .compact)
-//            }
+            }
 //        }
     }
 }

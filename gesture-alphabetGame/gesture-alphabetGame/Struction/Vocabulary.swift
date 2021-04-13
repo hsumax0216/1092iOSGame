@@ -11,8 +11,16 @@ struct Vocabulary{
     var German : String
     var English : String
     var fileName : String
-    
-    
+    init(German:String,English:String,fileName:String){
+        self.German = German
+        self.English = English
+        self.fileName = fileName
+    }
+    init(){
+        self.German = ""
+        self.English = ""
+        self.fileName = ""
+    }
 }
 
 var vocabularyDataSet:[Vocabulary]=[

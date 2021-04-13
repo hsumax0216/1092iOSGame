@@ -7,13 +7,26 @@
 
 import SwiftUI
 
+
+class alphabet:ObservableObject{
+    @Published var pos = [CGRect]()
+    @Published var correct = [Bool]()
+}
+
 struct GamePage:View {
     @Binding var currentPage:Pages
     let color: [Color] = [.gray,.red,.orange,.yellow,.green,.purple,.pink]
-    @State private var arr = [Int]()
+    @State private var vocabularyOrder = [Int]()
     @State private var fgColor: Color = .gray
     @State private var offset = [CGSize]()
     @State private var newPosition = [CGSize]()
+    @State var ans = alphabet()//[CGRect]()
+    @State var ques = alphabet()//[CGRect]()
+    @State private var ansTextSize:CGFloat = 50
+    @State private var quesTextSize:CGFloat = 60
+    @State private var ansChars = [String]()
+    @State private var quesChars = [String]()
+    @State private var currentVoca = Vocabulary()
 //    var dragGesture: some Gesture {
 //            DragGesture(coordinateSpace: .global)
 //                .onChanged({ value in
@@ -26,15 +39,34 @@ struct GamePage:View {
 //                })
 //        }
     func initialGame(){
-        for _ in 1...10{
-            arr.append(1)
-            offset.append(CGSize.init())
-            newPosition.append(CGSize.init())
+        vocabularyOrder.removeAll()
+        for i in 0...vocabularyDataSet.count-1{
+            vocabularyOrder.append(i)
         }
+        vocabularyOrder.shuffle()
+        gamePlay()
+        print("initialGame end")
     }
+    
+    func initialRound(){
+        currentVoca = vocabularyDataSet[vocabularyOrder.removeLast()]
+        vocabularyInit(voca:currentVoca.German)
+    }
+    
+    func gamePlay(){
+        if(vocabularyOrder.count<=0){
+            print("game was finished. reseting...")
+            //this part will delete
+            initialGame()
+            return
+        }
+        initialRound()
+    }
+    
     var body: some View{
         //let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
+            vocabularyImage
             VStack{
                 Button(action: {currentPage = Pages.HomePage}, label: {
                     Text("Button")
@@ -42,16 +74,27 @@ struct GamePage:View {
                 Spacer()
                 HStack(alignment: .center,spacing:15){
                     Group{
-                        ForEach(arr.indices,id:\.self){
+                        ForEach(quesChars.indices,id:\.self){
                             (index) in
-                            Text("")//alphabet background
+                            Text("\(quesChars[index])"/*""*/)//alphabet background
                                 .font(.system(size:35,design: .monospaced))
                                 .foregroundColor(.blue)
-                                .frame(width: 60, height: 60)
+                                .frame(width: quesTextSize, height: quesTextSize)
                                 .background(Color.black)
                                 .cornerRadius(100)
                                 .overlay(RoundedRectangle(cornerRadius: 100)
                                             .stroke(Color.red,lineWidth: 5))
+                                .overlay(GeometryReader(content:{geometry in
+                                    //let _ = print("quesPos updatePos:")
+                                    let _ = updatePos(geometry:geometry,ptr:&ques.pos[index])
+                                    
+                                    //let _ = updateQuesPos(geometry:geometry,index:index)
+                                    Color.clear
+                                }))
+                                .onTapGesture {
+                                    print("quesPos[\(index)]:\(ques.pos[index])")
+                                    //fgColor = color.randomElement()!
+                                }
                         }
                     }
                 }
@@ -60,28 +103,81 @@ struct GamePage:View {
             VStack{
                 HStack(alignment: .center,spacing:15){
                     Group{
-                        ForEach(arr.indices,id:\.self){
+                        ForEach(ansChars.indices,id:\.self){
                             (index) in
-                            Text("ä")
+                            //                            Button(action: {speakAlphabet(alpha: "")}, label: {
+                            //
+                            //                            })
+                            Text("\(ansChars[index])")
                                 .font(.system(size:35,design: .monospaced))
-                                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                                .frame(width: 50, height: 50)
+                                .foregroundColor(.blue)
+                                .frame(width: ansTextSize, height: ansTextSize)
                                 .background(fgColor)
                                 .cornerRadius(100)
                                 .overlay(RoundedRectangle(cornerRadius: 100)
                                             .stroke(Color.blue,lineWidth: 5))
-                                .offset(/*x:100,y:100*/offset[index])
+//                                .onAppear{GeometryReader(content:{geometry in
+//                                    let _ = updatePos(geometry:geometry,ptr:&ans.pos[index])
+//                                    Color.clear
+//                                })}
+                                .overlay(GeometryReader(content:{geometry in
+                                    //let _ = print("quesPos updatePos:")
+                                    let _ = updatePos(geometry:geometry,ptr:&ans.pos[index])
+                                    //let _ = updateAnsPos(geometry:geometry,index:index)
+                                    Color.clear
+                                }))
                                 .onTapGesture {
+                                    print("offset[\(index)]:\(offset[index])")
+                                    print("newPosition[\(index)]:\(newPosition[index])")
+                                    print("ansPos[\(index)]:\(ans.pos[index])")
+                                    print("(\(ans.pos[index].origin.x-newPosition[index].width),\(ans.pos[index].origin.y-newPosition[index].height))")
                                     fgColor = color.randomElement()!
                                 }
+                                .offset(offset[index])
                                 .gesture(DragGesture()
-                                    .onChanged({value in
-                                       offset[index].width = newPosition[index].width + value.translation.width
-                                       offset[index].height = newPosition[index].height + value.translation.height
-                                    })
-                                    .onEnded({ value in
-                                        newPosition[index] = offset[index]
-                                    })
+                                            .onChanged({value in
+                                                if(ans.correct[index]){ return }
+                                                offset[index].width = value.translation.width + newPosition[index].width
+                                                offset[index].height = value.translation.height + newPosition[index].height
+                                                
+                                                //speakAlphabet(alpha: "")
+                                            })
+                                            .onEnded({ value in
+                                                if(ans.correct[index]){ return }
+                                                newPosition[index].width = offset[index].width
+                                                newPosition[index].height = offset[index].height
+                                                for i in 0...quesChars.count-1{
+                                                    if(ansChars[index] == quesChars[i] && !ques.correct[i]){
+                                                        if(cmpDistance(dic:(ansTextSize+quesTextSize)/2,A:ques.pos[i],Asize: quesTextSize,B:ans.pos[index],Bsize: ansTextSize)){
+                                                            print("cmpDistance pass")
+                                                            print("ques.pos[\(i)]:\(ques.pos[i].origin)")
+                                                            print("ans.pos[\(index)]:\(ans.pos[index].origin)")
+                                                            print("offset[\(index)]:\(offset[index])")
+                                                            offset[index].width = ques.pos[i].origin.x - (ans.pos[index].origin.x-newPosition[index].width) + 5
+                                                            offset[index].height = ques.pos[i].origin.y - (ans.pos[index].origin.y-newPosition[index].height) + 5
+                                                            newPosition[index] = offset[index]
+                                                            
+                                                            ans.correct[index] = true
+                                                            ques.correct[i] = true
+                                                            break
+                                                        }
+                                                        else{
+                                                            offset[index] = .zero
+                                                            newPosition[index] = .zero
+                                                        }
+                                                    }
+                                                }
+                                                var pass = true
+                                                for i in ans.correct{
+                                                    pass = pass && i
+                                                    if(!pass){ break }
+                                                }
+                                                if(pass){
+                                                    //TODO:next round
+                                                    gamePlay()
+                                                }
+                                                //TODO:判斷字母位置
+                                            })
                                 )
                         }
                     }
@@ -89,27 +185,75 @@ struct GamePage:View {
                 .padding(.top,25)
                 Spacer()
             }
-        //            Text("ä")
-        //                .font(.system(size:35,design: .monospaced))
-        //                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-        //                .frame(width: 50, height: 50)
-        //                .background(fgColor)
-        //                .cornerRadius(100)
-        //                .overlay(RoundedRectangle(cornerRadius: 100)
-        //                            .stroke(Color.blue,lineWidth: 5))
-        //                .offset(/*x:100,y:100*/offset)
-        //                .onTapGesture {
-        //                    fgColor = color.randomElement()!
-        //                }
-        //                .gesture(dragGesture)
-
-                //.offset(x:10.0,y:10.0)
-            //Spacer()
         }
         .onAppear{
             initialGame()
         }
 //        .onAppear(perform:{initialGame()})
+    }
+}
+
+extension GamePage{
+    func cmpDistance(dic:CGFloat,A:CGRect,Asize:CGFloat,B:CGRect,Bsize:CGFloat)->Bool{
+        let Dis = pow(dic,2)
+        let aX:CGFloat = A.origin.x + Asize/2
+        let aY:CGFloat = A.origin.y + Asize/2
+        let bX:CGFloat = B.origin.x + Bsize/2
+        let bY:CGFloat = B.origin.y + Bsize/2
+        let tmp = pow(aX-bX,2)+pow(aY-bY,2)
+        print("|A-B| = \(sqrt(tmp))")
+        if(Dis > tmp){
+            return true
+        }
+        return false
+    }
+    func vocabularyInit(voca:String){
+        ansChars.removeAll()
+        quesChars.removeAll()
+        offset.removeAll()
+        newPosition.removeAll()
+        ans.correct.removeAll()
+        ques.correct.removeAll()
+        ans.pos.removeAll()
+        ques.pos.removeAll()
+        let n = voca.count
+//        ans.chars = [String](repeating: "", count: n)
+//        ques.chars = [String](repeating: "", count: n)
+        offset = [CGSize](repeating: .zero, count: n)
+        newPosition = [CGSize](repeating: .zero, count: n)
+        ans.correct = [Bool](repeating: false, count: n)
+        ques.correct = [Bool](repeating: false, count: n)
+        ans.pos = [CGRect](repeating: .zero, count: n)
+        ques.pos = [CGRect](repeating: .zero, count: n)
+        let chars = Array(voca)
+        let charSh = chars.shuffled()
+        for i in charSh{ ansChars.append(String(i)) }
+        for i in chars{ quesChars.append(String(i)) }
+    }
+    func updatePos(geometry:GeometryProxy,ptr:UnsafeMutablePointer<CGRect>){
+        let pos = geometry.frame(in: .global)
+        ptr.pointee = pos
+    }
+    func speakAlphabet(alpha:String){
+        print("speak alphabet!!")
+    }
+    func imageExist(inName: String) -> Bool {
+        if let _ = UIImage(named: inName) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    var vocabularyImage:some View{
+        Image(currentVoca.fileName == "" ? "default" : currentVoca.fileName)
+            .resizable()
+            //.background(Color.white)
+            .scaledToFit()
+            .frame(width: 230, height: 200, alignment: .center)
+            .clipped()
+            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+        
     }
 }
 
