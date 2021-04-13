@@ -27,6 +27,10 @@ struct GamePage:View {
     @State private var ansChars = [String]()
     @State private var quesChars = [String]()
     @State private var currentVoca = Vocabulary()
+    @State private var roundChanging:Bool = false
+    @State private var roundCount = Int()
+    @State private var timer: Timer?
+    @State private var timeClock = Float()
 //    var dragGesture: some Gesture {
 //            DragGesture(coordinateSpace: .global)
 //                .onChanged({ value in
@@ -44,11 +48,13 @@ struct GamePage:View {
             vocabularyOrder.append(i)
         }
         vocabularyOrder.shuffle()
+        timeClock = 600
         gamePlay()
         print("initialGame end")
     }
     
     func initialRound(){
+        roundCount = 0
         currentVoca = vocabularyDataSet[vocabularyOrder.removeLast()]
         vocabularyInit(voca:currentVoca.German)
     }
@@ -60,134 +66,140 @@ struct GamePage:View {
             initialGame()
             return
         }
+        nextRoundDelay()
         initialRound()
     }
     
     var body: some View{
         //let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
-            vocabularyImage
-            VStack{
-                Button(action: {currentPage = Pages.HomePage}, label: {
+            HStack{
+                Button(action: {roundChanging = !roundChanging}, label: {
                     Text("Button")
                 })
                 Spacer()
-                HStack(alignment: .center,spacing:15){
-                    Group{
-                        ForEach(quesChars.indices,id:\.self){
-                            (index) in
-                            Text("\(quesChars[index])"/*""*/)//alphabet background
-                                .font(.system(size:35,design: .monospaced))
-                                .foregroundColor(.blue)
-                                .frame(width: quesTextSize, height: quesTextSize)
-                                .background(Color.black)
-                                .cornerRadius(100)
-                                .overlay(RoundedRectangle(cornerRadius: 100)
-                                            .stroke(Color.red,lineWidth: 5))
-                                .overlay(GeometryReader(content:{geometry in
-                                    //let _ = print("quesPos updatePos:")
-                                    let _ = updatePos(geometry:geometry,ptr:&ques.pos[index])
-                                    
-                                    //let _ = updateQuesPos(geometry:geometry,index:index)
-                                    Color.clear
-                                }))
-                                .onTapGesture {
-                                    print("quesPos[\(index)]:\(ques.pos[index])")
-                                    //fgColor = color.randomElement()!
-                                }
+            }
+            if(roundChanging){
+                Text("Round \(roundCount)")
+                    .font(.system(size:100,design: .monospaced))
+                    //.frame(height:200)
+            }
+            else{
+                vocabularyImage
+                VStack{
+                    Button(action: {currentPage = Pages.HomePage}, label: {
+                        Text("Button")
+                    })
+                    Spacer()
+                    HStack(alignment: .center,spacing:15){
+                        Group{
+                            ForEach(quesChars.indices,id:\.self){
+                                (index) in
+                                Text("\(quesChars[index])"/*""*/)//alphabet background
+                                    .font(.system(size:35,design: .monospaced))
+                                    .foregroundColor(.blue)
+                                    .frame(width: quesTextSize, height: quesTextSize)
+                                    .background(Color.black)
+                                    .cornerRadius(100)
+                                    .overlay(RoundedRectangle(cornerRadius: 100)
+                                                .stroke(Color.red,lineWidth: 5))
+                                    .overlay(GeometryReader(content:{geometry in
+                                        let _ = updatePos(geometry:geometry,ptr:&ques.pos[index])
+                                        Color.clear
+                                    }))
+                                    .onTapGesture {
+                                        print("quesPos[\(index)]:\(ques.pos[index])")
+                                    }
+                            }
                         }
                     }
+                    .padding(.bottom)
                 }
-                .padding(.bottom)
-            }
-            VStack{
-                HStack(alignment: .center,spacing:15){
-                    Group{
-                        ForEach(ansChars.indices,id:\.self){
-                            (index) in
-                            //                            Button(action: {speakAlphabet(alpha: "")}, label: {
-                            //
-                            //                            })
-                            Text("\(ansChars[index])")
-                                .font(.system(size:35,design: .monospaced))
-                                .foregroundColor(.blue)
-                                .frame(width: ansTextSize, height: ansTextSize)
-                                .background(fgColor)
-                                .cornerRadius(100)
-                                .overlay(RoundedRectangle(cornerRadius: 100)
-                                            .stroke(Color.blue,lineWidth: 5))
-//                                .onAppear{GeometryReader(content:{geometry in
-//                                    let _ = updatePos(geometry:geometry,ptr:&ans.pos[index])
-//                                    Color.clear
-//                                })}
-                                .overlay(GeometryReader(content:{geometry in
-                                    //let _ = print("quesPos updatePos:")
-                                    let _ = updatePos(geometry:geometry,ptr:&ans.pos[index])
-                                    //let _ = updateAnsPos(geometry:geometry,index:index)
-                                    Color.clear
-                                }))
-                                .onTapGesture {
-                                    print("offset[\(index)]:\(offset[index])")
-                                    print("newPosition[\(index)]:\(newPosition[index])")
-                                    print("ansPos[\(index)]:\(ans.pos[index])")
-                                    print("(\(ans.pos[index].origin.x-newPosition[index].width),\(ans.pos[index].origin.y-newPosition[index].height))")
-                                    fgColor = color.randomElement()!
-                                }
-                                .offset(offset[index])
-                                .gesture(DragGesture()
-                                            .onChanged({value in
-                                                if(ans.correct[index]){ return }
-                                                offset[index].width = value.translation.width + newPosition[index].width
-                                                offset[index].height = value.translation.height + newPosition[index].height
-                                                
-                                                //speakAlphabet(alpha: "")
-                                            })
-                                            .onEnded({ value in
-                                                if(ans.correct[index]){ return }
-                                                newPosition[index].width = offset[index].width
-                                                newPosition[index].height = offset[index].height
-                                                for i in 0...quesChars.count-1{
-                                                    if(ansChars[index] == quesChars[i] && !ques.correct[i]){
-                                                        if(cmpDistance(dic:(ansTextSize+quesTextSize)/2,A:ques.pos[i],Asize: quesTextSize,B:ans.pos[index],Bsize: ansTextSize)){
-                                                            print("cmpDistance pass")
-                                                            print("ques.pos[\(i)]:\(ques.pos[i].origin)")
-                                                            print("ans.pos[\(index)]:\(ans.pos[index].origin)")
-                                                            print("offset[\(index)]:\(offset[index])")
-                                                            offset[index].width = ques.pos[i].origin.x - (ans.pos[index].origin.x-newPosition[index].width) + 5
-                                                            offset[index].height = ques.pos[i].origin.y - (ans.pos[index].origin.y-newPosition[index].height) + 5
-                                                            newPosition[index] = offset[index]
-                                                            
-                                                            ans.correct[index] = true
-                                                            ques.correct[i] = true
-                                                            break
-                                                        }
-                                                        else{
-                                                            offset[index] = .zero
-                                                            newPosition[index] = .zero
+                VStack{
+                    HStack(alignment: .center,spacing:15){
+                        Group{
+                            ForEach(ansChars.indices,id:\.self){
+                                (index) in
+                                Text("\(ansChars[index])")
+                                    .font(.system(size:35,design: .monospaced))
+                                    .foregroundColor(.blue)
+                                    .frame(width: ansTextSize, height: ansTextSize)
+                                    .background(fgColor)
+                                    .cornerRadius(100)
+                                    .overlay(RoundedRectangle(cornerRadius: 100)
+                                                .stroke(Color.blue,lineWidth: 5))
+                                    .overlay(GeometryReader(content:{geometry in
+                                        let _ = updatePos(geometry:geometry,ptr:&ans.pos[index])
+                                        Color.clear
+                                    }))
+                                    .onTapGesture {
+                                        print("offset[\(index)]:\(offset[index])")
+                                        print("newPosition[\(index)]:\(newPosition[index])")
+                                        print("ansPos[\(index)]:\(ans.pos[index])")
+                                        print("(\(ans.pos[index].origin.x-newPosition[index].width),\(ans.pos[index].origin.y-newPosition[index].height))")
+                                        fgColor = color.randomElement()!
+                                    }
+                                    .offset(offset[index])
+                                    .gesture(DragGesture()
+                                                .onChanged({value in
+                                                    if(ans.correct[index]){ return }
+                                                    offset[index].width = value.translation.width + newPosition[index].width
+                                                    offset[index].height = value.translation.height + newPosition[index].height
+                                                    
+                                                    //speakAlphabet(alpha: "")
+                                                })
+                                                .onEnded({ value in
+                                                    if(ans.correct[index]){ return }
+                                                    newPosition[index].width = offset[index].width
+                                                    newPosition[index].height = offset[index].height
+                                                    for i in 0...quesChars.count-1{
+                                                        if(ansChars[index] == quesChars[i] && !ques.correct[i]){
+                                                            if(cmpDistance(dic:(ansTextSize+quesTextSize)/2,A:ques.pos[i],Asize: quesTextSize,B:ans.pos[index],Bsize: ansTextSize)){
+                                                                print("cmpDistance pass")
+                                                                print("ques.pos[\(i)]:\(ques.pos[i].origin)")
+                                                                print("ans.pos[\(index)]:\(ans.pos[index].origin)")
+                                                                print("offset[\(index)]:\(offset[index])")
+                                                                print("newPosition[\(index)]:\(newPosition[index])")
+                                                                offset[index].width = ques.pos[i].origin.x - (ans.pos[index].origin.x-newPosition[index].width) + 5
+                                                                offset[index].height = ques.pos[i].origin.y - (ans.pos[index].origin.y-newPosition[index].height) + 5
+                                                                newPosition[index] = offset[index]
+                                                                
+                                                                ans.correct[index] = true
+                                                                ques.correct[i] = true
+                                                                break
+                                                            }
                                                         }
                                                     }
-                                                }
-                                                var pass = true
-                                                for i in ans.correct{
-                                                    pass = pass && i
-                                                    if(!pass){ break }
-                                                }
-                                                if(pass){
-                                                    //TODO:next round
-                                                    gamePlay()
-                                                }
-                                                //TODO:判斷字母位置
-                                            })
-                                )
+                                                    if(!ans.correct[index]){
+                                                        offset[index] = .zero
+                                                        newPosition[index] = .zero
+                                                    }
+                                                    var pass = true
+                                                    for i in ans.correct{
+                                                        pass = pass && i
+                                                        if(!pass){ break }
+                                                    }
+                                                    if(pass){
+                                                        //TODO:next round
+                                                        gamePlay()
+                                                    }
+                                                    //TODO:判斷字母位置
+                                                })
+                                    )
+                            }
                         }
                     }
+                    .padding(.top,25)
+                    Spacer()
                 }
-                .padding(.top,25)
-                Spacer()
             }
+            
         }
         .onAppear{
             initialGame()
+        }
+        .onDisappear{
+            self.timer?.invalidate()
         }
 //        .onAppear(perform:{initialGame()})
     }
@@ -233,6 +245,26 @@ extension GamePage{
     func updatePos(geometry:GeometryProxy,ptr:UnsafeMutablePointer<CGRect>){
         let pos = geometry.frame(in: .global)
         ptr.pointee = pos
+    }
+    func timerController(){
+//        if(!roundChanging){
+//            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (_) in
+//                self.timeClock -= 0.5
+//                print("self.timeClock:\(self.timeClock)")
+//            }
+//        }
+//        else{
+//            self.timer?.invalidate()
+//        }
+    }
+    func nextRoundDelay(){
+        roundCount += 1
+        roundChanging = true
+        timerController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
+            roundChanging = false
+            timerController()
+        }
     }
     func speakAlphabet(alpha:String){
         print("speak alphabet!!")

@@ -24,6 +24,6 @@ struct Vocabulary{
 }
 
 var vocabularyDataSet:[Vocabulary]=[
-    Vocabulary(German: "zebra", English: "zebra", fileName: "zebra"),
+    //Vocabulary(German: "zebra", English: "zebra", fileName: "zebra"),
     Vocabulary(German: "wortschatz", English: "vocabulary", fileName: "vocabulary")
 ]
