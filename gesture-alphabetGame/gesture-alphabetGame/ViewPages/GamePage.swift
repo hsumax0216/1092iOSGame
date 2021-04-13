@@ -16,6 +16,7 @@ class alphabet:ObservableObject{
 struct GamePage:View {
     @Binding var currentPage:Pages
     let color: [Color] = [.gray,.red,.orange,.yellow,.green,.purple,.pink]
+    let timeMax:CGFloat = 600
     @State private var vocabularyOrder = [Int]()
     @State private var fgColor: Color = .gray
     @State private var offset = [CGSize]()
@@ -30,7 +31,7 @@ struct GamePage:View {
     @State private var roundChanging:Bool = false
     @State private var roundCount = Int()
     @State private var timer: Timer?
-    @State private var timeClock = Float()
+    @State private var timeClock = CGFloat()
 //    var dragGesture: some Gesture {
 //            DragGesture(coordinateSpace: .global)
 //                .onChanged({ value in
@@ -48,13 +49,13 @@ struct GamePage:View {
             vocabularyOrder.append(i)
         }
         vocabularyOrder.shuffle()
-        timeClock = 600
+        timeClock = timeMax
+        roundCount = 0
         gamePlay()
         print("initialGame end")
     }
     
     func initialRound(){
-        roundCount = 0
         currentVoca = vocabularyDataSet[vocabularyOrder.removeLast()]
         vocabularyInit(voca:currentVoca.German)
     }
@@ -78,9 +79,30 @@ struct GamePage:View {
                     Text("Button")
                 })
                 Spacer()
+                VStack(alignment:.trailing,spacing:10){
+//                    ZStack{
+//                        RoundedRectangle(cornerRadius: 100)
+//                            .stroke(Color.red,lineWidth: 5)
+//                            .frame(width: 50, height: 100)
+//                            .overlay(Rectangle()
+//                                        .fill(Color.yellow)
+//                                        .frame(width: 50, height: 100*(timeClock/timeMax))
+//                                        .cornerRadius(100))
+//                    }
+                    Rectangle()
+                        .fill(Color.yellow)
+                        .frame(width: 50, height: 100*(timeClock/timeMax))
+                        .cornerRadius(10)
+                        .clipped()
+                        .padding(.top,100*(1 - timeClock/timeMax))
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.red,lineWidth: 5)
+                                    .frame(width: 50, height: 100))
+                }
+                .padding(.bottom,0)
             }
             if(roundChanging){
-                Text("Round \(roundCount)")
+                Text("Round \(roundCount+0)")
                     .font(.system(size:100,design: .monospaced))
                     //.frame(height:200)
             }
@@ -247,18 +269,24 @@ extension GamePage{
         ptr.pointee = pos
     }
     func timerController(){
-//        if(!roundChanging){
-//            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (_) in
-//                self.timeClock -= 0.5
-//                print("self.timeClock:\(self.timeClock)")
-//            }
-//        }
-//        else{
-//            self.timer?.invalidate()
-//        }
+        if(!roundChanging){
+            if(timeClock <= 0){
+                self.timer?.invalidate()
+                timeClock = 0
+                return
+            }
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (_) in
+                self.timeClock -= 0.5
+                print("self.timeClock:\(self.timeClock)")
+            }
+        }
+        else{
+            self.timer?.invalidate()
+        }
     }
     func nextRoundDelay(){
         roundCount += 1
+        print("roundCount:\(roundCount)")
         roundChanging = true
         timerController()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
