@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import AVFoundation
 
 class alphabet:ObservableObject{
     @Published var pos = [CGRect]()
@@ -15,8 +15,11 @@ class alphabet:ObservableObject{
 
 struct GamePage:View {
     @Binding var currentPage:Pages
+    @Binding var soundEffecter:AVPlayer
     let color: [Color] = [.gray,.red,.orange,.yellow,.green,.purple,.pink]
     let timeMax:CGFloat = 600
+    let synthesizer = AVSpeechSynthesizer()
+    @State var playerItem = AVPlayerItem(url : Bundle.main.url(forResource: "crrect_answer", withExtension: "mp3")!)
     @State private var showScorePage:Bool = false
     //@State private var scorePageSelect:Int = 0
     @State         var username = String()
@@ -28,6 +31,7 @@ struct GamePage:View {
     @State var ques = alphabet()//[CGRect]()
     @State private var ansTextSize:CGFloat = 50
     @State private var quesTextSize:CGFloat = 60
+    @State private var vocaSpeak = [Bool]()
     @State private var ansChars = [String]()
     @State private var quesChars = [String]()
     @State private var currentVoca = Vocabulary()
@@ -62,6 +66,7 @@ struct GamePage:View {
         username = ""
         currentVoca = vocabularyDataSet[vocabularyOrder.removeLast()]
         vocabularyInit(voca:currentVoca.German)
+        strSpeacker(str:"")
     }
     
     func gamePlay(){
@@ -175,6 +180,10 @@ struct GamePage:View {
                                     .gesture(DragGesture()
                                                 .onChanged({value in
                                                     if(ans.correct[index]){ return }
+                                                    if(!vocaSpeak[index]){
+                                                        vocaSpeak[index] = true
+                                                        strSpeacker(str:ansChars[index])
+                                                    }
                                                     offset[index].width = value.translation.width + newPosition[index].width
                                                     offset[index].height = value.translation.height + newPosition[index].height
                                                     
@@ -182,6 +191,7 @@ struct GamePage:View {
                                                 })
                                                 .onEnded({ value in
                                                     if(ans.correct[index]){ return }
+                                                    vocaSpeak[index] = false
                                                     newPosition[index].width = offset[index].width
                                                     newPosition[index].height = offset[index].height
                                                     for i in 0...quesChars.count-1{
@@ -213,7 +223,10 @@ struct GamePage:View {
                                                     }
                                                     if(pass){
                                                         //TODO:next round
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                                                        soundEffectPlayer()
+                                                        self.timer?.invalidate()
+                                                        strSpeacker(str:currentVoca.German)
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
                                                             gamePlay()
                                                         }
                                                     }
@@ -260,6 +273,18 @@ extension GamePage{
         }
         return false
     }
+    func strSpeacker(str:String,rate:Float=0.05){
+        let tmp = AVSpeechUtterance(string: str)
+        tmp.voice = AVSpeechSynthesisVoice(language: "de-DE")
+        tmp.rate = rate
+        synthesizer.speak(tmp)
+    }
+    func soundEffectPlayer(/*str:String="crrect_answer"*/){
+        let fileUrl = Bundle.main.url(forResource: "crrect_answer", withExtension: "mp3")!
+        self.playerItem = AVPlayerItem(url: fileUrl)
+        self.soundEffecter.replaceCurrentItem(with: playerItem)
+        self.soundEffecter.play()
+    }
     func scorePageSelect()->Bool{
         self.timer?.invalidate()
         if(vocabularyOrder.count <= 0 && timeClock>0){
@@ -270,6 +295,7 @@ extension GamePage{
         }
     }
     func vocabularyInit(voca:String){
+        vocaSpeak.removeAll()
         ansChars.removeAll()
         quesChars.removeAll()
         offset.removeAll()
@@ -287,6 +313,7 @@ extension GamePage{
         ques.correct = [Bool](repeating: false, count: n)
         ans.pos = [CGRect](repeating: .zero, count: n)
         ques.pos = [CGRect](repeating: .zero, count: n)
+        vocaSpeak = [Bool](repeating: false, count: n)
         let chars = Array(voca)
         let charSh = chars.shuffled()
         for i in charSh{ ansChars.append(String(i)) }
@@ -324,12 +351,10 @@ extension GamePage{
         roundChanging = true
         timerController()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
+            strSpeacker(str:currentVoca.German)
             roundChanging = false
             timerController()
         }
-    }
-    func speakAlphabet(alpha:String){
-        print("speak alphabet!!")
     }
     func imageExist(inName: String) -> Bool {
         if let _ = UIImage(named: inName) {
@@ -343,23 +368,30 @@ extension GamePage{
         RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.red,lineWidth: 5)
                     .frame(width: 50, height: 100)
+                    .overlay(Text(String(format:"%.1f", timeClock))
+                                .font(.system(size:13, weight: .semibold,design: .monospaced))
+                                .foregroundColor(.red))
     }
     var vocabularyImage:some View{
-        Image(currentVoca.fileName == "" ? "default" : currentVoca.fileName)
-            .resizable()
-            //.background(Color.white)
-            .scaledToFit()
-            .frame(width: 230, height: 200, alignment: .center)
-            .background(Color.white)
-            .clipped()
-            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+        Button(action: {
+            strSpeacker(str: currentVoca.German,rate:0.025)
+        }, label: {
+            Image(currentVoca.fileName == "" ? "default" : currentVoca.fileName)
+                .resizable()
+                //.background(Color.white)
+                .scaledToFit()
+                .frame(width: 230, height: 200, alignment: .center)
+                .background(Color.white)
+                .clipped()
+                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
+        })
     }
 }
 
 struct GamePage_Previews: PreviewProvider {
     static var previews: some View {
         Landscape{
-            GamePage(currentPage: .constant(Pages.GamePage))
+            GamePage(currentPage: .constant(Pages.GamePage), soundEffecter: .constant(AVPlayer()))
         }
     }
 }

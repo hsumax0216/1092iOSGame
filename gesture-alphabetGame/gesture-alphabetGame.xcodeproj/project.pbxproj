@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3D0007A0262663DD002B8390 /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00079F262663DD002B8390 /* ScorePage.swift */; };
+		3D0007A726269402002B8390 /* crrect_answer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D0007A526269402002B8390 /* crrect_answer.mp3 */; };
+		3D0007A826269402002B8390 /* GuitarHouse-joshpan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D0007A626269402002B8390 /* GuitarHouse-joshpan.mp3 */; };
 		3D1A1BEA262051D4006397FB /* PageSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BE9262051D4006397FB /* PageSwitch.swift */; };
 		3D1A1BEC262053F7006397FB /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BEB262053F7006397FB /* GamePage.swift */; };
 		3D1A1BEE26207B2B006397FB /* LeaderboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BED26207B2B006397FB /* LeaderboardPage.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		3D00079F262663DD002B8390 /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
+		3D0007A526269402002B8390 /* crrect_answer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crrect_answer.mp3; sourceTree = "<group>"; };
+		3D0007A626269402002B8390 /* GuitarHouse-joshpan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "GuitarHouse-joshpan.mp3"; sourceTree = "<group>"; };
 		3D1A1BE9262051D4006397FB /* PageSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSwitch.swift; sourceTree = "<group>"; };
 		3D1A1BEB262053F7006397FB /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
 		3D1A1BED26207B2B006397FB /* LeaderboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardPage.swift; sourceTree = "<group>"; };
@@ -52,10 +56,10 @@
 		3D1A1BCD261F3111006397FB /* ViewPages */ = {
 			isa = PBXGroup;
 			children = (
+				3D1A1BE9262051D4006397FB /* PageSwitch.swift */,
 				3D579FB7261EFC7900BA7F43 /* HomePage.swift */,
 				3D1A1BEB262053F7006397FB /* GamePage.swift */,
 				3D00079F262663DD002B8390 /* ScorePage.swift */,
-				3D1A1BE9262051D4006397FB /* PageSwitch.swift */,
 				3D1A1BEF26209EFD006397FB /* testOritation.swift */,
 				3D1A1BED26207B2B006397FB /* LeaderboardPage.swift */,
 			);
@@ -81,6 +85,8 @@
 		3D579FB4261EFC7900BA7F43 /* gesture-alphabetGame */ = {
 			isa = PBXGroup;
 			children = (
+				3D0007A526269402002B8390 /* crrect_answer.mp3 */,
+				3D0007A626269402002B8390 /* GuitarHouse-joshpan.mp3 */,
 				3D1A1BCD261F3111006397FB /* ViewPages */,
 				3D579FC6261F2BFC00BA7F43 /* Struction */,
 				3D579FB5261EFC7900BA7F43 /* gesture_alphabetGameApp.swift */,
@@ -167,6 +173,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D579FBD261EFC7B00BA7F43 /* Preview Assets.xcassets in Resources */,
+				3D0007A826269402002B8390 /* GuitarHouse-joshpan.mp3 in Resources */,
+				3D0007A726269402002B8390 /* crrect_answer.mp3 in Resources */,
 				3D579FBA261EFC7B00BA7F43 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

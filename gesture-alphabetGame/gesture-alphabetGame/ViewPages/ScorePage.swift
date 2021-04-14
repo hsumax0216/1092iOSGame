@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 extension GamePage{
     var GameOverView:some View{
@@ -31,7 +32,7 @@ extension GamePage{
 struct Scorepage_Previews: PreviewProvider {
     static var previews: some View {
         Landscape{
-            GamePage(currentPage: .constant(Pages.GamePage)).ScorePage
+            GamePage(currentPage: .constant(Pages.GamePage), soundEffecter: .constant(AVPlayer())).ScorePage
             //GamePage(currentPage: .constant(Pages.GamePage)).GameOverView
         }
     }
