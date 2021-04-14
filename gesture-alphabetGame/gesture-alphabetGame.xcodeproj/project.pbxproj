@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0007A0262663DD002B8390 /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00079F262663DD002B8390 /* ScorePage.swift */; };
 		3D1A1BEA262051D4006397FB /* PageSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BE9262051D4006397FB /* PageSwitch.swift */; };
 		3D1A1BEC262053F7006397FB /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BEB262053F7006397FB /* GamePage.swift */; };
 		3D1A1BEE26207B2B006397FB /* LeaderboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BED26207B2B006397FB /* LeaderboardPage.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D00079F262663DD002B8390 /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
 		3D1A1BE9262051D4006397FB /* PageSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSwitch.swift; sourceTree = "<group>"; };
 		3D1A1BEB262053F7006397FB /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
 		3D1A1BED26207B2B006397FB /* LeaderboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardPage.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			children = (
 				3D579FB7261EFC7900BA7F43 /* HomePage.swift */,
 				3D1A1BEB262053F7006397FB /* GamePage.swift */,
+				3D00079F262663DD002B8390 /* ScorePage.swift */,
 				3D1A1BE9262051D4006397FB /* PageSwitch.swift */,
 				3D1A1BEF26209EFD006397FB /* testOritation.swift */,
 				3D1A1BED26207B2B006397FB /* LeaderboardPage.swift */,
@@ -180,6 +183,7 @@
 				3D579FB8261EFC7900BA7F43 /* HomePage.swift in Sources */,
 				3D579FB6261EFC7900BA7F43 /* gesture_alphabetGameApp.swift in Sources */,
 				3D579FC8261F2C2100BA7F43 /* Record.swift in Sources */,
+				3D0007A0262663DD002B8390 /* ScorePage.swift in Sources */,
 				3D1A1BEA262051D4006397FB /* PageSwitch.swift in Sources */,
 				3D1A1BEC262053F7006397FB /* GamePage.swift in Sources */,
 				3D579FC5261F2B2E00BA7F43 /* Vocabulary.swift in Sources */,

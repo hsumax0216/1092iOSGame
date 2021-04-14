@@ -11,7 +11,7 @@ struct HomePage: View {
     @Binding var currentPage:Pages
     var body: some View {
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
-        let screenHeight:CGFloat = UIScreen.main.bounds.size.height
+        //let screenHeight:CGFloat = UIScreen.main.bounds.size.height
         ZStack{
             backGround()
             VStack{
@@ -25,7 +25,7 @@ struct HomePage: View {
             }
             VStack{
                 Button(action: {currentPage = Pages.GamePage}, label: {
-                    Text("Play\(Int(screenHeight))")
+                    Text("Play")
                         .font(.system(size: 30,weight:.bold,design:.monospaced))
                         .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
                         .multilineTextAlignment(.center)
@@ -66,7 +66,7 @@ struct HomePage_Previews: PreviewProvider {
 
 struct backGround: View {
     var body: some View {
-        Image("background_01")
+        Image("background_04")
             .resizable()
             .scaledToFill()
             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)

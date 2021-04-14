@@ -17,6 +17,9 @@ struct GamePage:View {
     @Binding var currentPage:Pages
     let color: [Color] = [.gray,.red,.orange,.yellow,.green,.purple,.pink]
     let timeMax:CGFloat = 600
+    @State private var showScorePage:Bool = false
+    //@State private var scorePageSelect:Int = 0
+    @State         var username = String()
     @State private var vocabularyOrder = [Int]()
     @State private var fgColor: Color = .gray
     @State private var offset = [CGSize]()
@@ -31,7 +34,7 @@ struct GamePage:View {
     @State private var roundChanging:Bool = false
     @State private var roundCount = Int()
     @State private var timer: Timer?
-    @State private var timeClock = CGFloat()
+    @State         var timeClock = CGFloat()
 //    var dragGesture: some Gesture {
 //            DragGesture(coordinateSpace: .global)
 //                .onChanged({ value in
@@ -56,15 +59,18 @@ struct GamePage:View {
     }
     
     func initialRound(){
+        username = ""
         currentVoca = vocabularyDataSet[vocabularyOrder.removeLast()]
         vocabularyInit(voca:currentVoca.German)
     }
     
     func gamePlay(){
         if(vocabularyOrder.count<=0){
-            print("game was finished. reseting...")
-            //this part will delete
-            initialGame()
+            //if()
+//            print("game was finished. reseting...")
+//            //this part will delete
+//            initialGame()
+            showScorePage = true
             return
         }
         nextRoundDelay()
@@ -74,6 +80,7 @@ struct GamePage:View {
     var body: some View{
         //let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
+            backGround()
             HStack{
                 Button(action: {roundChanging = !roundChanging}, label: {
                     Text("Button")
@@ -89,15 +96,18 @@ struct GamePage:View {
 //                                        .frame(width: 50, height: 100*(timeClock/timeMax))
 //                                        .cornerRadius(100))
 //                    }
-                    Rectangle()
-                        .fill(Color.yellow)
-                        .frame(width: 50, height: 100*(timeClock/timeMax))
-                        .cornerRadius(10)
-                        .clipped()
-                        .padding(.top,100*(1 - timeClock/timeMax))
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.red,lineWidth: 5)
-                                    .frame(width: 50, height: 100))
+                    if(timeClock>0){
+                        Rectangle()
+                            .fill(Color.yellow)
+                            .frame(width: 50, height: 100*(timeClock/timeMax))
+                            .cornerRadius(10)
+                            .clipped()
+                            .padding(.top,100*(1 - timeClock/timeMax))
+                            .overlay(rectOutsider)
+                    }
+                    else{
+                        rectOutsider
+                    }
                 }
                 .padding(.bottom,0)
             }
@@ -203,7 +213,9 @@ struct GamePage:View {
                                                     }
                                                     if(pass){
                                                         //TODO:next round
-                                                        gamePlay()
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                                                            gamePlay()
+                                                        }
                                                     }
                                                     //TODO:判斷字母位置
                                                 })
@@ -215,8 +227,15 @@ struct GamePage:View {
                     Spacer()
                 }
             }
-            
         }
+        .fullScreenCover(isPresented:$showScorePage,content:{
+            if(scorePageSelect()){
+                ScorePage
+            }
+            else{
+                GameOverView
+            }
+        })
         .onAppear{
             initialGame()
         }
@@ -240,6 +259,15 @@ extension GamePage{
             return true
         }
         return false
+    }
+    func scorePageSelect()->Bool{
+        self.timer?.invalidate()
+        if(vocabularyOrder.count <= 0 && timeClock>0){
+            return true//scarepage
+        }
+        else{
+            return false//gameoverview
+        }
     }
     func vocabularyInit(voca:String){
         ansChars.removeAll()
@@ -276,6 +304,12 @@ extension GamePage{
                 return
             }
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (_) in
+                if(self.timeClock <= 0){
+                    self.timeClock = 0
+                    showScorePage = true
+                    print("timer remove.")
+                    return
+                }
                 self.timeClock -= 0.5
                 print("self.timeClock:\(self.timeClock)")
             }
@@ -305,15 +339,20 @@ extension GamePage{
             return false
         }
     }
+    var rectOutsider:some View{
+        RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.red,lineWidth: 5)
+                    .frame(width: 50, height: 100)
+    }
     var vocabularyImage:some View{
         Image(currentVoca.fileName == "" ? "default" : currentVoca.fileName)
             .resizable()
             //.background(Color.white)
             .scaledToFit()
             .frame(width: 230, height: 200, alignment: .center)
+            .background(Color.white)
             .clipped()
             .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1)
-        
     }
 }
 
