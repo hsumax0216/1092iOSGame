@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct gesture_alphabetGameApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
             PageSwitch()

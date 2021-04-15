@@ -15,11 +15,12 @@ class alphabet:ObservableObject{
 
 struct GamePage:View {
     @Binding var currentPage:Pages
-    @Binding var soundEffecter:AVPlayer
     let color: [Color] = [.gray,.red,.orange,.yellow,.green,.purple,.pink]
     let timeMax:CGFloat = 600
     let synthesizer = AVSpeechSynthesizer()
-    @State var playerItem = AVPlayerItem(url : Bundle.main.url(forResource: "crrect_answer", withExtension: "mp3")!)
+    //@State var playerItem = AVPlayerItem(url : Bundle.main.url(forResource: "crrect_answer", withExtension: "mp3")!)
+    var correctPlayer: AVPlayer{ AVPlayer.sharedCorrectPlayer }
+    var errorPlayer:   AVPlayer{ AVPlayer.sharedErrorPlayer }
     @State private var showScorePage:Bool = false
     //@State private var scorePageSelect:Int = 0
     @State         var username = String()
@@ -208,6 +209,7 @@ struct GamePage:View {
                                                                 
                                                                 ans.correct[index] = true
                                                                 ques.correct[i] = true
+                                                                correctPlayer.playFromStart()
                                                                 break
                                                             }
                                                         }
@@ -215,6 +217,7 @@ struct GamePage:View {
                                                     if(!ans.correct[index]){
                                                         offset[index] = .zero
                                                         newPosition[index] = .zero
+                                                        errorPlayer.playFromStart()
                                                     }
                                                     var pass = true
                                                     for i in ans.correct{
@@ -223,7 +226,6 @@ struct GamePage:View {
                                                     }
                                                     if(pass){
                                                         //TODO:next round
-                                                        soundEffectPlayer()
                                                         self.timer?.invalidate()
                                                         strSpeacker(str:currentVoca.German)
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2){
@@ -279,12 +281,9 @@ extension GamePage{
         tmp.rate = rate
         synthesizer.speak(tmp)
     }
-    func soundEffectPlayer(/*str:String="crrect_answer"*/){
-        let fileUrl = Bundle.main.url(forResource: "crrect_answer", withExtension: "mp3")!
-        self.playerItem = AVPlayerItem(url: fileUrl)
-        self.soundEffecter.replaceCurrentItem(with: playerItem)
-        self.soundEffecter.play()
-    }
+//    func soundEffectPlayer(/*str:String="crrect_answer"*/){
+//        //
+//    }
     func scorePageSelect()->Bool{
         self.timer?.invalidate()
         if(vocabularyOrder.count <= 0 && timeClock>0){
@@ -391,7 +390,7 @@ extension GamePage{
 struct GamePage_Previews: PreviewProvider {
     static var previews: some View {
         Landscape{
-            GamePage(currentPage: .constant(Pages.GamePage), soundEffecter: .constant(AVPlayer()))
+            GamePage(currentPage: .constant(Pages.GamePage))
         }
     }
 }
