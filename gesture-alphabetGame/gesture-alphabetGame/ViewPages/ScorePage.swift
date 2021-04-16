@@ -10,20 +10,54 @@ import AVFoundation
 
 extension GamePage{
     var GameOverView:some View{
-        Text("")
+        ZStack{
+            backGround(imgName: .constant("background_01"),opacity: .constant(1))
+            
+            Text("GameOver")
+                .font(.system(size:60, weight: .semibold,design: .monospaced))
+                .foregroundColor(.red)
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    Image("pepefog")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 230, alignment: .center)
+                        .clipped()
+                }
+            }
+        }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                currentPage = Pages.HomePage
+                showScorePage = false
+            }
+        }
     }
+    
     var ScorePage:some View{
         ZStack{
-            backGround()
+            backGround(imgName: .constant("background_00"),opacity: .constant(0.75))
             VStack{
                 //Text("Your record time :  600.0")
+                Text("Congratulations!😄💪🐥")
+                    .font(.system(size:55,design: .monospaced))
+                    .foregroundColor(.black)
                 Text("Your record time : "+String(format:"%.1f", timeClock))
                     .font(.system(size:30,design: .monospaced))
                     .foregroundColor(.blue)
-                TextField("Your Name", text: $username)
-                    .frame(width:300)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                     //.keyboardType(.numberPad)
+//                TextField("Your Name", text: $username)
+//                    .frame(width:300)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                     //.keyboardType(.numberPad)
+            }
+        }
+        .onAppear{
+            savePhotos = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.5){
+                currentPage = Pages.HomePage
+                showScorePage = false
             }
         }
     }
@@ -32,8 +66,8 @@ extension GamePage{
 struct Scorepage_Previews: PreviewProvider {
     static var previews: some View {
         Landscape{
-            GamePage(currentPage: .constant(Pages.GamePage)).ScorePage
-            //GamePage(currentPage: .constant(Pages.GamePage)).GameOverView
+            //GamePage(currentPage: .constant(Pages.GamePage)).ScorePage
+            GamePage(currentPage: .constant(Pages.GamePage), savePhotos: .constant(false)).GameOverView
         }
     }
 }

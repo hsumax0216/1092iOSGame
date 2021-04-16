@@ -9,18 +9,20 @@ import SwiftUI
 
 struct HomePage: View {
     @Binding var currentPage:Pages
+    @Binding var savePhotos:Bool
+    @State private var processedImage:UIImage?
     var body: some View {
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         //let screenHeight:CGFloat = UIScreen.main.bounds.size.height
         ZStack{
-            backGround()
+            backGround(imgName: .constant("background_00"),opacity: .constant(1))
             VStack{
                 Text("Wortschatz!")
                     .font(.system(size: 45,weight:.bold,design:.monospaced))
                     .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
                     .multilineTextAlignment(.center)
                     .frame(width:screenWidth, height: 60)
-                    .padding(.top,50)
+                    .padding(.top,110)
                 Spacer()
             }
             VStack{
@@ -34,18 +36,43 @@ struct HomePage: View {
                 })
                 .padding(.top,100)
                 
-                Button(action: {currentPage = Pages.LeaderboardPage}, label: {
-                    Text("LeaderBoard")
-                        .font(.system(size: 20,weight:.bold,design:.monospaced))
-                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
-                        .multilineTextAlignment(.center)
-                        .frame(width:screenWidth * 0.5, height: 45)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 2)))
-                })
-                .padding(.top)
-                
+                if(savePhotos){
+                    Button(action: {
+                        //currentPage = Pages.SavePhotoPage
+                        savePhoto()
+                    }, label: {
+                        Text("Photos")
+                            .font(.system(size: 20,weight:.bold,design:.monospaced))
+                            .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                            .multilineTextAlignment(.center)
+                            .frame(width:screenWidth * 0.5, height: 45)
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 2)))
+                    })
+                    .padding(.top)
+                }
             }
         }
+    }
+    func savePhoto(){
+        let photoName = "background_0"
+        for i in 0...4{
+            processedImage = UIImage(named: photoName+String(i))
+            
+            guard let processedImage = self.processedImage else{ return }
+            
+            let imageSaver = ImageSaver()
+            
+            imageSaver.successHandler = {
+                print("Success!")
+            }
+
+            imageSaver.errorHandler = {
+                print("Oops: \($0.localizedDescription)")
+            }
+
+            imageSaver.writeToPhotoAlbum(image: processedImage)
+        }
+       
     }
 }
 
@@ -57,7 +84,7 @@ struct HomePage_Previews: PreviewProvider {
 //        LightAndDark {
         Landscape {
                 Group {
-                    HomePage(currentPage: .constant(Pages.HomePage))
+                    HomePage(currentPage: .constant(Pages.HomePage),savePhotos:.constant(true))
                 }
             }
 //        }
@@ -65,9 +92,12 @@ struct HomePage_Previews: PreviewProvider {
 }
 
 struct backGround: View {
+    @Binding var imgName:String
+    @Binding var opacity:Double
     var body: some View {
-        Image("background_04")
+        Image(imgName=="" ? "background_00" : imgName)
             .resizable()
+            .opacity(opacity<=0 ? 1 : opacity)
             .scaledToFill()
             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)
             .edgesIgnoringSafeArea(.all)

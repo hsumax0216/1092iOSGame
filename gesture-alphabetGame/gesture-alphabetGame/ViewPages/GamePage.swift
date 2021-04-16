@@ -15,13 +15,16 @@ class alphabet:ObservableObject{
 
 struct GamePage:View {
     @Binding var currentPage:Pages
+    @Binding var savePhotos:Bool
     let color: [Color] = [.gray,.red,.orange,.yellow,.green,.purple,.pink]
-    let timeMax:CGFloat = 600
+    let timeMax:CGFloat = 300
+    let maxPlayRounds:Int = 10
     let synthesizer = AVSpeechSynthesizer()
     //@State var playerItem = AVPlayerItem(url : Bundle.main.url(forResource: "crrect_answer", withExtension: "mp3")!)
     var correctPlayer: AVPlayer{ AVPlayer.sharedCorrectPlayer }
     var errorPlayer:   AVPlayer{ AVPlayer.sharedErrorPlayer }
-    @State private var showScorePage:Bool = false
+    @State         var showScorePage:Bool = false
+    @State private var showAns:Bool = false
     //@State private var scorePageSelect:Int = 0
     @State         var username = String()
     @State private var vocabularyOrder = [Int]()
@@ -53,6 +56,7 @@ struct GamePage:View {
 //        }
     func initialGame(){
         vocabularyOrder.removeAll()
+        //playRoundCount = 0
         for i in 0...vocabularyDataSet.count-1{
             vocabularyOrder.append(i)
         }
@@ -65,6 +69,7 @@ struct GamePage:View {
     
     func initialRound(){
         username = ""
+        showAns = false
         currentVoca = vocabularyDataSet[vocabularyOrder.removeLast()]
         vocabularyInit(voca:currentVoca.German)
         strSpeacker(str:"")
@@ -72,10 +77,6 @@ struct GamePage:View {
     
     func gamePlay(){
         if(vocabularyOrder.count<=0){
-            //if()
-//            print("game was finished. reseting...")
-//            //this part will delete
-//            initialGame()
             showScorePage = true
             return
         }
@@ -84,24 +85,27 @@ struct GamePage:View {
     }
     
     var body: some View{
-        //let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
-            backGround()
+            backGround(imgName: .constant("background_04"),opacity: .constant(0.6))
             HStack{
-                Button(action: {roundChanging = !roundChanging}, label: {
-                    Text("Button")
-                })
+                VStack{
+                    Button(action: {
+                        showAns = !showAns
+                        
+                    }, label: {
+                        Image("light")
+                            .resizable()
+                            //.background(Color.white)
+                            .scaledToFit()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .cornerRadius(100)
+                            .clipped()
+                    })
+                    Spacer()
+                }
+
                 Spacer()
                 VStack(alignment:.trailing,spacing:10){
-//                    ZStack{
-//                        RoundedRectangle(cornerRadius: 100)
-//                            .stroke(Color.red,lineWidth: 5)
-//                            .frame(width: 50, height: 100)
-//                            .overlay(Rectangle()
-//                                        .fill(Color.yellow)
-//                                        .frame(width: 50, height: 100*(timeClock/timeMax))
-//                                        .cornerRadius(100))
-//                    }
                     if(timeClock>0){
                         Rectangle()
                             .fill(Color.yellow)
@@ -125,15 +129,15 @@ struct GamePage:View {
             else{
                 vocabularyImage
                 VStack{
-                    Button(action: {currentPage = Pages.HomePage}, label: {
-                        Text("Button")
-                    })
+//                    Button(action: {currentPage = Pages.HomePage}, label: {
+//                        Text("Button")
+//                    })
                     Spacer()
                     HStack(alignment: .center,spacing:15){
                         Group{
                             ForEach(quesChars.indices,id:\.self){
                                 (index) in
-                                Text("\(quesChars[index])"/*""*/)//alphabet background
+                                Text(showAns ? "\(quesChars[index])" : "")//alphabet background
                                     .font(.system(size:35,design: .monospaced))
                                     .foregroundColor(.blue)
                                     .frame(width: quesTextSize, height: quesTextSize)
@@ -226,6 +230,7 @@ struct GamePage:View {
                                                     }
                                                     if(pass){
                                                         //TODO:next round
+                                                        //playRoundCount += 1
                                                         self.timer?.invalidate()
                                                         strSpeacker(str:currentVoca.German)
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2){
@@ -390,7 +395,7 @@ extension GamePage{
 struct GamePage_Previews: PreviewProvider {
     static var previews: some View {
         Landscape{
-            GamePage(currentPage: .constant(Pages.GamePage))
+            GamePage(currentPage: .constant(Pages.GamePage),savePhotos:.constant(false))
         }
     }
 }
