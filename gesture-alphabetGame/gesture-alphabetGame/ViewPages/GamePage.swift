@@ -191,8 +191,6 @@ struct GamePage:View {
                                                     }
                                                     offset[index].width = value.translation.width + newPosition[index].width
                                                     offset[index].height = value.translation.height + newPosition[index].height
-                                                    
-                                                    //speakAlphabet(alpha: "")
                                                 })
                                                 .onEnded({ value in
                                                     if(ans.correct[index]){ return }
@@ -229,15 +227,12 @@ struct GamePage:View {
                                                         if(!pass){ break }
                                                     }
                                                     if(pass){
-                                                        //TODO:next round
-                                                        //playRoundCount += 1
                                                         self.timer?.invalidate()
                                                         strSpeacker(str:currentVoca.German)
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2){
                                                             gamePlay()
                                                         }
                                                     }
-                                                    //TODO:判斷字母位置
                                                 })
                                     )
                             }
@@ -309,8 +304,6 @@ extension GamePage{
         ans.pos.removeAll()
         ques.pos.removeAll()
         let n = voca.count
-//        ans.chars = [String](repeating: "", count: n)
-//        ques.chars = [String](repeating: "", count: n)
         offset = [CGSize](repeating: .zero, count: n)
         newPosition = [CGSize](repeating: .zero, count: n)
         ans.correct = [Bool](repeating: false, count: n)

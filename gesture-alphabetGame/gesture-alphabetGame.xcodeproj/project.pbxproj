@@ -12,7 +12,6 @@
 		3D0007A826269402002B8390 /* GuitarHouse-joshpan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D0007A626269402002B8390 /* GuitarHouse-joshpan.mp3 */; };
 		3D1A1BEA262051D4006397FB /* PageSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BE9262051D4006397FB /* PageSwitch.swift */; };
 		3D1A1BEC262053F7006397FB /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BEB262053F7006397FB /* GamePage.swift */; };
-		3D1A1BEE26207B2B006397FB /* SavePhotoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BED26207B2B006397FB /* SavePhotoPage.swift */; };
 		3D1A1BF026209EFD006397FB /* testOritation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BEF26209EFD006397FB /* testOritation.swift */; };
 		3D1A1BF42621C1C8006397FB /* helperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1A1BF32621C1C8006397FB /* helperFunc.swift */; };
 		3D579FB6261EFC7900BA7F43 /* gesture_alphabetGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D579FB5261EFC7900BA7F43 /* gesture_alphabetGameApp.swift */; };
@@ -32,7 +31,6 @@
 		3D0007A626269402002B8390 /* GuitarHouse-joshpan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "GuitarHouse-joshpan.mp3"; sourceTree = "<group>"; };
 		3D1A1BE9262051D4006397FB /* PageSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSwitch.swift; sourceTree = "<group>"; };
 		3D1A1BEB262053F7006397FB /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
-		3D1A1BED26207B2B006397FB /* SavePhotoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePhotoPage.swift; sourceTree = "<group>"; };
 		3D1A1BEF26209EFD006397FB /* testOritation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testOritation.swift; sourceTree = "<group>"; };
 		3D1A1BF32621C1C8006397FB /* helperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helperFunc.swift; sourceTree = "<group>"; };
 		3D579FB2261EFC7900BA7F43 /* gesture-alphabetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gesture-alphabetGame.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +65,6 @@
 				3D1A1BEB262053F7006397FB /* GamePage.swift */,
 				3D00079F262663DD002B8390 /* ScorePage.swift */,
 				3D1A1BEF26209EFD006397FB /* testOritation.swift */,
-				3D1A1BED26207B2B006397FB /* SavePhotoPage.swift */,
 			);
 			path = ViewPages;
 			sourceTree = "<group>";
@@ -205,7 +202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DF6F612262A311600BAB691 /* ImageSave.swift in Sources */,
-				3D1A1BEE26207B2B006397FB /* SavePhotoPage.swift in Sources */,
 				3D1A1BF42621C1C8006397FB /* helperFunc.swift in Sources */,
 				3D579FB8261EFC7900BA7F43 /* HomePage.swift in Sources */,
 				3D579FB6261EFC7900BA7F43 /* gesture_alphabetGameApp.swift in Sources */,
