@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>261234482563-id38fb7pmn7lh9v6rjumv7o39smn6vjj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.261234482563-id38fb7pmn7lh9v6rjumv7o39smn6vjj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDRXSCutE8A0nqKOoGHKC2K3E0aTLDkRBY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>261234482563</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>hsumax.FinalProject</string>
+	<key>PROJECT_ID</key>
+	<string>ios-roleplay</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ios-roleplay.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:261234482563:ios:dbc9e95902b3dc9c022ab6</string>
+</dict>
+</plist>
