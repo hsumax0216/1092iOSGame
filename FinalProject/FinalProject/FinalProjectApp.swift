@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//test imac push 
 @main
 struct FinalProjectApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
