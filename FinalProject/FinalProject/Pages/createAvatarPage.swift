@@ -45,128 +45,127 @@ struct createAvatarPage: View {
                 Text("snapshot")
             })
                 //.padding(0)
-            HStack{
-                Spacer()
-                Text("body:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(body_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+            //ScrollView{
+                HStack{
+                    Spacer()
+                    Text("body:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(body_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            HStack{
-                Spacer()
-                Text("pose standing:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(pose_standing_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+                }
+                HStack{
+                    Spacer()
+                    Text("pose standing:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(pose_standing_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            HStack{
-                Spacer()
-                Text("pose sitting:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(pose_sitting_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+                }
+                HStack{
+                    Spacer()
+                    Text("pose sitting:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(pose_sitting_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            HStack{
-                Spacer()
-                Text("head:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(head_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+                }
+                HStack{
+                    Spacer()
+                    Text("head:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(head_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            HStack{
-                Spacer()
-                Text("face:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(face_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+                }
+                HStack{
+                    Spacer()
+                    Text("face:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(face_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            HStack{
-                Spacer()
-                Text("facial hair:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(facial_hair_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+                }
+                HStack{
+                    Spacer()
+                    Text("facial hair:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(facial_hair_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            HStack{
-                Spacer()
-                Text("accessories:")
-                    .padding(.leading,5)
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(accessories_filename, id: \.self) { name in
-                            Image(name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black, width: 1)
-                                .clipped()
+                }
+                HStack{
+                    Spacer()
+                    Text("accessories:")
+                        .padding(.leading,5)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(accessories_filename, id: \.self) { name in
+                                Image(name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .border(Color.black, width: 1)
+                                    .clipped()
+                                }
                             }
                         }
-                    }
-            }
-            
-            
-            
+                }
+            //}
         }
     }
 }
