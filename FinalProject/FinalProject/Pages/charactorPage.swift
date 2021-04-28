@@ -17,6 +17,8 @@ struct charactorPage: View {
             Image("pepefog")
                 .resizable()
                 .scaledToFit()
+                .border(Color.black, width: 1)
+                .padding(10)
             HStack{
                 Spacer()
                 Text("name:")
