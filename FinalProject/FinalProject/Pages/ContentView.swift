@@ -39,7 +39,7 @@ struct ContentView: View {
 //                }
                 filenameReader()
             }, label: {
-                Image("a person/bust")
+                Image("pose/sitting/closed_legs-2")
                     .resizable()
                     .scaledToFit()
             })
