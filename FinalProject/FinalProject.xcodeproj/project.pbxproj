@@ -72,7 +72,9 @@
 			isa = PBXGroup;
 			children = (
 				3D89916F2637C210008DC2F3 /* AppDelegate.swift */,
-				5748371326394C8F0011B11F /* func */,
+				3D89916A2636ACF2008DC2F3 /* upload.swift */,
+				3D8991712637C7F6008DC2F3 /* database.swift */,
+				3D899173263893A7008DC2F3 /* login.swift */,
 				3D89916C2636AE97008DC2F3 /* Pages */,
 				3D4A28B5262B7A55005E4FA2 /* FinalProjectApp.swift */,
 				3D4A28B9262B7A58005E4FA2 /* Assets.xcassets */,
@@ -105,16 +107,6 @@
 				3D8991752638B71B008DC2F3 /* charactorPage.swift */,
 			);
 			path = Pages;
-			sourceTree = "<group>";
-		};
-		5748371326394C8F0011B11F /* func */ = {
-			isa = PBXGroup;
-			children = (
-				3D89916A2636ACF2008DC2F3 /* upload.swift */,
-				3D8991712637C7F6008DC2F3 /* database.swift */,
-				3D899173263893A7008DC2F3 /* login.swift */,
-			);
-			path = func;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
