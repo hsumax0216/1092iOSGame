@@ -36,7 +36,7 @@ struct createAvatarPage: View {
             Image("pose/sitting/bike")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 200, height: 300, alignment: .bottom)
+                .frame(width: 200, height: 310, alignment: .bottom)
                 .overlay(Image("head/Bun 2")
                             .resizable()
                             .scaledToFit()
