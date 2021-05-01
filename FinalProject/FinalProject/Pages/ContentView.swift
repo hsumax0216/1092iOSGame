@@ -29,15 +29,14 @@ struct ContentView: View {
                 Text("player data create")
             })
             Button(action: {
-//                uploadPhoto(image: UIImage(named: "pepefog")!) { result in
-//                    switch result {
-//                    case .success(let url):
-//                       print(url)
-//                    case .failure(let error):
-//                       print(error)
-//                    }
-//                }
-                filenameReader()
+                uploadPhoto(image: UIImage(named: "pose/sitting/closed_legs-2")!) { result in
+                    switch result {
+                    case .success(let url):
+                       print(url)
+                    case .failure(let error):
+                       print(error)
+                    }
+                }
             }, label: {
                 Image("pose/sitting/closed_legs-2")
                     .resizable()

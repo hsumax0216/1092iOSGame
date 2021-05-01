@@ -13,18 +13,32 @@ enum BodyPose{
 
 struct createAvatarPage: View {
     @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
-    @State private var avatarBody:String = ""
-    @State private var avatarHead:String = ""
-    @State private var avatarFace:String = ""
-    @State private var avatarAccessory:String = ""
-    @State private var avatarFacialhair:String = ""
+    @State private var avatarBody:String = "body/Blazer Black Tee"
+    @State private var avatarHead:String = "head/Afro"
+    @State private var avatarFace:String = "face/Blank"
+    @State private var avatarAccessory:String = "accessories/* None"
+    @State private var avatarFacialhair:String = "facial-hair/* None"
     func initalApp(){
-        bodyPoseSelect = BodyPose.body
+       bodyPoseSelect = BodyPose.body
         avatarBody = "body/Blazer Black Tee"
         avatarHead = "head/Afro"
         avatarFace = "face/Blank"
         avatarAccessory = "accessories/* None"
-        avatarFacialhair = "facial-hair/* None"      
+        avatarFacialhair = "facial-hair/* None"
+        
+        bodyPoseSelect = BodyPose.standing
+        avatarBody = "pose/standing/blazer-1"
+        avatarHead = "head/Afro"
+        avatarFace = "face/Awe"
+        avatarAccessory = "accessories/Eyepatch"
+        avatarFacialhair = "facial-hair/* None"
+
+        bodyPoseSelect = BodyPose.sitting
+        avatarBody = "pose/sitting/bike"
+        avatarHead = "head/Afro"
+        avatarFace = "face/Awe"
+        avatarAccessory = "accessories/Eyepatch"
+        avatarFacialhair = "facial-hair/* None"
         
     }
     var avatarView: some View{
@@ -71,8 +85,8 @@ struct createAvatarPage: View {
                                             .overlay(Image(avatarAccessory)
                                                         .resizable()
                                                         .scaledToFit()
-                                                        .frame(width: 45, height: 45, alignment: .center)
-                                                        .offset(x:10,y:-5))
+                                                        .frame(width: 60, height: 60, alignment: .center)
+                                                        .offset(x:-9,y:-5))
                                             .overlay(Image(avatarFacialhair)
                                                         .resizable()
                                                         .scaledToFit()
@@ -96,8 +110,8 @@ struct createAvatarPage: View {
                                             .overlay(Image(avatarAccessory)
                                                         .resizable()
                                                         .scaledToFit()
-                                                        .frame(width: 38, height: 38, alignment: .center)
-                                                        .offset(x:10,y:-5))
+                                                        .frame(width: 50, height: 50, alignment: .center)
+                                                        .offset(x:-8.5,y:-5))
                                             .overlay(Image(avatarFacialhair)
                                                         .resizable()
                                                         .scaledToFit()
@@ -107,7 +121,7 @@ struct createAvatarPage: View {
                                 .offset(x:-5,y:-118))
             }
         }
-        .frame(width: 200, height: 310, alignment: .center)
+        //.frame(width: 200, height: 310, alignment: .center)
     }
     var body: some View {
         VStack{//200
