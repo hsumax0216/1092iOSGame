@@ -116,6 +116,14 @@ struct createAvatarPage: View {
             Button(action:{
                 let image = avatarView.snapshot()
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                uploadPhoto(image: image) { result in
+                    switch result {
+                    case .success(let url):
+                       print(url)
+                    case .failure(let error):
+                       print(error)
+                    }
+                }
             },label:{
                 Text("snapshot")
             })
