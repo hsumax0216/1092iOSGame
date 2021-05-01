@@ -34,7 +34,7 @@ struct createAvatarPage: View {
                 Image(avatarBody)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 300, alignment: .bottom)
+                    .frame(width: 200, height: 310, alignment: .bottom)
                     .overlay(Image(avatarHead)
                                 .resizable()
                                 .scaledToFit()
@@ -107,6 +107,7 @@ struct createAvatarPage: View {
                                 .offset(x:-5,y:-118))
             }
         }
+        .frame(width: 200, height: 310, alignment: .center)
     }
     var body: some View {
         VStack{//200
