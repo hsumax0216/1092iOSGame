@@ -12,7 +12,7 @@ enum BodyPose{
 }
 
 struct createAvatarPage: View {
-    @State private var bodyPoseSelect:Body = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
+    @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
     @State private var avatarBody:String = ""
     @State private var avatarHead:String = ""
     @State private var avatarFace:String = ""
