@@ -6,57 +6,107 @@
 //
 import UIKit
 import SwiftUI
+
+enum BodyPose{
+    case body,standing,sitting
+}
+
 struct createAvatarPage: View {
-    @State private var bodyPoseSelect:Bool = false
+    @State private var bodyPoseSelect:Body = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
+    @State private var avatarBody:String = ""
+    @State private var avatarHead:String = ""
+    @State private var avatarFace:String = ""
+    @State private var avatarAccessory:String = ""
+    @State private var avatarFacialhair:String = ""
+    func initalApp(){
+        bodyPoseSelect = BodyPose.body
+        avatarBody = "body/Blazer Black Tee"
+        avatarHead = "head/Afro"
+        avatarFace = "face/Blank"
+        avatarAccessory = "accessories/* None"
+        avatarFacialhair = "facial-hair/* None"      
+        
+    }
     var avatarView: some View{
-//            Image("body/Turtleneck")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 200, height: 300, alignment: .bottom)
-//                .overlay(Image("head/Bun 2")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 150, height: 150, alignment: .center)
-//                            .overlay(Image("face/Angry with Fang")
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                        .frame(width: 80, height: 80, alignment: .center)
-//                                        .overlay(Image("accessories/Eyepatch")
-//                                            .resizable()
-//                                            .scaledToFit()
-//                                            .frame(width: 110, height: 110, alignment: .center)
-//                                                    .offset(x:-18,y:-7))
-//                                        .offset(x:10,y:15))
-//                            .overlay(Image("facial-hair/Moustache 2")
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                        .frame(width: 70, height: 70, alignment: .center)
-//                                        .offset(x:0,y:45))
-//                            .offset(x:10,y:-75))
-            Image("pose/sitting/bike")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 310, alignment: .bottom)
-                .overlay(Image("head/Bun 2")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80, height: 80, alignment: .center)
-                            .overlay(Image("face/Angry with Fang")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 50, height: 50, alignment: .center)
-                                        .overlay(Image("accessories/Eyepatch")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 45, height: 45, alignment: .center)
-                                                    .offset(x:10,y:-5))
-                                        .overlay(Image("facial-hair/Moustache 2")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 45, height: 45, alignment: .center)
-                                                    .offset(x:-7,y:20))
-                                        .offset(x:5,y:5))
-                            .offset(x:-20,y:-115))
+        ZStack{
+            switch bodyPoseSelect {
+            case BodyPose.body:
+                Image("body/Turtleneck")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 300, alignment: .bottom)
+                    .overlay(Image("head/Bun 2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 150, alignment: .center)
+                                .overlay(Image("face/Angry with Fang")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 80, height: 80, alignment: .center)
+                                            .overlay(Image("accessories/Eyepatch")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 110, height: 110, alignment: .center)
+                                                        .offset(x:-18,y:-7))
+                                            .offset(x:10,y:15))
+                                .overlay(Image("facial-hair/Moustache 2")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 70, height: 70, alignment: .center)
+                                            .offset(x:0,y:45))
+                                .offset(x:10,y:-75))
+            case BodyPose.sitting:
+                Image("pose/sitting/bike")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 310, alignment: .bottom)
+                    .overlay(Image("head/Bun 2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80, alignment: .center)
+                                .overlay(Image("face/Angry with Fang")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 50, height: 50, alignment: .center)
+                                            .overlay(Image("accessories/Eyepatch")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 45, height: 45, alignment: .center)
+                                                        .offset(x:10,y:-5))
+                                            .overlay(Image("facial-hair/Moustache 2")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 45, height: 45, alignment: .center)
+                                                        .offset(x:-7,y:20))
+                                            .offset(x:5,y:5))
+                                .offset(x:-20,y:-115))
+            case BodyPose.standing:
+                Image("pose/standing/resting-2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 160, height: 300, alignment: .bottom)
+                    .overlay(Image("head/Bun 2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 70, height: 70, alignment: .center)
+                                .overlay(Image("face/Angry with Fang")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 45, height: 45, alignment: .center)
+                                            .overlay(Image("accessories/Eyepatch")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 38, height: 38, alignment: .center)
+                                                        .offset(x:10,y:-5))
+                                            .overlay(Image("facial-hair/Moustache 2")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 40, height: 40, alignment: .center)
+                                                        .offset(x:-5,y:17))
+                                            .offset(x:5,y:5))
+                                .offset(x:-5,y:-118))
+            }
+        }
     }
     var body: some View {
         VStack{//200
