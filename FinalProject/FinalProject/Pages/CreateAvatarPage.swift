@@ -1,5 +1,5 @@
 //
-//  createAvatarPage.swift
+//  CreateAvatarPage.swift
 //  FinalProject
 //
 //  Created by User02 on 2021/4/28.
@@ -11,7 +11,8 @@ enum BodyPose{
     case body,standing,sitting
 }
 
-struct createAvatarPage: View {
+struct CreateAvatarPage: View {
+    @Binding var currentPage: Pages
     let screenWidth:CGFloat = UIScreen.main.bounds.size.width
     @State var picWidth:CGFloat = 0
     @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
@@ -130,19 +131,27 @@ struct createAvatarPage: View {
         ZStack{
             VStack{
                 HStack{
-                    Image(systemName: "arrow.left")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.purple)
-                        .frame(width:40,height:40)
-                        .padding(.leading,15)
+                    Button(action: {
+                        currentPage = Pages.CharactorPage
+                    }, label: {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.purple)
+                            .frame(width:40,height:40)
+                            .padding(.leading,15)
+                    })
                     Spacer()
-                    Image(systemName: "menubar.rectangle")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.purple)
-                        .frame(width:45,height:45)
-                        .padding(.trailing,15)
+                    Button(action: {
+                        currentPage = Pages.HomePage
+                    }, label: {
+                        Image(systemName: "menubar.rectangle")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.purple)
+                            .frame(width:45,height:45)
+                            .padding(.trailing,15)
+                    })
                 }
                 //.frame(height:40)
                 Spacer()
@@ -196,9 +205,9 @@ struct createAvatarPage: View {
     }
 }
 
-struct createAvatarPage_Previews: PreviewProvider {
+struct CreateAvatarPage_Previews: PreviewProvider {
     static var previews: some View {
-        createAvatarPage()
+        CreateAvatarPage(currentPage: .constant(Pages.CreateAvatarPage))
     }
 }
 

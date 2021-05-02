@@ -1,5 +1,5 @@
 //
-//  charactorPage.swift
+//  CharactorPage.swift
 //  FinalProject
 //
 //  Created by 徐浩恩 on 2021/4/28.
@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct charactorPage: View {
+struct CharactorPage: View {
+    @Binding var currentPage: Pages
     @State private var email:String = ""
     @State private var name:String = ""
     @State private var money:String = ""
@@ -48,9 +49,9 @@ struct charactorPage: View {
     }
 }
 
-struct charactorPage_Previews: PreviewProvider {
+struct CharactorPage_Previews: PreviewProvider {
     static var previews: some View {
-        charactorPage()
+        CharactorPage(currentPage: .constant(Pages.CharactorPage))
     }
 }
 
