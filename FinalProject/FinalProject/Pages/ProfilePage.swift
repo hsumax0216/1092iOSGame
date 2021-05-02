@@ -1,22 +1,21 @@
 //
-//  CharactorPage.swift
+//  ProfilePage.swift
 //  FinalProject
 //
-//  Created by 徐浩恩 on 2021/4/28.
+//  Created by  on 2021/5/2.
 //
 
 import SwiftUI
 
-struct CharactorPage: View {
+struct ProfilePage: View {
     @Binding var currentPage: Pages
-    @Binding var userImage: UIImage
-    @State private var email: String = ""
-    @State private var name: String = ""
-    @State private var money: String = ""
+    @State private var email:String = ""
+    @State private var name:String = ""
+    @State private var money:String = ""
     var body: some View {
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         VStack{
-            Image(uiImage: userImage)
+            Image("pepefog")
                 .resizable()
                 .scaledToFit()
                 .border(Color.black, width: 1)
@@ -50,9 +49,9 @@ struct CharactorPage: View {
     }
 }
 
-struct CharactorPage_Previews: PreviewProvider {
+struct ProfilePage_Previews: PreviewProvider {
     static var previews: some View {
-        CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()))
+        ProfilePage(currentPage: .constant(Pages.ProfilePage))
     }
 }
 

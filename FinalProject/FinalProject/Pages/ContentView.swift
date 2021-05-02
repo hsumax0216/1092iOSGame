@@ -24,7 +24,7 @@ struct ContentView: View {
                 Text("sign in")
             })
             Button(action: {
-                createPlayerData()
+                //createPlayerData()
             }, label: {
                 Text("player data create")
             })

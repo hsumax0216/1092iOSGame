@@ -25,6 +25,7 @@
 		5748371F2639779F0011B11F /* viewSnapShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748371E2639779F0011B11F /* viewSnapShot.swift */; };
 		E63261EE263E96060017E9E3 /* PagesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261ED263E96060017E9E3 /* PagesControl.swift */; };
 		E63261F0263E97FD0017E9E3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261EF263E97FD0017E9E3 /* HomePage.swift */; };
+		E63261F2263EADB70017E9E3 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261F1263EADB70017E9E3 /* ProfilePage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		5748371E2639779F0011B11F /* viewSnapShot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewSnapShot.swift; sourceTree = "<group>"; };
 		E63261ED263E96060017E9E3 /* PagesControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesControl.swift; sourceTree = "<group>"; };
 		E63261EF263E97FD0017E9E3 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		E63261F1263EADB70017E9E3 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,10 +118,11 @@
 			isa = PBXGroup;
 			children = (
 				E63261ED263E96060017E9E3 /* PagesControl.swift */,
+				E63261EF263E97FD0017E9E3 /* HomePage.swift */,
 				3D4A28B7262B7A55005E4FA2 /* ContentView.swift */,
 				3D8991752638B71B008DC2F3 /* CharactorPage.swift */,
 				57483716263950A40011B11F /* CreateAvatarPage.swift */,
-				E63261EF263E97FD0017E9E3 /* HomePage.swift */,
+				E63261F1263EADB70017E9E3 /* ProfilePage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			files = (
 				57483717263950A40011B11F /* CreateAvatarPage.swift in Sources */,
 				5748371B263953590011B11F /* assetsNames.swift in Sources */,
+				E63261F2263EADB70017E9E3 /* ProfilePage.swift in Sources */,
 				5748371F2639779F0011B11F /* viewSnapShot.swift in Sources */,
 				3D8991702637C210008DC2F3 /* AppDelegate.swift in Sources */,
 				3D899174263893A7008DC2F3 /* login.swift in Sources */,

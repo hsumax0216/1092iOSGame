@@ -13,6 +13,7 @@ enum BodyPose{
 
 struct CreateAvatarPage: View {
     @Binding var currentPage: Pages
+    @Binding var userImage:UIImage?
     let screenWidth:CGFloat = UIScreen.main.bounds.size.width
     @State var picWidth:CGFloat = 0
     @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
@@ -132,7 +133,7 @@ struct CreateAvatarPage: View {
             VStack{
                 HStack{
                     Button(action: {
-                        currentPage = Pages.CharactorPage
+                        currentPage = Pages.HomePage
                     }, label: {
                         Image(systemName: "arrow.left")
                             .resizable()
@@ -143,9 +144,10 @@ struct CreateAvatarPage: View {
                     })
                     Spacer()
                     Button(action: {
-                        currentPage = Pages.HomePage
+                        currentPage = Pages.CharactorPage
+                        userImage = avatarView.snapshot()
                     }, label: {
-                        Image(systemName: "menubar.rectangle")
+                        Image(systemName: "arrow.right")
                             .resizable()
                             .scaledToFit()
                             .foregroundColor(.purple)
@@ -163,21 +165,18 @@ struct CreateAvatarPage: View {
                 Button(action:{
                     let image = avatarView.snapshot()
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                    uploadPhoto(image: image) { result in
-                        switch result {
-                        case .success(let url):
-                           print(url)
-                        case .failure(let error):
-                           print(error)
-                        }
-                    }
+//                    uploadPhoto(image: image) { result in
+//                        switch result {
+//                        case .success(let url):
+//                           print(url)
+//                        case .failure(let error):
+//                           print(error)
+//                        }
+//                    }
                 },label:{
                     Text("snapshot")
                 })
-                    //.padding(0)
-                //ScrollView{
-                    //VStack{
-                        //Spacer().padding(.leading,5)
+                
                 TabView{
                     avatarBodyView(screenWidth: .constant(screenWidth), picWidth: .constant(picWidth), itemsSet: .constant(body_filename), avatarItems: $avatarBody, selectConst: .constant(BodyPose.body), bodyPoseSelect: $bodyPoseSelect)
                     avatarBodyView(screenWidth: .constant(screenWidth), picWidth: .constant(picWidth), itemsSet: .constant(pose_sitting_filename), avatarItems: $avatarBody, selectConst: .constant(BodyPose.sitting), bodyPoseSelect: $bodyPoseSelect)
@@ -192,10 +191,6 @@ struct CreateAvatarPage: View {
                 .padding(5)
                 .border(Color.black, width: 1)
                 
-                        
-                    //}
-                    
-                //}
             }
         }
         
@@ -207,7 +202,7 @@ struct CreateAvatarPage: View {
 
 struct CreateAvatarPage_Previews: PreviewProvider {
     static var previews: some View {
-        CreateAvatarPage(currentPage: .constant(Pages.CreateAvatarPage))
+        CreateAvatarPage(currentPage: .constant(Pages.CreateAvatarPage),userImage: .constant(nil))
     }
 }
 
