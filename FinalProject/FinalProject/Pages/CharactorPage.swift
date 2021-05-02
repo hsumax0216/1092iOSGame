@@ -32,10 +32,10 @@ struct CharactorPage: View {
                     })
                     Spacer()
                     Button(action: {
-                        //let player = Player(name:name, imageURL:imageURL,email:email,money:0,regTime:Date.init())
+                        let player = Player(name:name, imageURL:imageURL,email:email,country:"",age:20,money:0,regTime:Date.init())
                         
                         //showAlert = true
-                        let t = searchPlayerData(player: Player(name: "王小明", imageURL: "test image", email: "test emai", money: 0, regTime: Date.init()))
+                        let t = searchPlayerData(player: Player(name: "王小明", imageURL: "test image", email: "test emai",country:"taiwan",age:20, money: 0, regTime: Date.init()))
                         print("searchPlayerData return :\(t)")
                         //createPlayerData(player: player)
                         //currentPage = Pages.ProfilePage

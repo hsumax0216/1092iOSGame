@@ -14,6 +14,8 @@ struct Player: Codable, Identifiable {
     let name: String
     let imageURL: String
     let email: String
+    let country: String
+    let age: Int
     let money: Int
     let regTime: Date
 }
@@ -47,10 +49,10 @@ func searchPlayerData(player:Player) -> Bool{
     return rtn
 }
 
-func createPlayerData(name:String,imageURL:String,email:String,money:Int,regTime:Date) {
+func createPlayerData(name:String,imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date) {
     let db = Firestore.firestore()
 
-    let player = Player(name:name, imageURL:imageURL,email:email,money:money,regTime:regTime)
+    let player = Player(name:name, imageURL:imageURL,email:email,country:country,age:age,money:money,regTime:regTime)
     do {
         let documentReference = try db.collection("players").addDocument(from: player)
         print(documentReference.documentID)
