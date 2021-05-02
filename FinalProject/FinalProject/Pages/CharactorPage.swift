@@ -32,6 +32,9 @@ struct CharactorPage: View {
                     Spacer()
                     Button(action: {
                         let player = Player(name:name, imageURL:imageURL,email:email,money:0,regTime:Date.init())
+                        
+                        
+                        createPlayerData(player: player)
                         currentPage = Pages.ProfilePage
                     }, label: {
                         Image(systemName: "arrow.right")
@@ -82,7 +85,7 @@ struct CharactorPage: View {
                 switch result {
                 case .success(let url):
                     print(url)
-                    imageURL = url
+                    imageURL = url.absoluteString
                 case .failure(let error):
                    print(error)
                 }

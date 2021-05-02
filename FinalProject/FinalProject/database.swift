@@ -18,6 +18,13 @@ struct Player: Codable, Identifiable {
     let regTime: Date
 }
 
+func searchPlayerData(player:Player){
+    let db = Firestore.firestore()
+    db.collection("players").whereField("singer", isEqualTo: "周興哲").getDocuments { querySnapshot, error in
+       
+    }
+}
+
 func createPlayerData(name:String,imageURL:String,email:String,money:Int,regTime:Date) {
     let db = Firestore.firestore()
 
