@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ProfilePage: View {
     @Binding var currentPage: Pages
+    @Binding var userImage: UIImage?
     @State private var email:String = ""
     @State private var name:String = ""
     @State private var money:String = ""
     var body: some View {
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         VStack{
-            Image("pepefog")
+            Image(uiImage: userImage ?? UIImage.init())
                 .resizable()
                 .scaledToFit()
+                .frame(width:200,height:310)
                 .border(Color.black, width: 1)
                 .padding(10)
             HStack{
@@ -46,12 +48,17 @@ struct ProfilePage: View {
                     .padding(.trailing,screenWidth/5)
             }
         }
+        .onAppear{
+            if userImage == nil{
+                userImage = UIImage.init()
+            }
+        }
     }
 }
 
 struct ProfilePage_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePage(currentPage: .constant(Pages.ProfilePage))
+        ProfilePage(currentPage: .constant(Pages.ProfilePage),userImage: .constant(nil))
     }
 }
 

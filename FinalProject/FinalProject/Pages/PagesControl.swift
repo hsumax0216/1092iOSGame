@@ -14,17 +14,18 @@ enum Pages{
 struct PagesControl: View {
         
     @State var currentPage = Pages.HomePage
+    @State var userImage:UIImage? = UIImage.init()
     var body: some View{
         ZStack{
             switch currentPage{
             case Pages.HomePage:
                 HomePage(currentPage: $currentPage)
-            case Pages.CharactorPage:
-                CharactorPage(currentPage: $currentPage)
             case Pages.CreateAvatarPage:
-                CreateAvatarPage(currentPage: $currentPage)
+                CreateAvatarPage(currentPage: $currentPage, userImage: $userImage)
+            case Pages.CharactorPage:
+                CharactorPage(currentPage: $currentPage, userImage: $userImage)
             case Pages.ProfilePage:
-                ProfilePage(currentPage: $currentPage)
+                ProfilePage(currentPage: $currentPage, userImage: $userImage)
             }
         }
     }

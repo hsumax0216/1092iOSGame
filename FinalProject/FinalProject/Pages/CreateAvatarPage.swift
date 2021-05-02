@@ -13,7 +13,7 @@ enum BodyPose{
 
 struct CreateAvatarPage: View {
     @Binding var currentPage: Pages
-    @Binding var userImage:UIImage?
+    @Binding var userImage: UIImage?
     let screenWidth:CGFloat = UIScreen.main.bounds.size.width
     @State var picWidth:CGFloat = 0
     @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
@@ -151,7 +151,7 @@ struct CreateAvatarPage: View {
                             .resizable()
                             .scaledToFit()
                             .foregroundColor(.purple)
-                            .frame(width:45,height:45)
+                            .frame(width:40,height:40)
                             .padding(.trailing,15)
                     })
                 }

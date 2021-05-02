@@ -18,11 +18,33 @@ struct Player: Codable, Identifiable {
     let regTime: Date
 }
 
-func searchPlayerData(player:Player){
+func searchPlayerData(player:Player) -> Bool{
     let db = Firestore.firestore()
-    db.collection("players").whereField("singer", isEqualTo: "周興哲").getDocuments { querySnapshot, error in
-       
+    var rtn:Bool = true
+    db.collection("players").whereField("email", isEqualTo: player.email).getDocuments { querySnapshot, error in
+        guard let querySnapshot = querySnapshot else {
+            rtn = false
+            print("guard rtn false")
+            return
+        }
+        if querySnapshot.documents.count <= 0{
+            rtn = false
+            print("querySnapshot.documents.count <= 0")
+        }
+        print("querySnapshot:\(querySnapshot)")
+        print("querySnapshot.documents:")
+        querySnapshot.documents.forEach({print($0.data())})
+//        let songs = snapshot.documents.compactMap { snapshot in
+//                    try? snapshot.data(as: Song.self)
+//                }
+        let temp =  querySnapshot.documents.map{doc in
+            print("doc:")
+            print(doc.data())
+            try? doc.data(as: Player.self)
+        }
+        print("temp:\(temp)")        
     }
+    return rtn
 }
 
 func createPlayerData(name:String,imageURL:String,email:String,money:Int,regTime:Date) {

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CharactorPage: View {
     @Binding var currentPage: Pages
-    @Binding var userImage: UIImage
+    @Binding var userImage: UIImage?
+    @State private var showAlert: Bool = false
     @State private var email: String = ""
     @State private var name: String = ""
     @State private var money: String = ""
@@ -20,7 +21,7 @@ struct CharactorPage: View {
             VStack{
                 HStack{
                     Button(action: {
-                        currentPage = Pages.CharactorPage
+                        currentPage = Pages.CreateAvatarPage
                     }, label: {
                         Image(systemName: "arrow.left")
                             .resizable()
@@ -31,26 +32,40 @@ struct CharactorPage: View {
                     })
                     Spacer()
                     Button(action: {
-                        let player = Player(name:name, imageURL:imageURL,email:email,money:0,regTime:Date.init())
+                        //let player = Player(name:name, imageURL:imageURL,email:email,money:0,regTime:Date.init())
                         
-                        
-                        createPlayerData(player: player)
-                        currentPage = Pages.ProfilePage
+                        //showAlert = true
+                        let t = searchPlayerData(player: Player(name: "王小明", imageURL: "test image", email: "test emai", money: 0, regTime: Date.init()))
+                        print("searchPlayerData return :\(t)")
+                        //createPlayerData(player: player)
+                        //currentPage = Pages.ProfilePage
                     }, label: {
                         Image(systemName: "arrow.right")
                             .resizable()
                             .scaledToFit()
                             .foregroundColor(.purple)
-                            .frame(width:45,height:45)
+                            .frame(width:40,height:40)
                             .padding(.trailing,15)
                     })
+                    .alert(isPresented: $showAlert)
+                      { () -> Alert in
+                        Alert(title: Text("content error"), message: Text("請正確填入資料"), dismissButton: .default(Text("OK"),action:{
+                            showAlert = false
+                        }))
+//                        Alert(title: Text("Go Back menu won't save!"), message: Text("If Go back, The Game will be RESTART."), primaryButton: .default(Text("got it"),action:{
+//                            showAlert=false
+//                        }),secondaryButton: .default(Text("got it"), action: {
+//                            //action
+//                        }))
+                      }
                 }
                 Spacer()
             }
             VStack{
-                Image(uiImage: userImage)
+                Image(uiImage: userImage ?? UIImage.init())
                     .resizable()
                     .scaledToFit()
+                    .frame(width:200,height:310)
                     .border(Color.black, width: 1)
                     .padding(10)
                 HStack{
@@ -81,7 +96,10 @@ struct CharactorPage: View {
             }
         }
         .onAppear{
-            uploadPhoto(image: userImage) { result in
+            if userImage == nil{
+                userImage = UIImage.init()
+            }
+            uploadPhoto(image: userImage!) { result in
                 switch result {
                 case .success(let url):
                     print(url)
