@@ -6,6 +6,12 @@
 //
 
 import Foundation
+let countryName = ["United State",
+                    "United Kingdom",
+                    "Taiwan",
+                    "Japan",
+                    "China"]
+
 let a_person_filename = ["a person/bust",
                          "a person/sitting",
                          "a person/standing"]

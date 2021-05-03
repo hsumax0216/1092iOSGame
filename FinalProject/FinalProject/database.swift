@@ -19,36 +19,39 @@ struct Player: Codable, Identifiable {
     let money: Int
     let regTime: Date
 }
-
-func searchPlayerData(player:Player) -> Bool{
-    let db = Firestore.firestore()
-    var rtn:Bool = true
-    db.collection("players").whereField("email", isEqualTo: player.email).getDocuments { querySnapshot, error in
-        guard let querySnapshot = querySnapshot else {
-            rtn = false
-            print("guard rtn false")
-            return
+extension CharactorPage{
+    func searchPlayerData(player:Player) {
+        print("searchPlayerData begin")
+        let db = Firestore.firestore()
+        db.collection("players").whereField("email", isEqualTo: player.email).getDocuments { querySnapshot, error in
+            print("searchPlayerData DB")
+            guard let querySnapshot = querySnapshot else {
+                emailConfirm = false
+                print("guard rtn false")
+                return
+            }
+            
+            if querySnapshot.documents.count <= 0{
+                    emailConfirm = false
+                print("emailConfirm false")
+            }
+            else{
+                emailConfirm = true
+                print("emailConfirm true")
+            }
+            print("querySnapshot:\(querySnapshot)")
+            print("querySnapshot.documents:")
+            querySnapshot.documents.forEach({print($0.data())})
+            let temp =  querySnapshot.documents.map{doc in
+                print("doc:")
+                print(doc.data())
+                try? doc.data(as: Player.self)
+            }
+            print("temp:\(temp)")
         }
-        if querySnapshot.documents.count <= 0{
-            rtn = false
-            print("querySnapshot.documents.count <= 0")
-        }
-        print("querySnapshot:\(querySnapshot)")
-        print("querySnapshot.documents:")
-        querySnapshot.documents.forEach({print($0.data())})
-//        let songs = snapshot.documents.compactMap { snapshot in
-//                    try? snapshot.data(as: Song.self)
-//                }
-        let temp =  querySnapshot.documents.map{doc in
-            print("doc:")
-            print(doc.data())
-            try? doc.data(as: Player.self)
-        }
-        print("temp:\(temp)")        
+        print("searchPlayerData end")
     }
-    return rtn
 }
-
 func createPlayerData(name:String,imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date) {
     let db = Firestore.firestore()
 
