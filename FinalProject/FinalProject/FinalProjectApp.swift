@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FacebookCore
 //test imac push 
 @main
 struct FinalProjectApp: App {
@@ -16,6 +17,9 @@ struct FinalProjectApp: App {
             //CreateAvatarPage()
             PagesControl()
             //CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()))
+            .onOpenURL(perform: { url in
+             ApplicationDelegate.shared.application(UIApplication.shared, open: url, sourceApplication: nil, annotation: UIApplication.OpenURLOptionsKey.annotation)
+                            })
         }
     }
 }

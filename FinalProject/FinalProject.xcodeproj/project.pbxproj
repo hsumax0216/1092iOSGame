@@ -23,6 +23,7 @@
 		57483717263950A40011B11F /* CreateAvatarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57483716263950A40011B11F /* CreateAvatarPage.swift */; };
 		5748371B263953590011B11F /* assetsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748371A263953590011B11F /* assetsNames.swift */; };
 		5748371F2639779F0011B11F /* viewSnapShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748371E2639779F0011B11F /* viewSnapShot.swift */; };
+		574837272641040B0011B11F /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 574837262641040B0011B11F /* FacebookLogin */; };
 		E63261EE263E96060017E9E3 /* PagesControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261ED263E96060017E9E3 /* PagesControl.swift */; };
 		E63261F0263E97FD0017E9E3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261EF263E97FD0017E9E3 /* HomePage.swift */; };
 		E63261F2263EADB70017E9E3 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261F1263EADB70017E9E3 /* ProfilePage.swift */; };
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				574837272641040B0011B11F /* FacebookLogin in Frameworks */,
 				3D4A28CD262B7BF5005E4FA2 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				3D4A28C9262B7BF5005E4FA2 /* FirebaseAuth in Frameworks */,
 				3D4A28CB262B7BF5005E4FA2 /* FirebaseStorageSwift-Beta in Frameworks */,
@@ -147,6 +149,7 @@
 				3D4A28C8262B7BF5005E4FA2 /* FirebaseAuth */,
 				3D4A28CA262B7BF5005E4FA2 /* FirebaseStorageSwift-Beta */,
 				3D4A28CC262B7BF5005E4FA2 /* FirebaseFirestoreSwift-Beta */,
+				574837262641040B0011B11F /* FacebookLogin */,
 			);
 			productName = FinalProject;
 			productReference = 3D4A28B2262B7A55005E4FA2 /* FinalProject.app */;
@@ -177,6 +180,7 @@
 			mainGroup = 3D4A28A9262B7A55005E4FA2;
 			packageReferences = (
 				3D4A28C7262B7BF5005E4FA2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				574837252641040B0011B11F /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 3D4A28B3262B7A55005E4FA2 /* Products */;
 			projectDirPath = "";
@@ -414,6 +418,14 @@
 				minimumVersion = 7.10.0;
 			};
 		};
+		574837252641040B0011B11F /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -431,6 +443,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3D4A28C7262B7BF5005E4FA2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		574837262641040B0011B11F /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 574837252641040B0011B11F /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
