@@ -17,6 +17,8 @@ struct CreateAvatarPage: View {
     let screenWidth:CGFloat = UIScreen.main.bounds.size.width
     @State var picWidth:CGFloat = 0
     @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
+    @State private var bgColor = Color(.sRGB, red: 0, green: 0, blue: 0)
+    @State private var tabviewSelction:Int = 0
     @State private var avatarBody:String = "body/Blazer Black Tee"
     @State private var avatarHead:String = "head/Afro"
     @State private var avatarFace:String = "face/Blank"
@@ -51,10 +53,12 @@ struct CreateAvatarPage: View {
             switch bodyPoseSelect {
             case BodyPose.body:
                 Image(avatarBody)
+                    //.renderingMode(.template)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 310, alignment: .bottom)
-                    .overlay(Image(avatarHead)
+                    .overlay(Image(avatarHead/*+"Template"*/)
+                                //.renderingMode(.template)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 150, height: 150, alignment: .center)
@@ -63,14 +67,18 @@ struct CreateAvatarPage: View {
                                             .scaledToFit()
                                             .frame(width: 80, height: 80, alignment: .center)
                                             .overlay(Image(avatarAccessory)
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 110, height: 110, alignment: .center)
+                                                        .renderingMode(.template)
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .foregroundColor(bgColor)
+                                                        .frame(width: 110, height: 110, alignment: .center)
                                                         .offset(x:-18,y:-7))
                                             .offset(x:10,y:15))
                                 .overlay(Image(avatarFacialhair)
+                                            //.renderingMode(.template)
                                             .resizable()
                                             .scaledToFit()
+                                            //.foregroundColor(bgColor)
                                             .frame(width: 80, height: 80, alignment: .center)
                                             .offset(x:0,y:45))
                                 .offset(x:10,y:-75))
@@ -88,13 +96,17 @@ struct CreateAvatarPage: View {
                                             .scaledToFit()
                                             .frame(width: 50, height: 50, alignment: .center)
                                             .overlay(Image(avatarAccessory)
+                                                        .renderingMode(.template)
                                                         .resizable()
                                                         .scaledToFit()
+                                                        .foregroundColor(bgColor)
                                                         .frame(width: 60, height: 60, alignment: .center)
                                                         .offset(x:-9,y:-5))
                                             .overlay(Image(avatarFacialhair)
+                                                        //.renderingMode(.template)
                                                         .resizable()
                                                         .scaledToFit()
+                                                        //.foregroundColor(bgColor)
                                                         .frame(width: 45, height: 45, alignment: .center)
                                                         .offset(x:-6,y:20))
                                             .offset(x:5,y:5))
@@ -113,13 +125,17 @@ struct CreateAvatarPage: View {
                                             .scaledToFit()
                                             .frame(width: 45, height: 45, alignment: .center)
                                             .overlay(Image(avatarAccessory)
+                                                        .renderingMode(.template)
                                                         .resizable()
                                                         .scaledToFit()
+                                                        .foregroundColor(bgColor)
                                                         .frame(width: 50, height: 50, alignment: .center)
                                                         .offset(x:-8.5,y:-5))
                                             .overlay(Image(avatarFacialhair)
+                                                        //.renderingMode(.template)
                                                         .resizable()
                                                         .scaledToFit()
+                                                        //.foregroundColor(bgColor)
                                                         .frame(width: 40, height: 40, alignment: .center)
                                                         .offset(x:-7,y:17))
                                             .offset(x:5,y:5))
@@ -176,8 +192,9 @@ struct CreateAvatarPage: View {
                 },label:{
                     Text("snapshot")
                 })
-                
-                TabView{
+                ColorPicker("Accessory Color select", selection: $bgColor)
+                    .frame(width:screenWidth*0.75)
+                TabView(selection:$tabviewSelction){
                     avatarBodyView(screenWidth: .constant(screenWidth), picWidth: .constant(picWidth), itemsSet: .constant(body_filename), avatarItems: $avatarBody, selectConst: .constant(BodyPose.body), bodyPoseSelect: $bodyPoseSelect)
                     avatarBodyView(screenWidth: .constant(screenWidth), picWidth: .constant(picWidth), itemsSet: .constant(pose_sitting_filename), avatarItems: $avatarBody, selectConst: .constant(BodyPose.sitting), bodyPoseSelect: $bodyPoseSelect)
                     avatarBodyView(screenWidth: .constant(screenWidth), picWidth: .constant(picWidth), itemsSet: .constant(pose_standing_filename), avatarItems: $avatarBody, selectConst: .constant(BodyPose.standing), bodyPoseSelect: $bodyPoseSelect)
