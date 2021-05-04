@@ -148,16 +148,16 @@ struct CreateAvatarPage: View {
         ZStack{
             VStack{
                 HStack{
-                    Button(action: {
-                        currentPage = Pages.HomePage
-                    }, label: {
-                        Image(systemName: "arrow.left")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(.purple)
-                            .frame(width:40,height:40)
-                            .padding(.leading,15)
-                    })
+//                    Button(action: {
+//                        currentPage = Pages.HomePage
+//                    }, label: {
+//                        Image(systemName: "arrow.left")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .foregroundColor(.purple)
+//                            .frame(width:40,height:40)
+//                            .padding(.leading,15)
+//                    })
                     Spacer()
                     Button(action: {
                         currentPage = Pages.CharactorPage

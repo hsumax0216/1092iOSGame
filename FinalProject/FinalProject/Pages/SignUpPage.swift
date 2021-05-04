@@ -11,6 +11,7 @@ import FacebookLogin
 
 struct SignUpPage: View {
     @Binding var currentPage: Pages
+    @Binding var playerEmail: String
     @State private var email:String = ""
     @State private var password:String = ""
     @State private var showAlert:Bool = false
@@ -27,6 +28,9 @@ struct SignUpPage: View {
         case 3:
             str = "Login Error"
             message = "Email 或 Password 輸入錯誤"
+        case 4:
+            str = "Email Input Error"
+            message = "此email已被註冊過"
         default:
             str = "content error"
         }
@@ -37,6 +41,22 @@ struct SignUpPage: View {
     var body: some View{
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
+            VStack{
+                HStack{
+                    Button(action: {
+                        currentPage = Pages.HomePage
+                    }, label: {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.purple)
+                            .frame(width:40,height:40)
+                            .padding(.leading,15)
+                    })
+                    Spacer()
+                }
+                Spacer()
+            }
             VStack{
                 HStack{
                     Spacer()
@@ -65,33 +85,45 @@ struct SignUpPage: View {
                         showAlert = true
                         return
                     }
-                    signInUser(email: email, password: password){ taken in
-                        if(taken){
-                            currentPage = Pages.ProfilePage
-                        }
-                        else{
-                            alertSelect = 3
-                            showAlert = true
-                            return
-                        }
-                        
+                    searchPlayerData(email: email){ unexist in
+                        guard let unexist = unexist else {
+                                return // value is nil; there was an error—consider retrying
+                            }
+                            if unexist {
+                                registerUser(email: email, password: password){ taken in
+                                    if(taken){
+                                        currentPage = Pages.CreateAvatarPage
+                                    }
+                                    else{
+                                        alertSelect = 3
+                                        showAlert = true
+                                        return
+                                    }
+                                }
+                            }
+                            else {
+                                alertSelect = 4
+                                showAlert = true
+                                return
+                            }
                     }
                 }, label: {
                     Text("SignUp")
                         .font(.system(size: 20,weight:.bold,design:.monospaced))
-                        .foregroundColor(Color.blue)
+                        .foregroundColor(.purple)
                         .multilineTextAlignment(.center)
                         .frame(width:screenWidth / 2, height: 40)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, style: StrokeStyle(lineWidth: 3)))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, style: StrokeStyle(lineWidth: 3)))
                 })
                 .alert(isPresented: $showAlert)
                   { () -> Alert in alertSwitch() }
+                
             }
             VStack{
                 Spacer()
                 Text("SignUp with...")
                     .font(.system(size: 20,weight:.bold,design:.monospaced))
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(.purple)
                 HStack{
                     Button(action: {
                         let manager = LoginManager()
@@ -129,6 +161,21 @@ struct SignUpPage: View {
                     })
                     .padding(.leading)
                 }
+                Text("OR")
+                    .font(.system(size: 20,weight:.bold,design:.monospaced))
+                    .foregroundColor(.blue)
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                Button(action: {
+                    currentPage = Pages.LoginPage
+                }, label: {
+                    Text("SignIn")
+                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+                        .foregroundColor(.blue)
+                        .multilineTextAlignment(.center)
+                        .frame(width:screenWidth / 4, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, style: StrokeStyle(lineWidth: 3)))
+                })
             }
         }
         .onAppear{
@@ -144,7 +191,7 @@ struct SignUpPage: View {
 
 struct SignUpPage_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpPage(currentPage: .constant(Pages.LoginPage))
+        SignUpPage(currentPage: .constant(Pages.LoginPage),playerEmail: .constant(""))
     }
 }
 

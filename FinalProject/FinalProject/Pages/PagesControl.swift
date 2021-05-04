@@ -15,6 +15,7 @@ struct PagesControl: View {
         
     @State var currentPage = Pages.HomePage
     @State var userImage:UIImage? = UIImage.init()
+    @State var playerEmail:String = ""
     var body: some View{
         ZStack{
             switch currentPage{
@@ -23,11 +24,11 @@ struct PagesControl: View {
             case Pages.LoginPage:
                 LoginPage(currentPage: $currentPage)
             case Pages.SignUpPage:
-                SignUpPage(currentPage: $currentPage)
+                SignUpPage(currentPage: $currentPage,playerEmail: $playerEmail)
             case Pages.CreateAvatarPage:
                 CreateAvatarPage(currentPage: $currentPage, userImage: $userImage)
             case Pages.CharactorPage:
-                CharactorPage(currentPage: $currentPage, userImage: $userImage)
+                CharactorPage(currentPage: $currentPage, userImage: $userImage,playerEmail: $playerEmail)
             case Pages.ProfilePage:
                 ProfilePage(currentPage: $currentPage, userImage: $userImage)
             }

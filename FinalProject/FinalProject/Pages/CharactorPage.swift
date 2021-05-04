@@ -10,10 +10,11 @@ import SwiftUI
 struct CharactorPage: View {
     @Binding var currentPage: Pages
     @Binding var userImage: UIImage?
+    @Binding var playerEmail: String
     @State private var alertSelect: Int = 0
-    @State private var selectedIndex:Int = 0
+    @State private var selectedIndex:Int = 2
     @State private var showAlert: Bool = false
-    @State private var email: String = ""
+    //@State private var email: String = ""
     @State         var emailConfirm: Bool? = nil
     @State private var name: String = ""
     @State private var age: CGFloat = 18
@@ -47,9 +48,9 @@ struct CharactorPage: View {
             VStack{
                 HStack{
                     Button(action: {
-                        //currentPage = Pages.CreateAvatarPage
-                        let player = Player(name:name, imageURL:imageURL,email:email,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
-                        createPlayerData(player: player)
+                        currentPage = Pages.CreateAvatarPage
+//                        let player = Player(name:name, imageURL:imageURL,email:playerEmail,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
+//                        createPlayerData(player: player)
                     }, label: {
                         Image(systemName: "arrow.left")
                             .resizable()
@@ -65,11 +66,11 @@ struct CharactorPage: View {
                             showAlert = true
                             return
                         }
-                        if email.count <= 0{
-                            alertSelect = 1
-                            showAlert = true
-                            return
-                        }
+//                        if email.count <= 0{
+//                            alertSelect = 1
+//                            showAlert = true
+//                            return
+//                        }
                         if money.count <= 0{
                             alertSelect = 2
                             showAlert = true
@@ -77,13 +78,14 @@ struct CharactorPage: View {
                         }
                         
                               
-                        searchPlayerData(email: email){ taken in
+                        searchPlayerData(email: playerEmail){ taken in
                             guard let taken = taken else {
                                     return // value is nil; there was an error—consider retrying
                                 }
                                 if taken {
-                                    let player = Player(name:name, imageURL:imageURL,email:email,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
+                                    let player = Player(name:name, imageURL:imageURL,email:playerEmail,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
                                     createPlayerData(player:player)
+                                    settingUserProfile(player: player)
                                     currentPage = Pages.ProfilePage
                                     print("searchPlayerData is taken")
                                 } else {
@@ -124,16 +126,15 @@ struct CharactorPage: View {
                     .padding(10)
                 HStack{
                     Spacer()
-                    Text("name:")
-                    TextField("Your Name", text: $name)
+                    Text("email:")
+                    Text(playerEmail)
                         .frame(width:screenWidth/2)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.trailing,screenWidth/5)
                 }
                 HStack{
                     Spacer()
-                    Text("email:")
-                    TextField("Your Email", text: $email)
+                    Text("name:")
+                    TextField("Your Name", text: $name)
                         .frame(width:screenWidth/2)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.trailing,screenWidth/5)
@@ -156,7 +157,7 @@ struct CharactorPage: View {
                 }
                 //Text("Age:\(Int(age))")
                 Slider(value: $age, in: 0...100, step: 1)
-                    .frame(width:screenWidth*0.8)
+                    .frame(width:screenWidth*0.6)
                 Picker(selection: $selectedIndex, label: Text("Select Country"), content: {
                     ForEach(countryName.indices) { (index) in
                         Text(countryName[index])
@@ -185,7 +186,7 @@ struct CharactorPage: View {
 
 struct CharactorPage_Previews: PreviewProvider {
     static var previews: some View {
-        CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()))
+        CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()),playerEmail: .constant(""))
     }
 }
 
