@@ -121,8 +121,8 @@
 				E63261EF263E97FD0017E9E3 /* HomePage.swift */,
 				57483716263950A40011B11F /* CreateAvatarPage.swift */,
 				3D8991752638B71B008DC2F3 /* CharactorPage.swift */,
-				3D4A28B7262B7A55005E4FA2 /* ContentView.swift */,
 				E63261F1263EADB70017E9E3 /* ProfilePage.swift */,
+				3D4A28B7262B7A55005E4FA2 /* ContentView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";

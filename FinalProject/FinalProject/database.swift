@@ -19,39 +19,30 @@ struct Player: Codable, Identifiable {
     let money: Int
     let regTime: Date
 }
-extension CharactorPage{
-    func searchPlayerData(player:Player) {
+//extension CharactorPage{
+    func searchPlayerData(email:String,_ completion: @escaping (_ taken: Bool?) -> Void) {
         print("searchPlayerData begin")
         let db = Firestore.firestore()
-        db.collection("players").whereField("email", isEqualTo: player.email).getDocuments { querySnapshot, error in
+        db.collection("players").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
             print("searchPlayerData DB")
             guard let querySnapshot = querySnapshot else {
-                emailConfirm = false
-                print("guard rtn false")
+                //print("Error getting documents: \(error)")
+                completion(nil)
                 return
             }
             
             if querySnapshot.documents.count <= 0{
-                    emailConfirm = false
-                print("emailConfirm false")
-            }
-            else{
-                emailConfirm = true
+                completion(true)
                 print("emailConfirm true")
             }
-            print("querySnapshot:\(querySnapshot)")
-            print("querySnapshot.documents:")
-            querySnapshot.documents.forEach({print($0.data())})
-            let temp =  querySnapshot.documents.map{doc in
-                print("doc:")
-                print(doc.data())
-                try? doc.data(as: Player.self)
+            else{
+                completion(false)
+                print("emailConfirm false")
             }
-            print("temp:\(temp)")
         }
         print("searchPlayerData end")
     }
-}
+//}
 func createPlayerData(name:String,imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date) {
     let db = Firestore.firestore()
 

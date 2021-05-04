@@ -14,8 +14,8 @@ struct FinalProjectApp: App {
         WindowGroup {
             //ContentView()
             //CreateAvatarPage()
-            //PagesControl()
-            CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()))
+            PagesControl()
+            //CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()))
         }
     }
 }

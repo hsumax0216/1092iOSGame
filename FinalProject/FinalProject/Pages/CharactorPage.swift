@@ -19,7 +19,7 @@ struct CharactorPage: View {
     @State private var age: CGFloat = 18
     @State private var money: String = ""
     @State private var imageURL:String = ""
-    
+    //@State         var mutex = pthread_mutex_t()
     func alertSwitch() -> Alert{
         var str = "content error"
         var message = "請正確填入資料"
@@ -75,26 +75,26 @@ struct CharactorPage: View {
                             showAlert = true
                             return
                         }
-                        let player = Player(name:name, imageURL:imageURL,email:email,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
                         
-                        //showAlert = true
-                        searchPlayerData(player: player)
-                        while emailConfirm == nil{
-                            sleep(UInt32(1))
-                            print("sleep +1")
-                        }
-                        if(emailConfirm == false){
-                            alertSelect = 3
-                            showAlert = true
-                            return
-                        }
-                        else{
-                            createPlayerData(player: player)
-                            currentPage = Pages.ProfilePage
+                              
+                        searchPlayerData(email: email){ taken in
+                            guard let taken = taken else {
+                                    return // value is nil; there was an error—consider retrying
+                                }
+                                if taken {
+                                    let player = Player(name:name, imageURL:imageURL,email:email,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
+                                    createPlayerData(player:player)
+                                    currentPage = Pages.ProfilePage
+                                    print("searchPlayerData is taken")
+                                } else {
+                                    alertSelect = 3
+                                    showAlert = true
+                                    print("searchPlayerData is available")
+                                }
                         }
                         
-                        //createPlayerData(player: player)
-                        //currentPage = Pages.ProfilePage
+//                createPlayerData(player:player)
+//                currentPage = Pages.ProfilePage
                     }, label: {
                         Image(systemName: "arrow.right")
                             .resizable()
@@ -170,15 +170,15 @@ struct CharactorPage: View {
             if userImage == nil{
                 userImage = UIImage.init()
             }
-//            uploadPhoto(image: userImage!) { result in
-//                switch result {
-//                case .success(let url):
-//                    print(url)
-//                    imageURL = url.absoluteString
-//                case .failure(let error):
-//                   print(error)
-//                }
-//            }
+            uploadPhoto(image: userImage!) { result in
+                switch result {
+                case .success(let url):
+                    print(url)
+                    imageURL = url.absoluteString
+                case .failure(let error):
+                   print(error)
+                }
+            }
         }
     }
 }

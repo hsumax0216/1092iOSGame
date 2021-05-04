@@ -25,26 +25,22 @@ struct ProfilePage: View {
             HStack{
                 Spacer()
                 Text("name:")
-                TextField("Your Name", text: $name)
+                Text("\(name)")
                     .frame(width:screenWidth/2)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.trailing,screenWidth/5)
             }
             HStack{
                 Spacer()
                 Text("email:")
-                TextField("Your Email", text: $email)
+                Text("\(email)")
                     .frame(width:screenWidth/2)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.trailing,screenWidth/5)
             }
             HStack{
                 Spacer()
                 Text("money:")
-                TextField("Your Money", text: $money)
+                Text("\(money)")
                     .frame(width:screenWidth/2)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
                     .padding(.trailing,screenWidth/5)
             }
         }
