@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Pages{
-    case HomePage, CharactorPage, CreateAvatarPage,ProfilePage,LoginPage
+    case HomePage, CharactorPage, CreateAvatarPage,ProfilePage,LoginPage,SignUpPage
 }
 
 struct PagesControl: View {
@@ -22,6 +22,8 @@ struct PagesControl: View {
                 HomePage(currentPage: $currentPage)
             case Pages.LoginPage:
                 LoginPage(currentPage: $currentPage)
+            case Pages.SignUpPage:
+                SignUpPage(currentPage: $currentPage)
             case Pages.CreateAvatarPage:
                 CreateAvatarPage(currentPage: $currentPage, userImage: $userImage)
             case Pages.CharactorPage:

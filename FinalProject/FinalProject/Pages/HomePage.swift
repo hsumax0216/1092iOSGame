@@ -10,38 +10,81 @@ import FirebaseAuth
 
 struct HomePage: View {
     @Binding var currentPage: Pages
+    @State private var signInState:Bool = false//true
+    @State private var showLogoutAlert:Bool = false
     var body: some View{
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
-        VStack{
-            Text("Avatar create")
-                               .font(.system(size: 40,weight:.bold,design:.monospaced))
-                               .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
-                               .multilineTextAlignment(.center)
-                               .frame(width:screenWidth, height: 60)
-                               .padding(.top,110)
-            Button(action: {currentPage = Pages.CreateAvatarPage}, label: {
-                Text("Sign up")
-                    .font(.system(size: 20,weight:.bold,design:.monospaced))
-                    .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
-                    .multilineTextAlignment(.center)
-                    .frame(width:screenWidth * 0.75, height: 60)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-            })
-            .padding(.top,70)
-            Button(action: {currentPage = Pages.ProfilePage}, label: {
-                Text("Sign in")
-                    .font(.system(size: 20,weight:.bold,design:.monospaced))
-                    .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
-                    .multilineTextAlignment(.center)
-                    .frame(width:screenWidth * 0.75, height: 60)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-            })
-            .padding(.top,50)
+        ZStack{
+            VStack{
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        showLogoutAlert = true
+                    }, label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.purple)
+                            .opacity(signInState ? 1 : 0.3)
+                            .frame(width:40,height:40)
+                            .rotationEffect(.degrees(90))
+                            .padding(.trailing,15)
+                    })
+                    .disabled(!signInState)
+                    .alert(isPresented: $showLogoutAlert)
+                      { () -> Alert in
+                        Alert(title: Text("Do you want to change account?"), message: Text("Press \"LogOut\" to logout and change account"), primaryButton: .default(Text("OK"),action:{
+                            showLogoutAlert = false
+                        }),secondaryButton: .default(Text("LogOut"), action: {
+                            //TODO:logout_func
+                            showLogoutAlert = false
+                            signInState = false
+                        }))
+                      }
+                }
+                Spacer()
+            }
+            VStack{
+                Text("Avatar create")
+                   .font(.system(size: 40,weight:.bold,design:.monospaced))
+                   .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                   .multilineTextAlignment(.center)
+                   .frame(width:screenWidth, height: 60)
+                   .padding(.top,110)
+                Button(action: {currentPage = Pages.CreateAvatarPage}, label: {
+                    Text("Sign up")
+                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                        .multilineTextAlignment(.center)
+                        .frame(width:screenWidth * 0.75, height: 60)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+                })
+                .padding(.top,70)
+                Button(action: {
+                    if(signInState){
+                        currentPage = Pages.ProfilePage
+                    }
+                    else{
+                        currentPage = Pages.LoginPage
+                    }
+                        
+                    
+                }, label: {
+                    Text(signInState ? "Profile" : "Sign in")
+                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                        .multilineTextAlignment(.center)
+                        .frame(width:screenWidth * 0.75, height: 60)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+                })
+                .padding(.top,50)
+            }
         }
         .onAppear{
             if let user = Auth.auth().currentUser {
                 print("\(user.uid) login")
-                currentPage = Pages.ProfilePage
+                signInState = true
+                //currentPage = Pages.ProfilePage
             } else {
                 print("not login")
             }
