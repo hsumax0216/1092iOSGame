@@ -132,6 +132,14 @@ struct LoginPage: View {
                 }
             }
         }
+//        .onAppear{
+//            if let user = Auth.auth().currentUser {
+//                print("\(user.uid) login")
+//                currentPage = Pages.ProfilePage
+//            } else {
+//                print("not login")
+//            }
+//        }
     }
 }
 

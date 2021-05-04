@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct HomePage: View {
     @Binding var currentPage: Pages
@@ -36,6 +37,14 @@ struct HomePage: View {
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
             })
             .padding(.top,50)
+        }
+        .onAppear{
+            if let user = Auth.auth().currentUser {
+                print("\(user.uid) login")
+                currentPage = Pages.ProfilePage
+            } else {
+                print("not login")
+            }
         }
     }
 }
