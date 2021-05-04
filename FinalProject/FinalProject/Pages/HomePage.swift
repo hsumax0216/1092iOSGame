@@ -18,8 +18,8 @@ struct HomePage: View {
                                .multilineTextAlignment(.center)
                                .frame(width:screenWidth, height: 60)
                                .padding(.top,110)
-            Button(action: {currentPage = Pages.ProfilePage}, label: {
-                Text("Sign in")
+            Button(action: {currentPage = Pages.CreateAvatarPage}, label: {
+                Text("Sign up")
                     .font(.system(size: 20,weight:.bold,design:.monospaced))
                     .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
                     .multilineTextAlignment(.center)
@@ -27,8 +27,8 @@ struct HomePage: View {
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
             })
             .padding(.top,70)
-            Button(action: {currentPage = Pages.CreateAvatarPage}, label: {
-                Text("Sign up")
+            Button(action: {currentPage = Pages.ProfilePage}, label: {
+                Text("Sign in")
                     .font(.system(size: 20,weight:.bold,design:.monospaced))
                     .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
                     .multilineTextAlignment(.center)
