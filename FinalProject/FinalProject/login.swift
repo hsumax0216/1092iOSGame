@@ -21,13 +21,16 @@ func registerUser(email:String,password:String){
     print("registerUser end")
 }
 
-func signInUser(email:String,password:String){
+func signInUser(email:String,password:String,_ completion: @escaping (_ taken: Bool) -> Void){
     print("sign in begin")
+    var rtn = true
     Auth.auth().signIn(withEmail: email, password: password) { result, error in
          guard error == nil else {
             print(error?.localizedDescription)
+            rtn = false
             return
          }
+        completion(rtn)
     }
     print("sign in end")
 }
