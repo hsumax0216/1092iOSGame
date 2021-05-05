@@ -18,6 +18,29 @@ struct ProfilePage: View {
     var body: some View {
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         VStack {
+            HStack{
+                Button(action: {
+                    currentPage = Pages.CreateAvatarPage
+                }, label: {
+                    Image(systemName: "arrow.left")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.purple)
+                        .frame(width:40,height:40)
+                        .padding(.leading,15)
+                })
+                Spacer()
+                Button(action: {
+                    
+                }, label: {
+                    Image(systemName: "house")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.purple)
+                        .frame(width:40,height:40)
+                        .padding(.trailing,15)
+                })
+            }
             Form {
                 HStack{
                     Spacer()
@@ -48,10 +71,15 @@ struct ProfilePage: View {
                         Text("\(money)")
                     }
                     HStack{
+                        Image(systemName: "calendar.circle.fill")
+                        Text("Age:")
+                        Text("\(Int(18))")
+                            //.frame(width:screenWidth/2)
+                    }
+                    HStack{
                         //Spacer()
                         Image(systemName: "doc.append")
                         Text("register Time:")
-                        Spacer()
                         Text(dateFormatter.string(from: date))
                     }
                 }
