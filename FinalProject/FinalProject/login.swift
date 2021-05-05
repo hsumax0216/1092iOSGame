@@ -8,16 +8,15 @@ import FirebaseAuth
 import UIKit
 import SwiftUI
 
-func registerUser(email:String,password:String,_ completion: @escaping (_ taken: Bool) -> Void){
+func registerUser(email:String,password:String,_ completion: @escaping (_ taken: User?) -> Void){
     print("registerUser begin")
-    var rtn = true
     Auth.auth().createUser(withEmail: email, password: password) { result, error in
         guard let user = result?.user,error == nil else {
             print(error?.localizedDescription)
-            rtn = false
+            completion(nil)
             return
         }
-        completion(rtn)
+        completion(user)
         print(user.email, user.uid)
     }
     print("registerUser end")
@@ -30,6 +29,7 @@ func signInUser(email:String,password:String,_ completion: @escaping (_ taken: B
          guard error == nil else {
             print(error?.localizedDescription)
             rtn = false
+            completion(rtn)
             return
          }
         completion(rtn)
@@ -37,12 +37,15 @@ func signInUser(email:String,password:String,_ completion: @escaping (_ taken: B
     print("sign in end")
 }
 
-func logOutUser(){
+func logOutUser(_ completion: @escaping (_ taken: Bool) -> Void){
     do {
        try Auth.auth().signOut()
     } catch {
-       print(error)
+        print(error)
+        completion(false)
+        return
     }
+    completion(true)
 }
 
 func settingUserProfile(player:Player){

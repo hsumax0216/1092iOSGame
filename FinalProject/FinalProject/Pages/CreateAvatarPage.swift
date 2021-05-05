@@ -149,7 +149,7 @@ struct CreateAvatarPage: View {
             VStack{
                 HStack{
 //                    Button(action: {
-//                        currentPage = Pages.HomePage
+//                        currentPage = lastPageStack.pop() ?? Pages.HomePage
 //                    }, label: {
 //                        Image(systemName: "arrow.left")
 //                            .resizable()
@@ -160,6 +160,7 @@ struct CreateAvatarPage: View {
 //                    })
                     Spacer()
                     Button(action: {
+                        lastPageStack.push(currentPage)
                         currentPage = Pages.CharactorPage
                         userImage = avatarView.snapshot()
                     }, label: {
@@ -190,7 +191,11 @@ struct CreateAvatarPage: View {
 //                        }
 //                    }
                 },label:{
-                    Text("snapshot")
+                    Image(systemName: "camera")
+                        .resizable()
+                        .foregroundColor(.purple)
+                        .scaledToFit()
+                        .frame(width:50)
                 })
                 ColorPicker("Accessory Color select", selection: $bgColor)
                     .frame(width:screenWidth*0.75)

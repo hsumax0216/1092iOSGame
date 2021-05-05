@@ -12,6 +12,7 @@ import FacebookLogin
 
 struct LoginPage: View {
     @Binding var currentPage: Pages
+    @Binding var playerProfile: Player
     @State private var email:String = ""
     @State private var password:String = ""
     @State private var showAlert:Bool = false
@@ -40,9 +41,27 @@ struct LoginPage: View {
         ZStack{
             VStack{
                 HStack{
+                    Button(action: {
+                        currentPage = lastPageStack.pop() ?? Pages.HomePage
+                    }, label: {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.blue)
+                            .frame(width:40,height:40)
+                            .padding(.leading,15)
+                    })
+                    Spacer()
+                }
+                Spacer()
+            }
+            VStack{
+                HStack{
                     Spacer()
                     Text("email:")
                     TextField("Your Email", text: $email)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .frame(width:screenWidth/2)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.trailing,screenWidth/5)
@@ -51,6 +70,8 @@ struct LoginPage: View {
                     Spacer()
                     Text("password:")
                     TextField("Your password", text: $password)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .frame(width:screenWidth/2)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.trailing,screenWidth/5)
@@ -68,6 +89,8 @@ struct LoginPage: View {
                     }
                     signInUser(email: email, password: password){ taken in
                         if(taken){
+                            //lastPageStack.push(currentPage)
+                            playerProfile.email = email
                             currentPage = Pages.ProfilePage
                         }
                         else{
@@ -106,6 +129,7 @@ struct LoginPage: View {
                                         print(error?.localizedDescription)
                                         return
                                     }
+                                    currentPage = Pages.ProfilePage
                                     print("login ok")
                                 }
                                 
@@ -130,6 +154,21 @@ struct LoginPage: View {
                     })
                     .padding(.leading)
                 }
+                Text("OR")
+                    .font(.system(size: 20,weight:.bold,design:.monospaced))
+                    .foregroundColor(.purple)
+                    .multilineTextAlignment(.center)
+                    .padding(5)
+                Button(action: {
+                    currentPage = Pages.SignUpPage
+                }, label: {
+                    Text("SignUp")
+                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+                        .foregroundColor(.purple)
+                        .multilineTextAlignment(.center)
+                        .frame(width:screenWidth / 4, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, style: StrokeStyle(lineWidth: 3)))
+                })
             }
         }
 //        .onAppear{
@@ -145,6 +184,6 @@ struct LoginPage: View {
 
 struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPage(currentPage: .constant(Pages.LoginPage))
+        LoginPage(currentPage: .constant(Pages.LoginPage),playerProfile: .constant(Player()))
     }
 }

@@ -11,37 +11,146 @@ import Foundation
 
 struct Player: Codable, Identifiable {
     @DocumentID var id: String?
-    let name: String
-    let imageURL: String
-    let email: String
-    let country: String
-    let age: Int
-    let money: Int
-    let regTime: Date
+    var uid: String
+    var name: String
+    var imageURL: String
+    var email: String
+    var country: String
+    var age: Int
+    var money: Int
+    var regTime: Date
+    init(){
+        name = ""
+        uid = ""
+        imageURL = ""
+        email = ""
+        country = ""
+        age = 18
+        money = 0
+        regTime = Date.init()
+    }
+    init(name:String, imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date){
+        self.name = name
+        self.imageURL = imageURL
+        self.email = email
+        self.country = country
+        self.age = age
+        self.money = money
+        self.regTime = regTime
+        self.uid = ""
+    }
+    init(uid:String,name:String, imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date){
+        self.name = name
+        self.imageURL = imageURL
+        self.email = email
+        self.country = country
+        self.age = age
+        self.money = money
+        self.regTime = regTime
+        self.uid = uid
+    }
 }
 //extension CharactorPage{
-    func searchPlayerData(email:String,_ completion: @escaping (_ taken: Bool?) -> Void) {
-        print("searchPlayerData begin")
-        let db = Firestore.firestore()
-        db.collection("players").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
-            print("searchPlayerData DB")
-            guard let querySnapshot = querySnapshot else {
-                //print("Error getting documents: \(error)")
-                completion(nil)
-                return
-            }
-            
-            if querySnapshot.documents.count <= 0{
-                completion(true)
-                print("emailConfirm true")
-            }
-            else{
-                completion(false)
-                print("emailConfirm false")
-            }
+func searchPlayerData(uid:String,_ completion: @escaping (_ taken: Bool?) -> Void) {
+    print("searchPlayerData begin")
+    let db = Firestore.firestore()
+    db.collection("players").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, error in
+        print("searchPlayerData DB")
+        guard let querySnapshot = querySnapshot else {
+            //print("Error getting documents: \(error)")
+            completion(nil)
+            return
         }
-        print("searchPlayerData end")
+        
+        if querySnapshot.documents.count <= 0{
+            completion(true)
+            print("uidConfirm true")
+        }
+        else{
+            completion(false)
+            print("uidConfirm false")
+        }
     }
+    print("searchPlayerData end")
+}
+func searchPlayerData(email:String,_ completion: @escaping (_ taken: Bool?) -> Void) {
+    print("searchPlayerData begin")
+    let db = Firestore.firestore()
+    db.collection("players").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
+        print("searchPlayerData DB")
+        guard let querySnapshot = querySnapshot else {
+            //print("Error getting documents: \(error)")
+            completion(nil)
+            return
+        }
+        
+        if querySnapshot.documents.count <= 0{
+            completion(true)
+            print("emailConfirm true")
+        }
+        else{
+            completion(false)
+            print("emailConfirm false")
+        }
+    }
+    print("searchPlayerData end")
+}
+func getPlayerData(uid:String,_ completion: @escaping (_ taken: Player?) -> Void){
+    let db = Firestore.firestore()
+    print("getPlayerData uid: [\(uid)]")
+    db.collection("players").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, error in
+        guard let querySnapshot = querySnapshot else {
+            //print("Error getting documents: \(error)")
+            print("guard let querySnapshot = querySnapshot")
+            completion(nil)
+            return
+        }
+
+        if querySnapshot.documents.count <= 0{
+            print("querySnapshot.documents.count <= 0")
+            completion(nil)
+        }
+        else{
+            var dataList = [Player]()
+            for document in querySnapshot.documents {
+                guard let t = try? document.data(as:Player.self) else {
+                    continue
+                }
+                dataList.append(t)
+            }
+            print("dataList:\(dataList)")
+            completion(dataList[0])
+        }
+    }
+}
+func getPlayerData(email:String,_ completion: @escaping (_ taken: Player?) -> Void){
+    let db = Firestore.firestore()
+    print("getPlayerData uid: [\(email)]")
+    db.collection("players").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
+        guard let querySnapshot = querySnapshot else {
+            //print("Error getting documents: \(error)")
+            print("guard let querySnapshot = querySnapshot")
+            completion(nil)
+            return
+        }
+
+        if querySnapshot.documents.count <= 0{
+            print("querySnapshot.documents.count <= 0")
+            completion(nil)
+        }
+        else{
+            var dataList = [Player]()
+            for document in querySnapshot.documents {
+                guard let t = try? document.data(as:Player.self) else {
+                    continue
+                }
+                dataList.append(t)
+            }
+            print("dataList:\(dataList)")
+            completion(dataList[0])
+        }
+    }
+}
 //}
 func createPlayerData(name:String,imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date) {
     let db = Firestore.firestore()

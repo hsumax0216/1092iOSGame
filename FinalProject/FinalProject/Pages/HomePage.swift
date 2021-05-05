@@ -10,6 +10,8 @@ import FirebaseAuth
 
 struct HomePage: View {
     @Binding var currentPage: Pages
+    @Binding var playerProfile: Player
+    @Binding var userImage:UIImage?
     @State private var signInState:Bool = false//true
     @State private var showLogoutAlert:Bool = false
     var body: some View{
@@ -36,9 +38,17 @@ struct HomePage: View {
                         Alert(title: Text("Do you want to change account?"), message: Text("Press \"LogOut\" to logout and change account"), primaryButton: .default(Text("OK"),action:{
                             showLogoutAlert = false
                         }),secondaryButton: .default(Text("LogOut"), action: {
-                            //TODO:logout_func
+                            logOutUser(){ token in
+                                if token{
+                                    signInState = false
+                                    playerProfile = Player()
+                                    userImage = nil
+                                }
+                                else{
+                                    print("logOutUser Error.")
+                                }
+                            }
                             showLogoutAlert = false
-                            signInState = false
                         }))
                       }
                 }
@@ -51,7 +61,10 @@ struct HomePage: View {
                    .multilineTextAlignment(.center)
                    .frame(width:screenWidth, height: 60)
                    .padding(.top,110)
-                Button(action: {currentPage = Pages.CreateAvatarPage}, label: {
+                Button(action: {
+                    lastPageStack.push(currentPage)
+                    currentPage = Pages.SignUpPage
+                }, label: {
                     Text("Sign up")
                         .font(.system(size: 20,weight:.bold,design:.monospaced))
                         .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
@@ -62,9 +75,11 @@ struct HomePage: View {
                 .padding(.top,70)
                 Button(action: {
                     if(signInState){
+                        lastPageStack.push(currentPage)
                         currentPage = Pages.ProfilePage
                     }
                     else{
+                        lastPageStack.push(currentPage)
                         currentPage = Pages.LoginPage
                     }
                         
@@ -84,6 +99,7 @@ struct HomePage: View {
             if let user = Auth.auth().currentUser {
                 print("\(user.uid) login")
                 signInState = true
+                //lastPage = currentPage
                 //currentPage = Pages.ProfilePage
             } else {
                 print("not login")
@@ -94,6 +110,6 @@ struct HomePage: View {
 
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
-        HomePage(currentPage: .constant(Pages.HomePage))
+        HomePage(currentPage: .constant(Pages.HomePage),playerProfile: .constant(Player()),userImage: .constant(UIImage.init()))
     }
 }

@@ -11,7 +11,7 @@ import FacebookLogin
 
 struct SignUpPage: View {
     @Binding var currentPage: Pages
-    @Binding var playerEmail: String
+    @Binding var playerProfile: Player
     @State private var email:String = ""
     @State private var password:String = ""
     @State private var showAlert:Bool = false
@@ -44,7 +44,7 @@ struct SignUpPage: View {
             VStack{
                 HStack{
                     Button(action: {
-                        currentPage = Pages.HomePage
+                        currentPage = lastPageStack.pop() ?? Pages.HomePage
                     }, label: {
                         Image(systemName: "arrow.left")
                             .resizable()
@@ -62,6 +62,8 @@ struct SignUpPage: View {
                     Spacer()
                     Text("email:")
                     TextField("Your Email", text: $email)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .frame(width:screenWidth/2)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.trailing,screenWidth/5)
@@ -70,6 +72,8 @@ struct SignUpPage: View {
                     Spacer()
                     Text("password:")
                     TextField("Your password", text: $password)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .frame(width:screenWidth/2)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.trailing,screenWidth/5)
@@ -90,8 +94,11 @@ struct SignUpPage: View {
                                 return // value is nil; there was an error—consider retrying
                             }
                             if unexist {
-                                registerUser(email: email, password: password){ taken in
-                                    if(taken){
+                                registerUser(email: email, password: password){ user in
+                                    if let user = user{
+                                        //lastPageStack.push(currentPage)
+                                        playerProfile.email = email
+                                        playerProfile.uid = user.uid
                                         currentPage = Pages.CreateAvatarPage
                                     }
                                     else{
@@ -137,6 +144,19 @@ struct SignUpPage: View {
                                         print(error?.localizedDescription)
                                         return
                                     }
+                                    if let user = Auth.auth().currentUser {
+                                        print("\(user.providerID) login")
+                                        if user.providerData.count > 0 {
+                                            let userInfo = user.providerData[0]
+                                            print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+                                            playerProfile.email = userInfo.email ?? "FB login"
+                                            playerProfile.uid = userInfo.uid
+                                            currentPage = Pages.CreateAvatarPage
+                                        }
+                                    }
+                                    else {
+                                        print("fb login getdata fail.")
+                                    }
                                     print("login ok")
                                 }
                                 
@@ -181,7 +201,7 @@ struct SignUpPage: View {
         .onAppear{
             if let user = Auth.auth().currentUser {
                 print("\(user.uid) login")
-                currentPage = Pages.HomePage
+                currentPage = lastPageStack.pop() ?? Pages.HomePage
             } else {
                 print("not login")
             }
@@ -191,7 +211,7 @@ struct SignUpPage: View {
 
 struct SignUpPage_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpPage(currentPage: .constant(Pages.LoginPage),playerEmail: .constant(""))
+        SignUpPage(currentPage: .constant(Pages.LoginPage),playerProfile: .constant(Player()))
     }
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct CharactorPage: View {
     @Binding var currentPage: Pages
     @Binding var userImage: UIImage?
-    @Binding var playerEmail: String
+    @Binding var playerProfile: Player
     @State private var alertSelect: Int = 0
     @State private var selectedIndex:Int = 2
     @State private var showAlert: Bool = false
@@ -47,7 +47,7 @@ struct CharactorPage: View {
         VStack{
             HStack{
                 Button(action: {
-                    currentPage = Pages.CreateAvatarPage
+                    currentPage = lastPageStack.pop() ?? Pages.CreateAvatarPage
 //                        let player = Player(name:name, imageURL:imageURL,email:playerEmail,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
 //                        createPlayerData(player: player)
                 }, label: {
@@ -77,14 +77,17 @@ struct CharactorPage: View {
                     }
                     
                           
-                    searchPlayerData(email: playerEmail){ taken in
+                    searchPlayerData(uid: playerProfile.uid){ taken in
                         guard let taken = taken else {
                                 return // value is nil; there was an error—consider retrying
                             }
                             if taken {
-                                let player = Player(name:name, imageURL:imageURL,email:playerEmail,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
+                                let player = Player(uid:playerProfile.uid,name:name, imageURL:imageURL,email:playerProfile.email,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
                                 createPlayerData(player:player)
                                 settingUserProfile(player: player)
+                                playerProfile = player
+                                
+                                lastPageStack.push(currentPage)
                                 currentPage = Pages.ProfilePage
                                 print("searchPlayerData is taken")
                             } else {
@@ -93,9 +96,6 @@ struct CharactorPage: View {
                                 print("searchPlayerData is available")
                             }
                     }
-                    
-//                createPlayerData(player:player)
-//                currentPage = Pages.ProfilePage
                 }, label: {
                     Image(systemName: "arrow.right")
                         .resizable()
@@ -129,7 +129,7 @@ struct CharactorPage: View {
                     HStack{
                         Image(systemName: "envelope.circle.fill")
                         Text("email:")
-                        Text(playerEmail)
+                        Text(playerProfile.email)
                             .frame(width:screenWidth/2)
                     }
                     HStack{
@@ -181,7 +181,7 @@ struct CharactorPage: View {
 
 struct CharactorPage_Previews: PreviewProvider {
     static var previews: some View {
-        CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()),playerEmail: .constant(""))
+        CharactorPage(currentPage: .constant(Pages.CharactorPage),userImage: .constant(UIImage.init()),playerProfile: .constant(Player()))
     }
 }
 
