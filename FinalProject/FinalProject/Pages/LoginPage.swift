@@ -91,7 +91,11 @@ struct LoginPage: View {
                         if(taken){
                             //lastPageStack.push(currentPage)
                             playerProfile.email = email
-                            currentPage = Pages.ProfilePage
+                            if let user = Auth.auth().currentUser{
+                                playerProfile.uid = user.uid
+                                playerProfile.name = user.displayName ?? ""
+                                currentPage = Pages.ProfilePage
+                            }
                         }
                         else{
                             alertSelect = 3
@@ -129,7 +133,20 @@ struct LoginPage: View {
                                         print(error?.localizedDescription)
                                         return
                                     }
-                                    currentPage = Pages.ProfilePage
+                                    if let user = Auth.auth().currentUser {
+                                        print("\(user.providerID) login")
+                                        if user.providerData.count > 0 {
+                                            let userInfo = user.providerData[0]
+                                            print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+                                            playerProfile.email = user.email ?? "FB login"
+                                            playerProfile.uid = user.uid
+                                            playerProfile.name = userInfo.displayName ?? ""
+                                            currentPage = Pages.ProfilePage
+                                        }
+                                    }
+                                    else {
+                                        print("fb login getdata fail.")
+                                    }
                                     print("login ok")
                                 }
                                 

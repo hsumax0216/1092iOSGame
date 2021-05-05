@@ -149,8 +149,9 @@ struct SignUpPage: View {
                                         if user.providerData.count > 0 {
                                             let userInfo = user.providerData[0]
                                             print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
-                                            playerProfile.email = userInfo.email ?? "FB login"
-                                            playerProfile.uid = userInfo.uid
+                                            playerProfile.email = user.email ?? "FB login"
+                                            playerProfile.uid = user.uid
+                                            playerProfile.name = userInfo.displayName ?? ""
                                             currentPage = Pages.CreateAvatarPage
                                         }
                                     }
