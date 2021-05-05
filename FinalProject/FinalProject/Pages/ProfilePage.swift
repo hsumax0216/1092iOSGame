@@ -96,6 +96,7 @@ struct ProfilePage: View {
             }
         }
         .onAppear{
+            dateFormatter.dateFormat  = "y MMM dd HH:mm"
             getPlayerData(uid: playerProfile.uid){ player in
                 guard let player = player else{
                     print("getPlayerData fail.")
@@ -123,7 +124,6 @@ struct ProfilePage: View {
                     }
                 }
             }
-            dateFormatter.dateFormat  = "y MMM dd HH:mm"
             if userImage == nil{
                 userImage = UIImage.init()
             }
