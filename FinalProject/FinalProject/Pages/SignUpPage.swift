@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import FacebookLogin
+import GoogleSignIn
 
 struct SignUpPage: View {
     @Binding var currentPage: Pages
@@ -173,6 +174,8 @@ struct SignUpPage: View {
                     })
                     .padding(.trailing)
                     Button(action: {
+                        lastPageStack.push(currentPage)
+                        currentPage = Pages.GoogleSignInPage
                         
                     }, label: {
                         Image("google-logo")

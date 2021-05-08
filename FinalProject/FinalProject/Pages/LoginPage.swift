@@ -9,6 +9,7 @@
 import SwiftUI
 import FirebaseAuth
 import FacebookLogin
+import GoogleSignIn
 
 struct LoginPage: View {
     @Binding var currentPage: Pages
