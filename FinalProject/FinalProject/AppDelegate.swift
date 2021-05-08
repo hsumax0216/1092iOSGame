@@ -10,10 +10,30 @@ import Firebase
 import FacebookCore
 import GoogleSignIn
 //google client ID : 261234482563-id38fb7pmn7lh9v6rjumv7o39smn6vjj.apps.googleusercontent.com
-class AppDelegate: NSObject, UIApplicationDelegate,GIDSignInDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate/*,GIDSignInDelegate*/ {
     
     var window: UIWindow?
     
+    let googleDelegate = GoogleDelegate()
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Override point for customization after application launch.
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID//"261234482563-id38fb7pmn7lh9v6rjumv7o39smn6vjj.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = googleDelegate
+        //GIDSignIn.sharedInstance().scopes = Constants.GS.scopes
+        
+        
+        return true
+    }
+}
+
+class GoogleDelegate: NSObject, GIDSignInDelegate, ObservableObject {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
       if let error = error {
@@ -24,6 +44,10 @@ class AppDelegate: NSObject, UIApplicationDelegate,GIDSignInDelegate {
         }
         return
       }
+//        guard let authentication = user.authentication else { return }
+//          let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+//                                                            accessToken: authentication.accessToken)
+        signedIn = true
       // Perform any operations on signed in user here.
       let userId = user.userID                  // For client-side use only!
       let idToken = user.authentication.idToken // Safe to send to the server
@@ -41,18 +65,11 @@ class AppDelegate: NSObject, UIApplicationDelegate,GIDSignInDelegate {
         print("email:",email ?? "No email\n")
     }
     
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // Override point for customization after application launch.
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        FirebaseApp.configure()
-        
-        GIDSignIn.sharedInstance().clientID = "261234482563-id38fb7pmn7lh9v6rjumv7o39smn6vjj.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        
-        return true
-    }
+    @Published var signedIn: Bool? = nil
+    
 }

@@ -18,6 +18,14 @@ struct SignUpPage: View {
     @State private var showAlert:Bool = false
     @State private var alertSelect:Int = 0
     
+    //@EnvironmentObject var googleDelegate: GoogleDelegate
+    
+//    func googleSigIn(_ completion: @escaping (_ taken: Bool?) -> Void){
+//        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
+//        GIDSignIn.sharedInstance().signIn()
+//        completion(AppDelegate.googleDelegate.signedIn)
+//    }
+    
     func alertSwitch() -> Alert{
         var str = "content error"
         var message = "請正確填入資料"
@@ -174,9 +182,40 @@ struct SignUpPage: View {
                     })
                     .padding(.trailing)
                     Button(action: {
-                        lastPageStack.push(currentPage)
-                        currentPage = Pages.GoogleSignInPage
+                        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
+                        //GIDSignIn.sharedInstance().signIn()
                         
+                        guard let signIn = GIDSignIn.sharedInstance() else { return }
+                        if (signIn.hasPreviousSignIn()) {
+                          signIn.restorePreviousSignIn()
+                            
+                            guard let authentication = signIn.currentUser.authentication else {
+                                return
+                            }
+                            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                                                accessToken: authentication.accessToken)
+                            Auth.auth().signIn(with: credential) { (result, error) in
+                                guard error == nil else {
+                                    print(error?.localizedDescription)
+                                    return
+                                }
+                                if let user = Auth.auth().currentUser {
+                                    print("\(user.providerID) login")
+                                    if user.providerData.count > 0 {
+                                        let userInfo = user.providerData[0]
+                                        print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+                                        playerProfile.email = user.email ?? "Google login"
+                                        playerProfile.uid = user.uid
+                                        playerProfile.name = userInfo.displayName ?? ""
+                                        currentPage = Pages.CreateAvatarPage
+                                    }
+                                }
+                                else {
+                                    print("google login getdata fail.")
+                                }
+                                print("login ok")
+                            }
+                        }
                     }, label: {
                         Image("google-logo")
                             .resizable()
