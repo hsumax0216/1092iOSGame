@@ -5,6 +5,8 @@
 //  Created by 徐浩恩 on 2021/4/28.
 //
 import FirebaseAuth
+import FacebookLogin
+import GoogleSignIn
 import UIKit
 import SwiftUI
 
@@ -37,8 +39,16 @@ func signInUser(email:String,password:String,_ completion: @escaping (_ taken: B
     print("sign in end")
 }
 
+
+func FBLogOut(){
+    let manager = LoginManager()
+    manager.logOut()
+}
+
 func logOutUser(_ completion: @escaping (_ taken: Bool) -> Void){
     do {
+        FBLogOut()
+        GIDSignIn.sharedInstance().signOut()
        try Auth.auth().signOut()
     } catch {
         print(error)

@@ -12,12 +12,15 @@ import FacebookLogin
 import GoogleSignIn
 
 struct LoginPage: View {
+    
     @Binding var currentPage: Pages
     @Binding var playerProfile: Player
     @State private var email:String = ""
     @State private var password:String = ""
     @State private var showAlert:Bool = false
     @State private var alertSelect:Int = 0
+    let GoogleSignedInNoti = NotificationCenter.default.publisher(for: Notification.Name("GoogleSignInSuccess"))
+    
     
     func alertSwitch() -> Alert{
         var str = "content error"
@@ -37,6 +40,20 @@ struct LoginPage: View {
             showAlert = false
         }))
     }
+    
+    
+    func receiveResponse(user: GIDGoogleUser) {
+        let userId = user.userID                  // For client-side use only!
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let email = user.profile.email
+        print("Google SignIn in LoginPage:")
+        print("userId:",userId ?? "No ID")
+        print("idToken:",idToken ?? "No IDtoken")
+        print("fullName:",fullName ?? "No full name")
+        print("email:",email ?? "No email\n")
+    }
+    
     var body: some View{
         let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
@@ -163,14 +180,60 @@ struct LoginPage: View {
                     })
                     .padding(.trailing)
                     Button(action: {
-                        
+                        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
+                        GIDSignIn.sharedInstance().signIn()
+//                        print("1.")
+//                        guard let signIn = GIDSignIn.sharedInstance() else { return }
+//                        print("2.")
+//                        
+//                        guard signIn.currentUser == nil else { return }
+//                        print("3.")
+//                        guard let authentication = signIn.currentUser.authentication else { return }
+//                        print("4.")
+//                        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+//                        Auth.auth().signIn(with: credential) { (result, error) in
+//                            guard error == nil else {
+//                                print(error?.localizedDescription)
+//                                return
+//                            }
+//                            if let user = Auth.auth().currentUser {
+//                                print("\(user.providerID) login")
+//                                if user.providerData.count > 0 {
+//                                    let userInfo = user.providerData[0]
+//                                    print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+//                                    playerProfile.email = user.email ?? "Google login"
+//                                    playerProfile.uid = user.uid
+//                                    playerProfile.name = userInfo.displayName ?? ""
+//                                    currentPage = Pages.ProfilePage
+//                                }
+//                            }
+//                            else {
+//                                print("google login getdata fail.")
+//                            }
+//                            print("login ok")
+//                        }
+//                        print("6.")
                     }, label: {
                         Image("google-logo")
                             .resizable()
                             .scaledToFit()
                             .frame(width:screenWidth/4,height: screenWidth/4)
+                            .padding(.leading)
                     })
-                    .padding(.leading)
+                    .onReceive(GoogleSignedInNoti, perform: { _ in
+                        if let user = Auth.auth().currentUser {
+                            print("\(user.providerID) login")
+                            if user.providerData.count > 0 {
+                                let userInfo = user.providerData[0]
+                                print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+                                playerProfile.email = user.email ?? "Google login"
+                                playerProfile.uid = user.uid
+                                playerProfile.name = userInfo.displayName ?? ""
+                                currentPage = Pages.ProfilePage
+                            }
+                        }
+                        currentPage = Pages.ProfilePage
+                    })
                 }
                 Text("OR")
                     .font(.system(size: 20,weight:.bold,design:.monospaced))

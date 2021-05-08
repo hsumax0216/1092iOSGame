@@ -31,33 +31,33 @@ import GoogleSignIn
 //    }
 //}
 
-struct GoogleSignInButton : UIViewRepresentable{
-    func makeUIView(context: Context) -> GIDSignInButton{
-        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
-        let button = GIDSignInButton()
-        button.colorScheme = .light
-        return button
-    }
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        
-    }
-    
-    typealias UIViewControllerType = UIView
-    
-}
-
-struct contentview:View{
-    @EnvironmentObject var googleDelegate: GoogleDelegate
-    
-    var body: some View{
-        GoogleSignInButton()
-    }
-}
-
-
-struct GoogleSignInPage_Previews: PreviewProvider {
-    static var previews: some View {
-        contentview()
-    }
-}
+//struct GoogleSignInButton : UIViewRepresentable{
+//    func makeUIView(context: Context) -> GIDSignInButton{
+//        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
+//        let button = GIDSignInButton()
+//        button.colorScheme = .light
+//        return button
+//    }
+//    
+//    func updateUIView(_ uiView: UIViewType, context: Context) {
+//        
+//    }
+//    
+//    typealias UIViewControllerType = UIView
+//    
+//}
+//
+//struct contentview:View{
+//    @EnvironmentObject var googleDelegate: GoogleDelegate
+//    
+//    var body: some View{
+//        GoogleSignInButton()
+//    }
+//}
+//
+//
+//struct GoogleSignInPage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        contentview()
+//    }
+//}
