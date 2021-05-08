@@ -29,7 +29,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate {
         
         
         guard let authentication = user.authentication else { return }
-        print("4.")
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { (result, error) in
             guard error == nil else {
