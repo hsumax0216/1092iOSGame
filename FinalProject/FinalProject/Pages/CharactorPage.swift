@@ -158,9 +158,10 @@ struct CharactorPage: View {
                             Text(countryName[index])
                         }
                     })
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(height: 130)
                 }
             }
-            
         }
         .onAppear{
             if userImage == nil{

@@ -15,6 +15,7 @@ struct PagesControl: View {
     @State var currentPage = Pages.HomePage
     @State var userImage:UIImage? = UIImage.init()
     @State var playerProfile:Player = Player()
+    @State var editmode: Int = 0
     var body: some View{
         ZStack{
             switch currentPage{
@@ -31,7 +32,7 @@ struct PagesControl: View {
             case Pages.CharactorPage:
                 CharactorPage(currentPage: $currentPage, userImage: $userImage,playerProfile: $playerProfile)
             case Pages.ProfilePage:
-                ProfilePage(currentPage: $currentPage, userImage: $userImage,playerProfile:$playerProfile)
+                ProfilePage(currentPage: $currentPage, userImage: $userImage,playerProfile:$playerProfile,editmode: $editmode)
             }
         }
         .onAppear{
