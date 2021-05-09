@@ -41,6 +41,9 @@ struct SignUpPage: View {
         case 4:
             str = "Email Input Error"
             message = "此email已被註冊過"
+        case 5:
+            str = "User Exist"
+            message = "您已被註冊過"
         default:
             str = "content error"
         }
@@ -148,7 +151,6 @@ struct SignUpPage: View {
                             manager.logIn { (result) in
                                 if case LoginResult.success(granted: _, declined: _, token: _) = result {
                                     print("fb login ok")
-                                    
                                     let credential =  FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
                                         Auth.auth().signIn(with: credential) { (result, error) in
                                         guard error == nil else {
@@ -158,12 +160,26 @@ struct SignUpPage: View {
                                         if let user = Auth.auth().currentUser {
                                             print("\(user.providerID) login")
                                             if user.providerData.count > 0 {
-                                                let userInfo = user.providerData[0]
-                                                print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
-                                                playerProfile.email = user.email ?? "FB login"
-                                                playerProfile.uid = user.uid
-                                                playerProfile.name = userInfo.displayName ?? ""
-                                                currentPage = Pages.CreateAvatarPage
+                                                
+                                                searchPlayerData(uid: user.uid){ unexist in
+                                                    guard let unexist = unexist else {
+                                                            return // value is nil; there was an error—consider retrying
+                                                        }
+                                                        if unexist {
+                                                            let userInfo = user.providerData[0]
+                                                            print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+                                                            playerProfile.email = user.email ?? "FB login"
+                                                            playerProfile.uid = user.uid
+                                                            playerProfile.name = userInfo.displayName ?? ""
+                                                            currentPage = Pages.CreateAvatarPage
+                                                        }
+                                                        else {
+                                                            alertSelect = 5
+                                                            logOutUser(){ _ in }
+                                                            showAlert = true
+                                                            return
+                                                        }
+                                                }
                                             }
                                         }
                                         else {
@@ -209,7 +225,8 @@ struct SignUpPage: View {
                                                 currentPage = Pages.CreateAvatarPage
                                             }
                                             else {
-                                                alertSelect = 4
+                                                alertSelect = 5
+                                                logOutUser(){ _ in }
                                                 showAlert = true
                                                 return
                                             }
