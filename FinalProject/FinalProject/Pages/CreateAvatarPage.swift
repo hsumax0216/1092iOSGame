@@ -32,19 +32,19 @@ struct CreateAvatarPage: View {
         avatarAccessory = "accessories/* None"
         avatarFacialhair = "facial-hair/Full 2"
         
-        bodyPoseSelect = BodyPose.standing
-        avatarBody = "pose/standing/blazer-1"
-        avatarHead = "head/Afro"
-        avatarFace = "face/Awe"
-        avatarAccessory = "accessories/Eyepatch"
-        avatarFacialhair = "facial-hair/* None"
-
-        bodyPoseSelect = BodyPose.sitting
-        avatarBody = "pose/sitting/bike"
-        avatarHead = "head/Afro"
-        avatarFace = "face/Awe"
-        avatarAccessory = "accessories/Eyepatch"
-        avatarFacialhair = "facial-hair/* None"
+//        bodyPoseSelect = BodyPose.standing
+//        avatarBody = "pose/standing/blazer-1"
+//        avatarHead = "head/Afro"
+//        avatarFace = "face/Awe"
+//        avatarAccessory = "accessories/Eyepatch"
+//        avatarFacialhair = "facial-hair/* None"
+//
+//        bodyPoseSelect = BodyPose.sitting
+//        avatarBody = "pose/sitting/bike"
+//        avatarHead = "head/Afro"
+//        avatarFace = "face/Awe"
+//        avatarAccessory = "accessories/Eyepatch"
+//        avatarFacialhair = "facial-hair/* None"
         
         picWidth = (screenWidth-10*4)/3
     }
@@ -148,16 +148,38 @@ struct CreateAvatarPage: View {
         ZStack{
             VStack{
                 HStack{
-//                    Button(action: {
-//                        currentPage = lastPageStack.pop() ?? Pages.HomePage
-//                    }, label: {
-//                        Image(systemName: "arrow.left")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .foregroundColor(.purple)
-//                            .frame(width:40,height:40)
-//                            .padding(.leading,15)
-//                    })
+                    Button(action: {
+                        let bodyArray = body_filename + pose_standing_filename + pose_sitting_filename
+                        let tmpString = bodyArray.randomElement() ?? "body/Blazer Black Tee"
+                        let cutIdx = tmpString.index(tmpString.startIndex, offsetBy: 4)
+                        switch tmpString.prefix(upTo: cutIdx){
+                        case "body":
+                            bodyPoseSelect = BodyPose.body
+                        case "pose":
+                            let poseIdx = tmpString.index(tmpString.startIndex, offsetBy: 13)
+                            if tmpString.prefix(upTo: poseIdx) == "pose/standing"{
+                                bodyPoseSelect = BodyPose.standing
+                            }
+                            else{
+                                bodyPoseSelect = BodyPose.sitting
+                            }
+                        default:
+                            print("random switch default")
+                        }
+                        avatarBody = tmpString
+                        avatarHead = head_filename.randomElement() ?? "head/Afro"
+                        avatarFace = face_filename.randomElement() ?? "face/Blank"
+                        avatarAccessory = accessories_filename.randomElement() ?? "accessories/* None"
+                        avatarFacialhair = facial_hair_filename.randomElement() ?? "facial-hair/Full 2"
+                        
+                    }, label: {
+                        Image("dice")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.purple)
+                            .frame(width:40,height:40)
+                            .padding(.leading,15)
+                    })
                     Spacer()
                     Button(action: {
                         lastPageStack.push(currentPage)
