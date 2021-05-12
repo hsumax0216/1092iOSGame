@@ -99,6 +99,9 @@
 		3D4A28B4262B7A55005E4FA2 /* FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				3D89916C2636AE97008DC2F3 /* Views */,
+				57917CCD264BCAE000BD2C5E /* Models */,
+				57917CCB264BCAC100BD2C5E /* ViewModels */,
 				E66B0E4726480B070023D29B /* Assets.xcassets */,
 				3D89916F2637C210008DC2F3 /* AppDelegate.swift */,
 				57B103B82642913B00D53CA8 /* Stack.swift */,
@@ -107,7 +110,6 @@
 				3D899173263893A7008DC2F3 /* login.swift */,
 				5748371A263953590011B11F /* assetsNames.swift */,
 				5748371E2639779F0011B11F /* viewSnapShot.swift */,
-				3D89916C2636AE97008DC2F3 /* Pages */,
 				3D4A28B5262B7A55005E4FA2 /* FinalProjectApp.swift */,
 				3D4A28BE262B7A58005E4FA2 /* Info.plist */,
 				3D89916D2637C1B5008DC2F3 /* GoogleService-Info.plist */,
@@ -132,7 +134,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3D89916C2636AE97008DC2F3 /* Pages */ = {
+		3D89916C2636AE97008DC2F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				E63261ED263E96060017E9E3 /* PagesControl.swift */,
@@ -145,7 +147,21 @@
 				E63261F1263EADB70017E9E3 /* ProfilePage.swift */,
 				3D4A28B7262B7A55005E4FA2 /* ContentView.swift */,
 			);
-			path = Pages;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		57917CCB264BCAC100BD2C5E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		57917CCD264BCAE000BD2C5E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B79D9389F5123E4C89305B61 /* Pods */ = {
