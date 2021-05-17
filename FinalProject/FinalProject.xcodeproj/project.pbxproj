@@ -33,6 +33,7 @@
 		E636C98226529BF1001B494B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C98126529BF1001B494B /* Player.swift */; };
 		E636C98526529CC3001B494B /* FirebaseViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C98426529CC3001B494B /* FirebaseViewModels.swift */; };
 		E636C9882652A8BC001B494B /* Extension_CreateAvatarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */; };
+		E636C98A2652AB51001B494B /* Extension_LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C9892652AB51001B494B /* Extension_LoginPage.swift */; };
 		E66B0E4826480B070023D29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66B0E4726480B070023D29B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		E636C98126529BF1001B494B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E636C98426529CC3001B494B /* FirebaseViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewModels.swift; sourceTree = "<group>"; };
 		E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_CreateAvatarPage.swift; sourceTree = "<group>"; };
+		E636C9892652AB51001B494B /* Extension_LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_LoginPage.swift; sourceTree = "<group>"; };
 		E66B0E4726480B070023D29B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 				3D8991712637C7F6008DC2F3 /* FirebaseServices.swift */,
 				3D899173263893A7008DC2F3 /* AuthServices.swift */,
 				E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */,
+				E636C9892652AB51001B494B /* Extension_LoginPage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 			files = (
 				57483717263950A40011B11F /* CreateAvatarPage.swift in Sources */,
 				5748371B263953590011B11F /* assetsNames.swift in Sources */,
+				E636C98A2652AB51001B494B /* Extension_LoginPage.swift in Sources */,
 				E63261F2263EADB70017E9E3 /* ProfilePage.swift in Sources */,
 				5748371F2639779F0011B11F /* ViewSnapShot.swift in Sources */,
 				5748372B264114910011B11F /* LoginPage.swift in Sources */,

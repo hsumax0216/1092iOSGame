@@ -15,32 +15,11 @@ struct LoginPage: View {
     
     @Binding var currentPage: Pages
     @Binding var playerProfile: Player
-    @State private var email:String = ""
-    @State private var password:String = ""
-    @State private var showAlert:Bool = false
-    @State private var alertSelect:Int = 0
+    @State var email:String = ""
+    @State var password:String = ""
+    @State var showAlert:Bool = false
+    @State var alertSelect:Int = 0
     let GoogleSignedInNoti = NotificationCenter.default.publisher(for: Notification.Name("GoogleSignInSuccess"))
-    
-    
-    func alertSwitch() -> Alert{
-        var str = "content error"
-        var message = "請正確填入資料"
-        switch alertSelect {
-        case 0:
-            str = "Email Input Error"
-        case 2:
-            str = "Password Input Error"
-        case 3:
-            str = "Login Error"
-            message = "Email 或 Password 輸入錯誤"
-        default:
-            str = "content error"
-        }
-        return Alert(title: Text(str), message: Text(message), dismissButton: .default(Text("OK"),action:{
-            showAlert = false
-        }))
-    }
-    
     
     func receiveResponse(user: GIDGoogleUser) {
         let userId = user.userID                  // For client-side use only!
@@ -96,33 +75,7 @@ struct LoginPage: View {
                             .padding(.trailing,screenWidth/5)
                     }
                     Button(action: {
-                        if email.count <= 0{
-                            alertSelect = 0
-                            showAlert = true
-                            return
-                        }
-                        if password.count <= 0{
-                            alertSelect = 1
-                            showAlert = true
-                            return
-                        }
-                        signInUser(email: email, password: password){ taken in
-                            if(taken){
-                                //lastPageStack.push(currentPage)
-                                playerProfile.email = email
-                                if let user = Auth.auth().currentUser{
-                                    playerProfile.uid = user.uid
-                                    playerProfile.name = user.displayName ?? ""
-                                    currentPage = Pages.ProfilePage
-                                }
-                            }
-                            else{
-                                alertSelect = 3
-                                showAlert = true
-                                return
-                            }
-                            
-                        }
+                        emailLoginAction()
                     }, label: {
                         Text("Login")
                             .font(.system(size: 20,weight:.bold,design:.monospaced))
@@ -141,38 +94,7 @@ struct LoginPage: View {
                         .foregroundColor(Color.blue)
                     HStack{
                         Button(action: {
-                            let manager = LoginManager()
-                            manager.logIn { (result) in
-                                if case LoginResult.success(granted: _, declined: _, token: _) = result {
-                                    print("fb login ok")
-                                    
-                                    let credential =  FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-                                        Auth.auth().signIn(with: credential) { (result, error) in
-                                        guard error == nil else {
-                                            print(error?.localizedDescription)
-                                            return
-                                        }
-                                        if let user = Auth.auth().currentUser {
-                                            print("\(user.providerID) login")
-                                            if user.providerData.count > 0 {
-                                                let userInfo = user.providerData[0]
-                                                print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
-                                                playerProfile.email = user.email ?? "FB login"
-                                                playerProfile.uid = user.uid
-                                                playerProfile.name = userInfo.displayName ?? ""
-                                                currentPage = Pages.ProfilePage
-                                            }
-                                        }
-                                        else {
-                                            print("fb login getdata fail.")
-                                        }
-                                        print("login ok")
-                                    }
-                                    
-                                } else {
-                                    print("login fail")
-                                }
-                            }
+                            facebookLoginAction()
                         }, label: {
                             Image("facebook-logo")
                                 .resizable()
@@ -220,14 +142,6 @@ struct LoginPage: View {
                 }
             }
         }
-//        .onAppear{
-//            if let user = Auth.auth().currentUser {
-//                print("\(user.uid) login")
-//                currentPage = Pages.ProfilePage
-//            } else {
-//                print("not login")
-//            }
-//        }
     }
 }
 
