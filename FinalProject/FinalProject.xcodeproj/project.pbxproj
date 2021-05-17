@@ -32,7 +32,7 @@
 		E63261F2263EADB70017E9E3 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63261F1263EADB70017E9E3 /* ProfilePage.swift */; };
 		E636C98226529BF1001B494B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C98126529BF1001B494B /* Player.swift */; };
 		E636C98526529CC3001B494B /* FirebaseViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C98426529CC3001B494B /* FirebaseViewModels.swift */; };
-		E66B0E4226457DB50023D29B /* GoogleSignInPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66B0E4126457DB50023D29B /* GoogleSignInPage.swift */; };
+		E636C9882652A8BC001B494B /* Extension_CreateAvatarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */; };
 		E66B0E4826480B070023D29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66B0E4726480B070023D29B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +62,7 @@
 		E63261F1263EADB70017E9E3 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		E636C98126529BF1001B494B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E636C98426529CC3001B494B /* FirebaseViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewModels.swift; sourceTree = "<group>"; };
-		E66B0E4126457DB50023D29B /* GoogleSignInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInPage.swift; sourceTree = "<group>"; };
+		E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_CreateAvatarPage.swift; sourceTree = "<group>"; };
 		E66B0E4726480B070023D29B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,8 +105,8 @@
 			children = (
 				E636C98626529CDC001B494B /* Services */,
 				E636C98326529C9D001B494B /* ViewModels */,
-				E636C98026529B89001B494B /* Models */,
 				3D89916C2636AE97008DC2F3 /* Views */,
+				E636C98026529B89001B494B /* Models */,
 				E66B0E4726480B070023D29B /* Assets.xcassets */,
 				3D89916F2637C210008DC2F3 /* AppDelegate.swift */,
 				5748371A263953590011B11F /* assetsNames.swift */,
@@ -141,7 +141,6 @@
 				E63261EF263E97FD0017E9E3 /* HomePage.swift */,
 				5748372E264154B50011B11F /* SignUpPage.swift */,
 				5748372A264114910011B11F /* LoginPage.swift */,
-				E66B0E4126457DB50023D29B /* GoogleSignInPage.swift */,
 				57483716263950A40011B11F /* CreateAvatarPage.swift */,
 				3D8991752638B71B008DC2F3 /* CharactorPage.swift */,
 				E63261F1263EADB70017E9E3 /* ProfilePage.swift */,
@@ -183,6 +182,7 @@
 				3D89916A2636ACF2008DC2F3 /* UploadPhoto.swift */,
 				3D8991712637C7F6008DC2F3 /* FirebaseServices.swift */,
 				3D899173263893A7008DC2F3 /* AuthServices.swift */,
+				E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -337,11 +337,11 @@
 				3D8991702637C210008DC2F3 /* AppDelegate.swift in Sources */,
 				5748372F264154B50011B11F /* SignUpPage.swift in Sources */,
 				3D899174263893A7008DC2F3 /* AuthServices.swift in Sources */,
+				E636C9882652A8BC001B494B /* Extension_CreateAvatarPage.swift in Sources */,
 				E63261EE263E96060017E9E3 /* PagesControl.swift in Sources */,
 				3D4A28B8262B7A55005E4FA2 /* ContentView.swift in Sources */,
 				E63261F0263E97FD0017E9E3 /* HomePage.swift in Sources */,
 				3D8991762638B71C008DC2F3 /* CharactorPage.swift in Sources */,
-				E66B0E4226457DB50023D29B /* GoogleSignInPage.swift in Sources */,
 				57B103B92642913B00D53CA8 /* Stack.swift in Sources */,
 				3D89916B2636ACF2008DC2F3 /* UploadPhoto.swift in Sources */,
 				3D8991722637C7F6008DC2F3 /* FirebaseServices.swift in Sources */,

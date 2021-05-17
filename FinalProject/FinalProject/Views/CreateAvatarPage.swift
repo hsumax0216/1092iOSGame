@@ -16,49 +16,23 @@ struct CreateAvatarPage: View {
     @Binding var userImage: UIImage?
     let screenWidth:CGFloat = UIScreen.main.bounds.size.width
     @State var picWidth:CGFloat = 0
-    @State private var bodyPoseSelect:BodyPose = BodyPose.body//0:body 1:pose-sitting 2:pose-standing
-    @State private var bgColor = Color(.sRGB, red: 0, green: 0, blue: 0)
-    @State private var tabviewSelction:Int = 0
-    @State private var avatarBody:String = "body/Blazer Black Tee"
-    @State private var avatarHead:String = "head/Afro"
-    @State private var avatarFace:String = "face/Blank"
-    @State private var avatarAccessory:String = "accessories/* None"
-    @State private var avatarFacialhair:String = "facial-hair/* None"
-    func initalApp(){
-       bodyPoseSelect = BodyPose.body
-        avatarBody = "body/Blazer Black Tee"
-        avatarHead = "head/Afro"
-        avatarFace = "face/Blank"
-        avatarAccessory = "accessories/* None"
-        avatarFacialhair = "facial-hair/Full 2"
-        
-//        bodyPoseSelect = BodyPose.standing
-//        avatarBody = "pose/standing/blazer-1"
-//        avatarHead = "head/Afro"
-//        avatarFace = "face/Awe"
-//        avatarAccessory = "accessories/Eyepatch"
-//        avatarFacialhair = "facial-hair/* None"
-//
-//        bodyPoseSelect = BodyPose.sitting
-//        avatarBody = "pose/sitting/bike"
-//        avatarHead = "head/Afro"
-//        avatarFace = "face/Awe"
-//        avatarAccessory = "accessories/Eyepatch"
-//        avatarFacialhair = "facial-hair/* None"
-        
-        picWidth = (screenWidth-10*4)/3
-    }
+    @State var bodyPoseSelect:BodyPose = BodyPose.body
+    @State var bgColor = Color(.sRGB, red: 0, green: 0, blue: 0)
+    @State var tabviewSelction:Int = 0
+    @State var avatarBody:String = "body/Blazer Black Tee"
+    @State var avatarHead:String = "head/Afro"
+    @State var avatarFace:String = "face/Blank"
+    @State var avatarAccessory:String = "accessories/* None"
+    @State var avatarFacialhair:String = "facial-hair/* None"
     var avatarView: some View{
         ZStack{
             switch bodyPoseSelect {
             case BodyPose.body:
                 Image(avatarBody)
-                    //.renderingMode(.template)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 310, alignment: .bottom)
-                    .overlay(Image(avatarHead/*+"Template"*/)
-                                //.renderingMode(.template)
+                    .overlay(Image(avatarHead)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 150, height: 150, alignment: .center)
@@ -75,10 +49,8 @@ struct CreateAvatarPage: View {
                                                         .offset(x:-18,y:-7))
                                             .offset(x:10,y:15))
                                 .overlay(Image(avatarFacialhair)
-                                            //.renderingMode(.template)
                                             .resizable()
                                             .scaledToFit()
-                                            //.foregroundColor(bgColor)
                                             .frame(width: 80, height: 80, alignment: .center)
                                             .offset(x:0,y:45))
                                 .offset(x:10,y:-75))
@@ -103,10 +75,8 @@ struct CreateAvatarPage: View {
                                                         .frame(width: 60, height: 60, alignment: .center)
                                                         .offset(x:-9,y:-5))
                                             .overlay(Image(avatarFacialhair)
-                                                        //.renderingMode(.template)
                                                         .resizable()
                                                         .scaledToFit()
-                                                        //.foregroundColor(bgColor)
                                                         .frame(width: 45, height: 45, alignment: .center)
                                                         .offset(x:-6,y:20))
                                             .offset(x:5,y:5))
@@ -132,10 +102,8 @@ struct CreateAvatarPage: View {
                                                         .frame(width: 50, height: 50, alignment: .center)
                                                         .offset(x:-8.5,y:-5))
                                             .overlay(Image(avatarFacialhair)
-                                                        //.renderingMode(.template)
                                                         .resizable()
                                                         .scaledToFit()
-                                                        //.foregroundColor(bgColor)
                                                         .frame(width: 40, height: 40, alignment: .center)
                                                         .offset(x:-7,y:17))
                                             .offset(x:5,y:5))
@@ -149,29 +117,7 @@ struct CreateAvatarPage: View {
             VStack{
                 HStack{
                     Button(action: {
-                        let bodyArray = body_filename + pose_standing_filename + pose_sitting_filename
-                        let tmpString = bodyArray.randomElement() ?? "body/Blazer Black Tee"
-                        let cutIdx = tmpString.index(tmpString.startIndex, offsetBy: 4)
-                        switch tmpString.prefix(upTo: cutIdx){
-                        case "body":
-                            bodyPoseSelect = BodyPose.body
-                        case "pose":
-                            let poseIdx = tmpString.index(tmpString.startIndex, offsetBy: 13)
-                            if tmpString.prefix(upTo: poseIdx) == "pose/standing"{
-                                bodyPoseSelect = BodyPose.standing
-                            }
-                            else{
-                                bodyPoseSelect = BodyPose.sitting
-                            }
-                        default:
-                            print("random switch default")
-                        }
-                        avatarBody = tmpString
-                        avatarHead = head_filename.randomElement() ?? "head/Afro"
-                        avatarFace = face_filename.randomElement() ?? "face/Blank"
-                        avatarAccessory = accessories_filename.randomElement() ?? "accessories/* None"
-                        avatarFacialhair = facial_hair_filename.randomElement() ?? "facial-hair/Full 2"
-                        
+                        randomAvatar()
                     }, label: {
                         Image("dice")
                             .resizable()
@@ -194,24 +140,14 @@ struct CreateAvatarPage: View {
                             .padding(.trailing,15)
                     })
                 }
-                //.frame(height:40)
                 Spacer()
             }
-            VStack{//200
-                    //.padding(0)
+            VStack{
                 Spacer()
                 avatarView
                 Button(action:{
                     let image = avatarView.snapshot()
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-//                    uploadPhoto(image: image) { result in
-//                        switch result {
-//                        case .success(let url):
-//                           print(url)
-//                        case .failure(let error):
-//                           print(error)
-//                        }
-//                    }
                 },label:{
                     Image(systemName: "camera")
                         .resizable()
@@ -278,8 +214,6 @@ struct avatarBodyView: View {
                 }
             }
         }
-        //.frame(height:350)
-        //.clipped()
     }
 }
 
@@ -306,7 +240,5 @@ struct avatarItemView: View {
                 }
             }
         }
-        //.frame(width:screenWidth)
-        //.clipped()
     }
 }
