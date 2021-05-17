@@ -184,21 +184,21 @@ let head_filename = ["head/Afro",
                      "head/hat-hip"]
 
 
-func filenameReader(){
-    let fileManager = FileManager.default
-    let bundleURL = Bundle.main.bundleURL
-    let assetURL = bundleURL.appendingPathComponent("Images.bundle")
-    print("filenameReader begin")
-    do {
-        let contents = try fileManager.contentsOfDirectory(at: assetURL, includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey], options: .skipsHiddenFiles)
-
-        for item in contents
-        {
-        print(item.lastPathComponent)
-        }
-    }
-    catch let error as NSError {
-      print(error)
-    }
-    print("filenameReader end")
-}
+//func filenameReader(){
+//    let fileManager = FileManager.default
+//    let bundleURL = Bundle.main.bundleURL
+//    let assetURL = bundleURL.appendingPathComponent("Images.bundle")
+//    print("filenameReader begin")
+//    do {
+//        let contents = try fileManager.contentsOfDirectory(at: assetURL, includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey], options: .skipsHiddenFiles)
+//
+//        for item in contents
+//        {
+//        print(item.lastPathComponent)
+//        }
+//    }
+//    catch let error as NSError {
+//      print(error)
+//    }
+//    print("filenameReader end")
+//}
