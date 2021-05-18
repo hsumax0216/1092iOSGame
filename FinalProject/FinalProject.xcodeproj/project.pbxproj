@@ -34,6 +34,7 @@
 		E636C98526529CC3001B494B /* FirebaseViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C98426529CC3001B494B /* FirebaseViewModels.swift */; };
 		E636C9882652A8BC001B494B /* Extension_CreateAvatarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */; };
 		E636C98A2652AB51001B494B /* Extension_LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E636C9892652AB51001B494B /* Extension_LoginPage.swift */; };
+		E65BF15126544E79004C837D /* Extension_SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF15026544E79004C837D /* Extension_SignUpPage.swift */; };
 		E66B0E4826480B070023D29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66B0E4726480B070023D29B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		E636C98426529CC3001B494B /* FirebaseViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewModels.swift; sourceTree = "<group>"; };
 		E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_CreateAvatarPage.swift; sourceTree = "<group>"; };
 		E636C9892652AB51001B494B /* Extension_LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_LoginPage.swift; sourceTree = "<group>"; };
+		E65BF15026544E79004C837D /* Extension_SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_SignUpPage.swift; sourceTree = "<group>"; };
 		E66B0E4726480B070023D29B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 				3D899173263893A7008DC2F3 /* AuthServices.swift */,
 				E636C9872652A8BC001B494B /* Extension_CreateAvatarPage.swift */,
 				E636C9892652AB51001B494B /* Extension_LoginPage.swift */,
+				E65BF15026544E79004C837D /* Extension_SignUpPage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				3D8991702637C210008DC2F3 /* AppDelegate.swift in Sources */,
 				5748372F264154B50011B11F /* SignUpPage.swift in Sources */,
 				3D899174263893A7008DC2F3 /* AuthServices.swift in Sources */,
+				E65BF15126544E79004C837D /* Extension_SignUpPage.swift in Sources */,
 				E636C9882652A8BC001B494B /* Extension_CreateAvatarPage.swift in Sources */,
 				E63261EE263E96060017E9E3 /* PagesControl.swift in Sources */,
 				3D4A28B8262B7A55005E4FA2 /* ContentView.swift in Sources */,
