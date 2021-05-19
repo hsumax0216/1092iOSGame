@@ -154,6 +154,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = E65BF15226545177004C837D;
 			productRefGroup = E65BF15C26545177004C837D /* Products */;
