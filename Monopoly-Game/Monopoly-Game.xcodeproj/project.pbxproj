@@ -15,6 +15,8 @@
 		E65BF173265451D7004C837D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF172265451D7004C837D /* Models.swift */; };
 		E65BF178265452F5004C837D /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF177265452F5004C837D /* Player.swift */; };
 		E65BF17A2654530C004C837D /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF1792654530C004C837D /* Stack.swift */; };
+		E65BF17D2654EB23004C837D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E65BF17B2654EB23004C837D /* Localizable.strings */; };
+		E65BF1802654F81C004C837D /* helperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF17F2654F81C004C837D /* helperFunc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,9 @@
 		E65BF172265451D7004C837D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E65BF177265452F5004C837D /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E65BF1792654530C004C837D /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		E65BF17C2654EB23004C837D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		E65BF17E2654F467004C837D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E65BF17F2654F81C004C837D /* helperFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = helperFunc.swift; path = "../../gesture-alphabetGame/gesture-alphabetGame/helperFunc.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +65,14 @@
 		E65BF15D26545177004C837D /* Monopoly-Game */ = {
 			isa = PBXGroup;
 			children = (
+				E65BF17F2654F81C004C837D /* helperFunc.swift */,
 				E65BF176265451FC004C837D /* Services */,
 				E65BF171265451BE004C837D /* Models */,
 				E65BF16E265451A1004C837D /* ViewModels */,
 				E65BF16D26545190004C837D /* Views */,
 				E65BF1622654517A004C837D /* Assets.xcassets */,
 				E65BF1672654517A004C837D /* Info.plist */,
+				E65BF17B2654EB23004C837D /* Localizable.strings */,
 				E65BF1642654517A004C837D /* Preview Content */,
 			);
 			path = "Monopoly-Game";
@@ -172,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E65BF1662654517A004C837D /* Preview Assets.xcassets in Resources */,
+				E65BF17D2654EB23004C837D /* Localizable.strings in Resources */,
 				E65BF1632654517A004C837D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +193,7 @@
 			files = (
 				E65BF16126545177004C837D /* ContentView.swift in Sources */,
 				E65BF170265451B8004C837D /* ViewModel.swift in Sources */,
+				E65BF1802654F81C004C837D /* helperFunc.swift in Sources */,
 				E65BF15F26545177004C837D /* Monopoly_GameApp.swift in Sources */,
 				E65BF178265452F5004C837D /* Player.swift in Sources */,
 				E65BF17A2654530C004C837D /* Stack.swift in Sources */,
@@ -193,6 +202,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E65BF17B2654EB23004C837D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E65BF17C2654EB23004C837D /* zh-Hant */,
+				E65BF17E2654F467004C837D /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E65BF1682654517A004C837D /* Debug */ = {
@@ -318,6 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Monopoly-Game/Preview Content\"";
+				DEVELOPMENT_TEAM = HS7484V4CG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Monopoly-Game/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -339,6 +361,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Monopoly-Game/Preview Content\"";
+				DEVELOPMENT_TEAM = HS7484V4CG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Monopoly-Game/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

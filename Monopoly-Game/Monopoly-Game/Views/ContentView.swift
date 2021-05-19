@@ -9,13 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack{
+            Image("monopoly_map")
+                .resizable()
+                .scaledToFit()
+                .padding(25)
+            Text("translate")
+                .padding()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Landscape {
+            Group {
+                ContentView()
+            }
+        }
     }
 }
