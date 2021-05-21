@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E6484DA12656D1EA001EAA3E /* 3D-Game-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "3D-Game-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6484DA12656D1EA001EAA3E /* 3D-Game-test-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "3D-Game-test-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6484DA42656D1EA001EAA3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6484DA62656D1EA001EAA3E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		E6484DA82656D1EA001EAA3E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		E6484DA22656D1EA001EAA3E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E6484DA12656D1EA001EAA3E /* 3D-Game-test.app */,
+				E6484DA12656D1EA001EAA3E /* 3D-Game-test-UIKit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,9 +67,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E6484DA02656D1EA001EAA3E /* 3D-Game-test */ = {
+		E6484DA02656D1EA001EAA3E /* 3D-Game-test-UIKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E6484DB22656D1EB001EAA3E /* Build configuration list for PBXNativeTarget "3D-Game-test" */;
+			buildConfigurationList = E6484DB22656D1EB001EAA3E /* Build configuration list for PBXNativeTarget "3D-Game-test-UIKit" */;
 			buildPhases = (
 				E6484D9D2656D1EA001EAA3E /* Sources */,
 				E6484D9E2656D1EA001EAA3E /* Frameworks */,
@@ -79,9 +79,9 @@
 			);
 			dependencies = (
 			);
-			name = "3D-Game-test";
+			name = "3D-Game-test-UIKit";
 			productName = "3D-Game-test";
-			productReference = E6484DA12656D1EA001EAA3E /* 3D-Game-test.app */;
+			productReference = E6484DA12656D1EA001EAA3E /* 3D-Game-test-UIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E6484D9C2656D1EA001EAA3E /* Build configuration list for PBXProject "3D-Game-test" */;
+			buildConfigurationList = E6484D9C2656D1EA001EAA3E /* Build configuration list for PBXProject "3D-Game-test-UIKit" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -111,7 +111,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E6484DA02656D1EA001EAA3E /* 3D-Game-test */,
+				E6484DA02656D1EA001EAA3E /* 3D-Game-test-UIKit */,
 			);
 		};
 /* End PBXProject section */
@@ -310,7 +310,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E6484D9C2656D1EA001EAA3E /* Build configuration list for PBXProject "3D-Game-test" */ = {
+		E6484D9C2656D1EA001EAA3E /* Build configuration list for PBXProject "3D-Game-test-UIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E6484DB02656D1EB001EAA3E /* Debug */,
@@ -319,7 +319,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E6484DB22656D1EB001EAA3E /* Build configuration list for PBXNativeTarget "3D-Game-test" */ = {
+		E6484DB22656D1EB001EAA3E /* Build configuration list for PBXNativeTarget "3D-Game-test-UIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E6484DB32656D1EB001EAA3E /* Debug */,
