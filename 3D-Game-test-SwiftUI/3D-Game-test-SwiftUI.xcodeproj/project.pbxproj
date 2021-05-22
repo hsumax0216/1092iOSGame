@@ -11,9 +11,8 @@
 		E6484DC42657A040001EAA3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6484DC32657A040001EAA3E /* ContentView.swift */; };
 		E6484DC62657A041001EAA3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6484DC52657A041001EAA3E /* Assets.xcassets */; };
 		E6484DC92657A041001EAA3E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6484DC82657A041001EAA3E /* Preview Assets.xcassets */; };
-		E6484DD12657A07A001EAA3E /* A320-200.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E6484DD02657A07A001EAA3E /* A320-200.usdz */; };
 		E6484DD42657A1D9001EAA3E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6484DD32657A1D9001EAA3E /* Models.swift */; };
-		E6484DD62657A370001EAA3E /* MainScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = E6484DD52657A370001EAA3E /* MainScene.scn */; };
+		E6484DFB265846CA001EAA3E /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E6484DFA265846CA001EAA3E /* art.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,9 +22,8 @@
 		E6484DC52657A041001EAA3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6484DC82657A041001EAA3E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E6484DCA2657A041001EAA3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E6484DD02657A07A001EAA3E /* A320-200.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "A320-200.usdz"; sourceTree = "<group>"; };
 		E6484DD32657A1D9001EAA3E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		E6484DD52657A370001EAA3E /* MainScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MainScene.scn; path = "../../../3D-Game-test/3D-Game-test/art.scnassets/MainScene.scn"; sourceTree = "<group>"; };
+		E6484DFA265846CA001EAA3E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,12 +56,12 @@
 		E6484DC02657A040001EAA3E /* 3D-Game-test-SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				E6484DD22657A094001EAA3E /* Object */,
 				E6484DC12657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift */,
 				E6484DC32657A040001EAA3E /* ContentView.swift */,
 				E6484DD32657A1D9001EAA3E /* Models.swift */,
 				E6484DC52657A041001EAA3E /* Assets.xcassets */,
 				E6484DCA2657A041001EAA3E /* Info.plist */,
+				E6484DFA265846CA001EAA3E /* art.scnassets */,
 				E6484DC72657A041001EAA3E /* Preview Content */,
 			);
 			path = "3D-Game-test-SwiftUI";
@@ -75,15 +73,6 @@
 				E6484DC82657A041001EAA3E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		E6484DD22657A094001EAA3E /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				E6484DD52657A370001EAA3E /* MainScene.scn */,
-				E6484DD02657A07A001EAA3E /* A320-200.usdz */,
-			);
-			path = Object;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,9 +132,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6484DD12657A07A001EAA3E /* A320-200.usdz in Resources */,
 				E6484DC92657A041001EAA3E /* Preview Assets.xcassets in Resources */,
-				E6484DD62657A370001EAA3E /* MainScene.scn in Resources */,
+				E6484DFB265846CA001EAA3E /* art.scnassets in Resources */,
 				E6484DC62657A041001EAA3E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
