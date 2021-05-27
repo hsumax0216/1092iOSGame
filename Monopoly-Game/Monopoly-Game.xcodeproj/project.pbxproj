@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		755F0CA4024052B5A1E24CB0 /* Pods_Monopoly_Game.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB82113A6D97141C0EA7A653 /* Pods_Monopoly_Game.framework */; };
 		E65BF15F26545177004C837D /* Monopoly_GameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF15E26545177004C837D /* Monopoly_GameApp.swift */; };
 		E65BF16126545177004C837D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65BF16026545177004C837D /* ContentView.swift */; };
 		E65BF1632654517A004C837D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E65BF1622654517A004C837D /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB82113A6D97141C0EA7A653 /* Pods_Monopoly_Game.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Monopoly_Game.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E65BF15B26545177004C837D /* Monopoly-Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Monopoly-Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E65BF15E26545177004C837D /* Monopoly_GameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monopoly_GameApp.swift; sourceTree = "<group>"; };
 		E65BF16026545177004C837D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,6 +35,8 @@
 		E65BF17C2654EB23004C837D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E65BF17E2654F467004C837D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E65BF17F2654F81C004C837D /* helperFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = helperFunc.swift; path = "../../gesture-alphabetGame/gesture-alphabetGame/helperFunc.swift"; sourceTree = "<group>"; };
+		EF5CEC805F8C163917287002 /* Pods-Monopoly-Game.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Monopoly-Game.debug.xcconfig"; path = "Target Support Files/Pods-Monopoly-Game/Pods-Monopoly-Game.debug.xcconfig"; sourceTree = "<group>"; };
+		FE8E51C359ADB869177A1E88 /* Pods-Monopoly-Game.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Monopoly-Game.release.xcconfig"; path = "Target Support Files/Pods-Monopoly-Game/Pods-Monopoly-Game.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,17 +44,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				755F0CA4024052B5A1E24CB0 /* Pods_Monopoly_Game.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		567FDB26FB2AFD2146E341D7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF5CEC805F8C163917287002 /* Pods-Monopoly-Game.debug.xcconfig */,
+				FE8E51C359ADB869177A1E88 /* Pods-Monopoly-Game.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E613C92512D6B105CA65D962 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB82113A6D97141C0EA7A653 /* Pods_Monopoly_Game.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E65BF15226545177004C837D = {
 			isa = PBXGroup;
 			children = (
 				E65BF15D26545177004C837D /* Monopoly-Game */,
 				E65BF15C26545177004C837D /* Products */,
+				567FDB26FB2AFD2146E341D7 /* Pods */,
+				E613C92512D6B105CA65D962 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,9 +152,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E65BF16A2654517A004C837D /* Build configuration list for PBXNativeTarget "Monopoly-Game" */;
 			buildPhases = (
+				10F47297BAA49E2E6C348B88 /* [CP] Check Pods Manifest.lock */,
 				E65BF15726545177004C837D /* Sources */,
 				E65BF15826545177004C837D /* Frameworks */,
 				E65BF15926545177004C837D /* Resources */,
+				3C1B6676C9FADC022C9D74AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -185,6 +212,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10F47297BAA49E2E6C348B88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Monopoly-Game-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C1B6676C9FADC022C9D74AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Monopoly-Game/Pods-Monopoly-Game-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Monopoly-Game/Pods-Monopoly-Game-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Monopoly-Game/Pods-Monopoly-Game-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E65BF15726545177004C837D /* Sources */ = {
@@ -334,6 +403,7 @@
 		};
 		E65BF16B2654517A004C837D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF5CEC805F8C163917287002 /* Pods-Monopoly-Game.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -356,6 +426,7 @@
 		};
 		E65BF16C2654517A004C837D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE8E51C359ADB869177A1E88 /* Pods-Monopoly-Game.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
