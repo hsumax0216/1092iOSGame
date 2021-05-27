@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  3D-Game-test-SwiftUI
 //
-//  Created by 徐浩哲 on 2021/5/21.
+//  Created by  on 2021/5/21.
 //
 
 import SwiftUI
