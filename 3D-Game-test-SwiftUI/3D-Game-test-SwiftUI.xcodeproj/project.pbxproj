@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D57A41C266483E700ABD5F6 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D57A413266483E700ABD5F6 /* Stack.swift */; };
+		3D57A420266483E700ABD5F6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D57A419266483E700ABD5F6 /* Player.swift */; };
+		3D57A421266483E700ABD5F6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D57A41B266483E700ABD5F6 /* ViewModel.swift */; };
 		E6484DC22657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6484DC12657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift */; };
 		E6484DC42657A040001EAA3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6484DC32657A040001EAA3E /* ContentView.swift */; };
 		E6484DC62657A041001EAA3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6484DC52657A041001EAA3E /* Assets.xcassets */; };
@@ -16,13 +19,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D57A413266483E700ABD5F6 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		3D57A419266483E700ABD5F6 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		3D57A41B266483E700ABD5F6 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E6484DBE2657A040001EAA3E /* 3D-Game-test-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "3D-Game-test-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6484DC12657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrD_Game_test_SwiftUIApp.swift; sourceTree = "<group>"; };
-		E6484DC32657A040001EAA3E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E6484DC32657A040001EAA3E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
 		E6484DC52657A041001EAA3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6484DC82657A041001EAA3E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E6484DCA2657A041001EAA3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E6484DD32657A1D9001EAA3E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		E6484DD32657A1D9001EAA3E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Models.swift; path = "3D-Game-test-SwiftUI/Models.swift"; sourceTree = SOURCE_ROOT; };
 		E6484DFA265846CA001EAA3E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,6 +43,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D57A412266483E700ABD5F6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3D57A413266483E700ABD5F6 /* Stack.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3D57A414266483E700ABD5F6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E6484DC12657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift */,
+				E6484DC32657A040001EAA3E /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3D57A417266483E700ABD5F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E6484DD32657A1D9001EAA3E /* Models.swift */,
+				3D57A419266483E700ABD5F6 /* Player.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3D57A41A266483E700ABD5F6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3D57A41B266483E700ABD5F6 /* ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		E6484DB52657A040001EAA3E = {
 			isa = PBXGroup;
 			children = (
@@ -56,9 +96,10 @@
 		E6484DC02657A040001EAA3E /* 3D-Game-test-SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				E6484DC12657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift */,
-				E6484DC32657A040001EAA3E /* ContentView.swift */,
-				E6484DD32657A1D9001EAA3E /* Models.swift */,
+				3D57A417266483E700ABD5F6 /* Models */,
+				3D57A412266483E700ABD5F6 /* Services */,
+				3D57A41A266483E700ABD5F6 /* ViewModels */,
+				3D57A414266483E700ABD5F6 /* Views */,
 				E6484DC52657A041001EAA3E /* Assets.xcassets */,
 				E6484DCA2657A041001EAA3E /* Info.plist */,
 				E6484DFA265846CA001EAA3E /* art.scnassets */,
@@ -145,7 +186,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D57A41C266483E700ABD5F6 /* Stack.swift in Sources */,
+				3D57A421266483E700ABD5F6 /* ViewModel.swift in Sources */,
 				E6484DD42657A1D9001EAA3E /* Models.swift in Sources */,
+				3D57A420266483E700ABD5F6 /* Player.swift in Sources */,
 				E6484DC42657A040001EAA3E /* ContentView.swift in Sources */,
 				E6484DC22657A040001EAA3E /* ThrD_Game_test_SwiftUIApp.swift in Sources */,
 			);

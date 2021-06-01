@@ -15,7 +15,7 @@ struct ContentView: View {
     @State var scene = SCNScene(named: "art.scnassets/MainScene.scn")
             
     var cameraNode: SCNNode? {
-        scene?.rootNode.childNode(withName: "camera", recursively: false)
+        scene?.rootNode.childNode(withName: "cameraTop", recursively: false)
     }
     var box: SCNNode? {
         scene?.rootNode.childNode(withName: "box", recursively: true)
