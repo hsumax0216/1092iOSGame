@@ -17,6 +17,8 @@
 		3D0A165626668CBB001A176B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164D26668CBB001A176B /* ContentView.swift */; };
 		3D0A165726668CBB001A176B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164F26668CBB001A176B /* ViewModel.swift */; };
 		3D0A165826668CBB001A176B /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A165126668CBB001A176B /* Stack.swift */; };
+		3D50727F266811B400C5356B /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3D50727E266811B400C5356B /* Shaders.metal */; };
+		3D5072812668183900C5356B /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5072802668183900C5356B /* testSceneView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		3D0A164D26668CBB001A176B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3D0A164F26668CBB001A176B /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		3D0A165126668CBB001A176B /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		3D50727E266811B400C5356B /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		3D5072802668183900C5356B /* testSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 			children = (
 				3D0A164C26668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift */,
 				3D0A164D26668CBB001A176B /* ContentView.swift */,
+				3D5072802668183900C5356B /* testSceneView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 		3D0A165026668CBB001A176B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3D50727E266811B400C5356B /* Shaders.metal */,
 				3D0A165126668CBB001A176B /* Stack.swift */,
 			);
 			path = Services;
@@ -199,11 +205,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0A165726668CBB001A176B /* ViewModel.swift in Sources */,
+				3D50727F266811B400C5356B /* Shaders.metal in Sources */,
 				3D0A165426668CBB001A176B /* Player.swift in Sources */,
 				3D0A165326668CBB001A176B /* Models.swift in Sources */,
 				3D0A165626668CBB001A176B /* ContentView.swift in Sources */,
 				3D0A165826668CBB001A176B /* Stack.swift in Sources */,
 				3D0A165526668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift in Sources */,
+				3D5072812668183900C5356B /* testSceneView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

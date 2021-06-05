@@ -13,9 +13,10 @@ struct ContentView: View {
     @State var posArr:[SCNVector3] = [SCNVector3(5,0.5,5),SCNVector3(-5,0.5,5),SCNVector3(-5,0.5,-5),SCNVector3(5,0.5,-5)]
     @State var index:Int = 0
     @State var scene = SCNScene(named: "art.scnassets/MainScene.scn")
-            
+    @State var outlineProgram: SCNProgram = SCNProgram()
+    
     var cameraNode: SCNNode? {
-        scene?.rootNode.childNode(withName: "cameraTop", recursively: false)
+        scene?.rootNode.childNode(withName: "testCamera", recursively: false)
     }
     var box: SCNNode? {
         scene?.rootNode.childNode(withName: "box", recursively: true)
@@ -23,7 +24,45 @@ struct ContentView: View {
     var mapPlane: SCNNode? {
         scene?.rootNode.childNode(withName: "map", recursively: false)
     }
+    
+    var outlineNode: SCNNode {
+        duplicateNode(box!)
+    }
+    
 //    let  mapMaterial = SCNMaterial()
+        
+    func duplicateNode(_ node: SCNNode) -> SCNNode {
+        let nodeCopy = node.copy() as? SCNNode ?? SCNNode()
+        if let geometry = node.geometry?.copy() as? SCNGeometry {
+            nodeCopy.geometry = geometry
+            if let material = geometry.firstMaterial?.copy() as? SCNMaterial {
+                nodeCopy.geometry?.firstMaterial = material
+            }
+        }
+        return nodeCopy
+    }
+    func initialScene(){
+        outlineProgram = SCNProgram()
+        outlineProgram.vertexFunctionName = "outline_vertex"
+        outlineProgram.fragmentFunctionName = "outline_fragment"
+        outlineNode.geometry?.firstMaterial?.program = outlineProgram
+        outlineNode.geometry?.firstMaterial?.cullMode = .front
+        print("shaders on")
+    }
+//    func createScene()-> SCNScene{
+//        let scene = SCNScene(named: "art.scnassets/MainScene.scn")!
+//
+//        let outlineNode:SCNNode = duplicateNode(box!)
+//        scene.rootNode.addChildNode(outlineNode)
+//
+//        let outlineProgram = SCNProgram()
+//        outlineProgram.vertexFunctionName = "outline_vertex"
+//        outlineProgram.fragmentFunctionName = "outline_fragment"
+//        outlineNode.geometry?.firstMaterial?.program = outlineProgram
+//        outlineNode.geometry?.firstMaterial?.cullMode = .front
+//
+//        return scene
+//    }
     
     var body: some View {
 //        Home()
@@ -42,6 +81,7 @@ struct ContentView: View {
             })
         }
         .onAppear{
+            initialScene()
 //            mapMaterial.diffuse.contents = UIImage(named: "monopoly_map")
 //            mapPlane?.geometry?.materials = [mapMaterial]
         }
