@@ -15,7 +15,7 @@
 		3D0A165426668CBB001A176B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164A26668CBB001A176B /* Player.swift */; };
 		3D0A165526668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164C26668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift */; };
 		3D0A165626668CBB001A176B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164D26668CBB001A176B /* ContentView.swift */; };
-		3D0A165726668CBB001A176B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164F26668CBB001A176B /* ViewModel.swift */; };
+		3D0A165726668CBB001A176B /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164F26668CBB001A176B /* SceneViewModel.swift */; };
 		3D0A165826668CBB001A176B /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A165126668CBB001A176B /* Stack.swift */; };
 		3D50727F266811B400C5356B /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3D50727E266811B400C5356B /* Shaders.metal */; };
 		3D5072812668183900C5356B /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5072802668183900C5356B /* testSceneView.swift */; };
@@ -32,7 +32,7 @@
 		3D0A164A26668CBB001A176B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3D0A164C26668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrD_Game_test_SwiftUIAppApp.swift; sourceTree = "<group>"; };
 		3D0A164D26668CBB001A176B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3D0A164F26668CBB001A176B /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		3D0A164F26668CBB001A176B /* SceneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
 		3D0A165126668CBB001A176B /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3D50727E266811B400C5356B /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		3D5072802668183900C5356B /* testSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 		3D0A163426668BDB001A176B /* ThrD_Game_test_SwiftUIApp */ = {
 			isa = PBXGroup;
 			children = (
-				3D0A164826668CBB001A176B /* Models */,
 				3D0A164626668CBB001A176B /* Preview Content */,
+				3D0A164826668CBB001A176B /* Models */,
 				3D0A165026668CBB001A176B /* Services */,
 				3D0A164E26668CBB001A176B /* ViewModels */,
 				3D0A164B26668CBB001A176B /* Views */,
@@ -119,7 +119,7 @@
 		3D0A164E26668CBB001A176B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				3D0A164F26668CBB001A176B /* ViewModel.swift */,
+				3D0A164F26668CBB001A176B /* SceneViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -204,7 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0A165726668CBB001A176B /* ViewModel.swift in Sources */,
+				3D0A165726668CBB001A176B /* SceneViewModel.swift in Sources */,
 				3D50727F266811B400C5356B /* Shaders.metal in Sources */,
 				3D0A165426668CBB001A176B /* Player.swift in Sources */,
 				3D0A165326668CBB001A176B /* Models.swift in Sources */,

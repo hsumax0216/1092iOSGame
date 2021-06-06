@@ -10,7 +10,7 @@ import SceneKit
 import SceneKit.ModelIO
 
 struct testSceneView: View {
-    @StateObject var coordinator = SceneCoordinator()
+    @StateObject var coordinator = testSceneCoordinator()
     var body: some View {
         ZStack{
             SceneView(
@@ -29,7 +29,7 @@ struct testSceneView: View {
     }
 }
 
-class SceneCoordinator: NSObject, SCNSceneRendererDelegate, ObservableObject{
+class testSceneCoordinator: NSObject, SCNSceneRendererDelegate, ObservableObject{
     var showStatistics: Bool = false
     var debugOptions: SCNDebugOptions = []
     var emptyNodePos: SCNVector3  = SCNVector3(0,3,0)
