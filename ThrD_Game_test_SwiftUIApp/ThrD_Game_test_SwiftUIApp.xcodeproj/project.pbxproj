@@ -11,7 +11,7 @@
 		3D0A163D26668BDD001A176B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0A163C26668BDD001A176B /* Preview Assets.xcassets */; };
 		3D0A164526668C02001A176B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0A164426668C02001A176B /* art.scnassets */; };
 		3D0A165226668CBB001A176B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0A164726668CBB001A176B /* Preview Assets.xcassets */; };
-		3D0A165326668CBB001A176B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164926668CBB001A176B /* Models.swift */; };
+		3D0A165326668CBB001A176B /* EstateCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164926668CBB001A176B /* EstateCards.swift */; };
 		3D0A165426668CBB001A176B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164A26668CBB001A176B /* Player.swift */; };
 		3D0A165526668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164C26668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift */; };
 		3D0A165626668CBB001A176B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A164D26668CBB001A176B /* ContentView.swift */; };
@@ -19,6 +19,8 @@
 		3D0A165826668CBB001A176B /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A165126668CBB001A176B /* Stack.swift */; };
 		3D50727F266811B400C5356B /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3D50727E266811B400C5356B /* Shaders.metal */; };
 		3D5072812668183900C5356B /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5072802668183900C5356B /* testSceneView.swift */; };
+		3D507283266D363400C5356B /* testFuncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D507282266D363400C5356B /* testFuncView.swift */; };
+		3D507285266D44F200C5356B /* deedSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D507284266D44F200C5356B /* deedSheet.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +30,7 @@
 		3D0A163E26668BDD001A176B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D0A164426668C02001A176B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		3D0A164726668CBB001A176B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3D0A164926668CBB001A176B /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		3D0A164926668CBB001A176B /* EstateCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstateCards.swift; sourceTree = "<group>"; };
 		3D0A164A26668CBB001A176B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3D0A164C26668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrD_Game_test_SwiftUIAppApp.swift; sourceTree = "<group>"; };
 		3D0A164D26668CBB001A176B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +38,8 @@
 		3D0A165126668CBB001A176B /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3D50727E266811B400C5356B /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		3D5072802668183900C5356B /* testSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
+		3D507282266D363400C5356B /* testFuncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testFuncView.swift; sourceTree = "<group>"; };
+		3D507284266D44F200C5356B /* deedSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deedSheet.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 		3D0A163426668BDB001A176B /* ThrD_Game_test_SwiftUIApp */ = {
 			isa = PBXGroup;
 			children = (
+				3D507284266D44F200C5356B /* deedSheet.csv */,
 				3D0A164626668CBB001A176B /* Preview Content */,
 				3D0A164826668CBB001A176B /* Models */,
 				3D0A165026668CBB001A176B /* Services */,
@@ -100,7 +105,7 @@
 		3D0A164826668CBB001A176B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D0A164926668CBB001A176B /* Models.swift */,
+				3D0A164926668CBB001A176B /* EstateCards.swift */,
 				3D0A164A26668CBB001A176B /* Player.swift */,
 			);
 			path = Models;
@@ -112,6 +117,7 @@
 				3D0A164C26668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift */,
 				3D0A164D26668CBB001A176B /* ContentView.swift */,
 				3D5072802668183900C5356B /* testSceneView.swift */,
+				3D507282266D363400C5356B /* testFuncView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +200,7 @@
 				3D0A163D26668BDD001A176B /* Preview Assets.xcassets in Resources */,
 				3D0A164526668C02001A176B /* art.scnassets in Resources */,
 				3D0A163A26668BDD001A176B /* Assets.xcassets in Resources */,
+				3D507285266D44F200C5356B /* deedSheet.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,10 +214,11 @@
 				3D0A165726668CBB001A176B /* SceneViewModel.swift in Sources */,
 				3D50727F266811B400C5356B /* Shaders.metal in Sources */,
 				3D0A165426668CBB001A176B /* Player.swift in Sources */,
-				3D0A165326668CBB001A176B /* Models.swift in Sources */,
+				3D0A165326668CBB001A176B /* EstateCards.swift in Sources */,
 				3D0A165626668CBB001A176B /* ContentView.swift in Sources */,
 				3D0A165826668CBB001A176B /* Stack.swift in Sources */,
 				3D0A165526668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift in Sources */,
+				3D507283266D363400C5356B /* testFuncView.swift in Sources */,
 				3D5072812668183900C5356B /* testSceneView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

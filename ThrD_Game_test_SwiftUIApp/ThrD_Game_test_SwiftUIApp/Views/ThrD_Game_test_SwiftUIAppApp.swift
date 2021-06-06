@@ -11,8 +11,9 @@ import SwiftUI
 struct ThrD_Game_test_SwiftUIAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
             //testSceneView()
+            testFuncView()
         }
     }
 }
