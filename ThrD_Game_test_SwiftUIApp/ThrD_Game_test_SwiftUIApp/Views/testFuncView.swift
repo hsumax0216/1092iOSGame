@@ -17,7 +17,7 @@ struct testFuncView: View {
             printEstates(estates)
         }, label: {
             Text("Run")
-                .frame(height: 100)
+                .font(.system(size: 40,design:.monospaced))
         })
     }
 }
