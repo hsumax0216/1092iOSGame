@@ -40,6 +40,33 @@ struct Estate: Identifiable{
     }
 }
 
+extension Estate{
+    static func mapIncreaseOrder(a:Estate,b:Estate)->Bool{
+        if a.mapLoc < b.mapLoc{
+            return true
+        }
+        return false
+    }
+    static func mapDecreaseOrder(a:Estate,b:Estate)->Bool{
+        if a.mapLoc > b.mapLoc{
+            return true
+        }
+        return false
+    }
+    static func < (a:Estate,b:Estate)->Bool{
+        if a.id < b.id{
+            return true
+        }
+        return false
+    }
+    static func > (a:Estate,b:Estate)->Bool{
+        if a.id > b.id{
+            return true
+        }
+        return false
+    }
+}
+
 func printEstates(_ list:[Estate]){
     for i in list{
         print("id:\(i.id), eng:\(i.engName), zh:\(i.chineseName), ")

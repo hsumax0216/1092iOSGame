@@ -34,6 +34,7 @@ class MonopolyGame: ObservableObject{
         estates.removeAll()
         
         estates = generateEstates()
+        estates.sort(by:Estate.mapIncreaseOrder)
         remainApartment = totalApartment
         remainHotel = totalHotel
         dice_one = 1

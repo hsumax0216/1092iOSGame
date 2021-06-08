@@ -14,6 +14,7 @@ struct testFuncView: View {
 //            data = cleanRows(file: data!)
 //            let csvRows = csv(data: data!)
 //            print(csvRows)
+            testEstates.sort(by:Estate.mapIncreaseOrder)
             printEstates(testEstates)
         }, label: {
             Text("Run")
