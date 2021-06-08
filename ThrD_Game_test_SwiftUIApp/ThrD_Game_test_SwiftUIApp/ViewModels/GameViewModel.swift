@@ -18,6 +18,8 @@ class MonopolyGame: ObservableObject{
     let totalApartment:Int = 32
     let totalHotel:Int = 12
     
+    
+    let csvReader = CsvReader()
     init(){
     }
     func playDices(){
@@ -33,7 +35,7 @@ class MonopolyGame: ObservableObject{
     func initialGame(){
         estates.removeAll()
         
-        estates = generateEstates()
+        estates = csvReader.generateEstates()
         estates.sort(by:Estate.mapIncreaseOrder)
         remainApartment = totalApartment
         remainHotel = totalHotel

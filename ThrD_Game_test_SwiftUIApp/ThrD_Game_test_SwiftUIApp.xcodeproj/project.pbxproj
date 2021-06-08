@@ -11,6 +11,8 @@
 		3D04718D266EA71100665417 /* Mover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D04718C266EA71100665417 /* Mover.swift */; };
 		3D04718F266EB32B00665417 /* MapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D04718E266EB32B00665417 /* MapInfo.swift */; };
 		3D0471912670086400665417 /* deedSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D0471902670086400665417 /* deedSheet.csv */; };
+		3D04719326701AD800665417 /* CsvReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D04719226701AD800665417 /* CsvReader.swift */; };
+		3D04719526701D4B00665417 /* MapInfoSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D04719426701D4B00665417 /* MapInfoSheet.csv */; };
 		3D0A163A26668BDD001A176B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0A163926668BDD001A176B /* Assets.xcassets */; };
 		3D0A163D26668BDD001A176B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0A163C26668BDD001A176B /* Preview Assets.xcassets */; };
 		3D0A164526668C02001A176B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D0A164426668C02001A176B /* art.scnassets */; };
@@ -31,6 +33,8 @@
 		3D04718C266EA71100665417 /* Mover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mover.swift; sourceTree = "<group>"; };
 		3D04718E266EB32B00665417 /* MapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfo.swift; sourceTree = "<group>"; };
 		3D0471902670086400665417 /* deedSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deedSheet.csv; sourceTree = "<group>"; };
+		3D04719226701AD800665417 /* CsvReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvReader.swift; sourceTree = "<group>"; };
+		3D04719426701D4B00665417 /* MapInfoSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapInfoSheet.csv; sourceTree = "<group>"; };
 		3D0A163226668BDB001A176B /* ThrD_Game_test_SwiftUIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThrD_Game_test_SwiftUIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0A163926668BDD001A176B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D0A163C26668BDD001A176B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 		3D0A163426668BDB001A176B /* ThrD_Game_test_SwiftUIApp */ = {
 			isa = PBXGroup;
 			children = (
+				3D04719426701D4B00665417 /* MapInfoSheet.csv */,
 				3D0471902670086400665417 /* deedSheet.csv */,
 				3D0A164626668CBB001A176B /* Preview Content */,
 				3D0A165026668CBB001A176B /* Services */,
@@ -144,6 +149,7 @@
 			children = (
 				3D50727E266811B400C5356B /* Shaders.metal */,
 				3D0A165126668CBB001A176B /* Stack.swift */,
+				3D04719226701AD800665417 /* CsvReader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -206,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0A165226668CBB001A176B /* Preview Assets.xcassets in Resources */,
+				3D04719526701D4B00665417 /* MapInfoSheet.csv in Resources */,
 				3D0A163D26668BDD001A176B /* Preview Assets.xcassets in Resources */,
 				3D0A164526668C02001A176B /* art.scnassets in Resources */,
 				3D0A163A26668BDD001A176B /* Assets.xcassets in Resources */,
@@ -230,6 +237,7 @@
 				3D0A165526668CBB001A176B /* ThrD_Game_test_SwiftUIAppApp.swift in Sources */,
 				3D507283266D363400C5356B /* testFuncView.swift in Sources */,
 				3D04718B266E8AC100665417 /* GameViewModel.swift in Sources */,
+				3D04719326701AD800665417 /* CsvReader.swift in Sources */,
 				3D04718D266EA71100665417 /* Mover.swift in Sources */,
 				3D5072812668183900C5356B /* testSceneView.swift in Sources */,
 			);

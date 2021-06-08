@@ -15,7 +15,8 @@ struct testFuncView: View {
 //            let csvRows = csv(data: data!)
 //            print(csvRows)
             testEstates.sort(by:Estate.mapIncreaseOrder)
-            printEstates(testEstates)
+            //printEstates(testEstates)
+            printMapInfos(testMapInfos)
         }, label: {
             Text("Run")
                 .font(.system(size: 40,design:.monospaced))
