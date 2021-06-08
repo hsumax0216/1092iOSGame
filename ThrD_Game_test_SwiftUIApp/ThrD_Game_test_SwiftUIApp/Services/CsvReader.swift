@@ -214,3 +214,7 @@ class CsvReader{
         return tmp
     }
 }
+
+let csvReader = CsvReader()
+var testEstates = csvReader.generateEstates()
+var testMapInfos = csvReader.generateMapInfos(testEstates)

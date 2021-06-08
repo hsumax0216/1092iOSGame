@@ -76,8 +76,3 @@ func printEstates(_ list:[Estate]){
         print("\tmortgaged: \(i.mortgageValue), costOfApartment: \(i.costOfApartment), mapLoc: \(i.mapLoc)")
     }
 }
-
-let csvReader = CsvReader()
-
-var testEstates = csvReader.generateEstates()
-var testMapInfos = csvReader.generateMapInfos(testEstates)
