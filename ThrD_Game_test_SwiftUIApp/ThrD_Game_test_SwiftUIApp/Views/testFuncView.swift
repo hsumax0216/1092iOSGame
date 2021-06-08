@@ -14,7 +14,7 @@ struct testFuncView: View {
 //            data = cleanRows(file: data!)
 //            let csvRows = csv(data: data!)
 //            print(csvRows)
-            printEstates(estates)
+            printEstates(testEstates)
         }, label: {
             Text("Run")
                 .font(.system(size: 40,design:.monospaced))

@@ -7,26 +7,22 @@
 
 import Foundation
 
-//struct Mover: Identifiable{
-//    var id : Int
-//    var name : String
-//    var modelName : String
-//}
-
-class Estate: Identifiable{
+struct Estate: Identifiable{
     let id: Int
     let engName: String
     let chineseName: String
+    let mortgageValue: Int
+    let mapLoc: Int
+    let buyValue: Int
     let rent_0: Int
     let rent_1: Int
     let rent_2: Int
     let rent_3: Int
     let rent_4: Int
     let rent_5: Int
-    let mortgageValue: Int
     let costOfApartment: Int
-    let mapLoc: Int
-    init(id:Int,engName:String,chineseName:String,rent:[Int],mortgageValue:Int,costOfApartment:Int,mapLoc:Int){
+    let color: String
+    init(id:Int,engName:String,chineseName:String,buyValue:Int,rent:[Int],mortgageValue:Int,costOfApartment:Int,mapLoc:Int,color:String){
         self.id = id
         self.engName = engName
         self.chineseName = chineseName
@@ -39,12 +35,16 @@ class Estate: Identifiable{
         self.mortgageValue = mortgageValue
         self.costOfApartment = costOfApartment
         self.mapLoc = mapLoc
+        self.buyValue = buyValue
+        self.color = color
     }
 }
 
 func printEstates(_ list:[Estate]){
     for i in list{
         print("id:\(i.id), eng:\(i.engName), zh:\(i.chineseName), ")
+        print("\tcolor: \(i.color)")
+        print("\tbuyValue: \(i.buyValue)")
         print("\trent_0: \(i.rent_0), rent_1: \(i.rent_1), rent_2: \(i.rent_2), rent_3: \(i.rent_3), rent_4: \(i.rent_4), rent_5: \(i.rent_5), ",terminator: "")
         print("\tmortgaged: \(i.mortgageValue), costOfApartment: \(i.costOfApartment), mapLoc: \(i.mapLoc)")
     }
@@ -87,26 +87,79 @@ func deedOutput()->[Estate]?{
     if let data = readDataFromCSV(fileName: "deedSheet", fileType: "csv"){
         let data = cleanRows(file: data)
         let csvRows = csv(data: data)
+        var ID_COL = 0
+        var engName_COL = 0
+        var chineseName_COL = 0
+        var mapLoc_COL = 0
+        var buyValue_COL = 0
+        var mort_COL = 0
+        var rents_Col = [Int](repeating: 0, count: 6)
+        var costApart_COL = 0
+        var color_COL = 0
+        for i in 0...csvRows[0].count - 1{
+            switch csvRows[0][i] {
+            case "id":
+                ID_COL = i
+            case "engName":
+                engName_COL = i
+            case "chineseName":
+                chineseName_COL = i
+            case "mapLoc":
+                mapLoc_COL = i
+            case "buyValue":
+                buyValue_COL = i
+            case "mortgageValue":
+                mort_COL = i
+            case "rent-0":
+                rents_Col[0] = i
+            case "rent-1":
+                rents_Col[1] = i
+            case "rent-2":
+                rents_Col[2] = i
+            case "rent-3":
+                rents_Col[3] = i
+            case "rent-4":
+                rents_Col[4] = i
+            case "rent-5":
+                rents_Col[5] = i
+            case "costOfApartment":
+                costApart_COL = i
+            case "color":
+                color_COL = i
+            default:
+                print("Don't find \"\(i)\" var.")
+                return nil
+            }
+        }
         for i in 1...csvRows.count - 1{
-            guard let id = Int(csvRows[i][0]) else {
-                print("id convert error : ",csvRows[i][0],".")
+            guard let id = Int(csvRows[i][ID_COL]) else {
+                print("id convert error : ",csvRows[i][ID_COL],".")
                 return nil
             }
-            let engName = csvRows[i][1]
-            let chineseName = csvRows[i][2]
-            guard let mort = Int(csvRows[i][9]) else {
-                print("mort convert error : ",csvRows[i][9],".")
+            let engName = csvRows[i][engName_COL]
+            let chineseName = csvRows[i][chineseName_COL]
+            let color = csvRows[i][color_COL]
+            guard let mort = Int(csvRows[i][mort_COL]) else {
+                print("mort convert error : ",csvRows[i][mort_COL],".")
                 return nil
             }
-            guard let Loc = Int(csvRows[i][11]) else {
-                print("Loc convert error : ",csvRows[i][11],".")
+            guard let Loc = Int(csvRows[i][mapLoc_COL]) else {
+                print("Loc convert error : ",csvRows[i][mapLoc_COL],".")
                 return nil
+            }
+            guard let buyValue = Int(csvRows[i][buyValue_COL]) else {
+                print("buyValue convert error : ",csvRows[i][buyValue_COL],".")
+                return nil
+            }
+            var costApart = 0
+            if let tmp = Int(csvRows[i][costApart_COL]) {
+                costApart = tmp
+            }
+            else{
+                costApart = 0
             }
             var list = [Int]()
-            for j in 3...10{
-                if j == 9{
-                    continue
-                }
+            for j in rents_Col{
                 if(csvRows[i][j]==""){
                     list.append(0)
                 }
@@ -118,7 +171,7 @@ func deedOutput()->[Estate]?{
                     list.append(tmp)
                 }
             }
-            rtnList.append(Estate(id: id, engName: engName, chineseName: chineseName, rent: list, mortgageValue: mort, costOfApartment: list[6], mapLoc: Loc))
+            rtnList.append(Estate(id: id, engName: engName, chineseName: chineseName, buyValue: buyValue, rent: list, mortgageValue: mort, costOfApartment: costApart, mapLoc: Loc, color: color))
         }
     }
     else{
@@ -126,7 +179,7 @@ func deedOutput()->[Estate]?{
     }
     return rtnList
 }
-var estates: [Estate] {
+func generateEstates()->[Estate] {
     guard let tmp = deedOutput() else{
         print("deedOutput error")
         return [Estate]()
@@ -134,3 +187,5 @@ var estates: [Estate] {
     print("deedOutput success")
     return tmp
 }
+
+var testEstates = generateEstates()

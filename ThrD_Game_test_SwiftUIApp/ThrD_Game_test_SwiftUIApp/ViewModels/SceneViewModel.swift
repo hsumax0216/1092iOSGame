@@ -16,6 +16,7 @@ class SceneCoordinator: NSObject, SCNSceneRendererDelegate, ObservableObject{
     var cameraNode: SCNNode = SCNNode()
     var chessNodes: [SCNNode] = [SCNNode]()
     var estateNodes: [SCNNode] = [SCNNode]()
+    var jailNode: SCNNode = SCNNode()
     let chessLocName = ["location_plane","location_F1Car","location_skateboard","location_cellphone","location_hamburger","location_quads-roller-skate"]
     func moveLoc(chessNum: Int,destination: Int){
         guard chessNum < 6 && chessNum >= 0  && destination < 40 && destination >= 0 else{
@@ -23,6 +24,17 @@ class SceneCoordinator: NSObject, SCNSceneRendererDelegate, ObservableObject{
             return
         }
         let desLoc = estateNodes[destination].childNode(withName: "chess", recursively: false)?.childNode(withName: chessLocName[chessNum], recursively: false)
+        chessNodes[chessNum].parent?.convertTransform(chessNodes[chessNum].transform, to: desLoc)
+        chessNodes[chessNum].removeFromParentNode()
+        desLoc?.addChildNode(chessNodes[chessNum])
+    }
+    
+    func moveJail(chessNum: Int){
+        guard chessNum < 6 && chessNum >= 0 else{
+            print("userdefine Error : chess num Out of range.")
+            return
+        }
+        let desLoc = jailNode.childNode(withName: chessLocName[chessNum], recursively: false)
         chessNodes[chessNum].parent?.convertTransform(chessNodes[chessNum].transform, to: desLoc)
         chessNodes[chessNum].removeFromParentNode()
         desLoc?.addChildNode(chessNodes[chessNum])
@@ -47,6 +59,13 @@ class SceneCoordinator: NSObject, SCNSceneRendererDelegate, ObservableObject{
         }
         
         cameraNode = scene.rootNode.childNode(withName: "cameraTop", recursively: false)!
+        
+        if let tmp =  estateNodes[10].childNode(withName: "jail", recursively: false)?.childNode(withName: "chess", recursively: false) {
+            jailNode = tmp
+        }
+        else{
+            print("Can't find jail/chess position.")
+        }
         print("the Scene was created.")
         return scene
     }()
