@@ -14,8 +14,22 @@ enum chessModel{
 struct Mover{
     var account: String//: Player
     var order: Int
-    var currentLoc: Int
+    var currentLoc: Int = 0
     //var isInJail: Bool
     var model: chessModel
     var deedCards: [Estate]
+    
+//    init(){
+//        self.account = ""
+//        self.order = 0
+//        self.model = chessModel.Empty
+//        self.deedCards = [Estate]()
+//    }
+    
+    init(account: String = "",order: Int = 0,model: chessModel = chessModel.Empty,deedCards:[Estate] = [Estate]()){
+        self.account = account
+        self.order = order
+        self.model = model
+        self.deedCards = deedCards
+    }
 }

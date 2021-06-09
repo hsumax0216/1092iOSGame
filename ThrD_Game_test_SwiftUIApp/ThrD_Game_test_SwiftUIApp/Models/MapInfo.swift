@@ -47,11 +47,13 @@ struct MapInfo{
 }
 
 func printMapInfos(_ list:[MapInfo]){
+    var index = 0
     for i in list{
-        print("name:\(i.name), status: \(i.status.rawValue)")
+        print("index: \(index), name:\(i.name), status: \(i.status.rawValue)")
         print("\tvalue: \(i.value)")
         if !(i.estate == nil){
-            print("\testatus.name: \(i.estate!.chineseName), estate.mapLoc: \(i.estate!.mapLoc), estate.color: \(i.estate!.color)")
+            print("\testate.mapLoc: \(i.estate!.mapLoc), estatus.name: \(i.estate!.chineseName), estate.color: \(i.estate!.color)")
         }
+        index+=1
     }
 }
