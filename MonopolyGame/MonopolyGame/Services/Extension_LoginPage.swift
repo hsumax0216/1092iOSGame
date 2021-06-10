@@ -67,14 +67,14 @@ extension LoginPage{
                 let credential =  FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
                     Auth.auth().signIn(with: credential) { (result, error) in
                     guard error == nil else {
-                        print(error?.localizedDescription)
+                        print(error?.localizedDescription as Any)
                         return
                     }
                     if let user = Auth.auth().currentUser {
                         print("\(user.providerID) login")
                         if user.providerData.count > 0 {
                             let userInfo = user.providerData[0]
-                            print(userInfo.providerID, userInfo.displayName, userInfo.photoURL)
+                            print(userInfo.providerID, userInfo.displayName as Any, userInfo.photoURL as Any)
                             playerProfile.email = user.email ?? "FB login"
                             playerProfile.uid = user.uid
                             playerProfile.name = userInfo.displayName ?? ""

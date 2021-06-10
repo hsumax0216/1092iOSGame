@@ -14,12 +14,12 @@ func registerUser(email:String,password:String,_ completion: @escaping (_ taken:
     print("registerUser begin")
     Auth.auth().createUser(withEmail: email, password: password) { result, error in
         guard let user = result?.user,error == nil else {
-            print(error?.localizedDescription)
+            print(error?.localizedDescription as Any)
             completion(nil)
             return
         }
         completion(user)
-        print(user.email, user.uid)
+        print(user.email as Any, user.uid)
     }
     print("registerUser end")
 }
@@ -29,7 +29,7 @@ func signInUser(email:String,password:String,_ completion: @escaping (_ taken: B
     var rtn = true
     Auth.auth().signIn(withEmail: email, password: password) { result, error in
          guard error == nil else {
-            print(error?.localizedDescription)
+            print(error?.localizedDescription as Any)
             rtn = false
             completion(rtn)
             return
@@ -64,7 +64,7 @@ func settingUserProfile(player:Player){
     changeRequest?.displayName = player.name
     changeRequest?.commitChanges(completion: { error in
        guard error == nil else {
-           print(error?.localizedDescription)
+        print(error?.localizedDescription as Any)
            return
        }
     })

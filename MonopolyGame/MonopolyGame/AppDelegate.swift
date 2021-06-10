@@ -32,7 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate {
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { (result, error) in
             guard error == nil else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
                 return
             }
             NotificationCenter.default.post(name: Notification.Name("GoogleSignInSuccess"),object: nil)

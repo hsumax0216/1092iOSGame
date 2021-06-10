@@ -17,7 +17,7 @@ struct ProfilePage: View {
     @State private var selectedIndex:Int = 2
     let dateFormatter = DateFormatter()
     var body: some View {
-        let screenWidth:CGFloat = UIScreen.main.bounds.size.width
+        //let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         VStack {
             HStack{
                 Spacer()
@@ -173,7 +173,7 @@ struct ProfilePage: View {
                 }
                 print("getPlayerData finished.")
                 let url = URL(string: player.imageURL)
-                print("url:\(url?.absoluteString)")
+                print("url:\(url?.absoluteString ?? "")")
                 playerProfile = player
                 tempAge = String(playerProfile.age)
                 tempMoney = String(playerProfile.money)
