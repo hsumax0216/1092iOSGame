@@ -1,0 +1,5 @@
+只能在官方MacOS-Big-Sur（包括SPM+Cocoapods）上運行.txt
+
+在T450s-Hackintosh上運行會發生SSL-Error錯誤，但發現若重新新建project並不使用SPM(Swift Package Manager)只使用Cocoapods可以正常運行(For now)
+
+SSL-Error will occur when running on T450s-Hackintosh, but it is found that if you re-create the project without using SPM (Swift Package Manager) and only using Cocoapods, it can run normally (For now).-Google Translate
