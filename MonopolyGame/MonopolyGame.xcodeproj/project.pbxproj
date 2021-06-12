@@ -3,10 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D7735D22674C4DD00B22780 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D7735D12674C4DD00B22780 /* art.scnassets */; };
+		3D7735D62675308E00B22780 /* deedSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D7735D42675308E00B22780 /* deedSheet.csv */; };
+		3D7735D72675308E00B22780 /* MapInfoSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D7735D52675308E00B22780 /* MapInfoSheet.csv */; };
+		3D7735DA2675311400B22780 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735D82675311400B22780 /* Shaders.metal */; };
+		3D7735DB2675311400B22780 /* CsvReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735D92675311400B22780 /* CsvReader.swift */; };
+		3D7735DF2675313000B22780 /* EstateCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735DC2675313000B22780 /* EstateCards.swift */; };
+		3D7735E02675313000B22780 /* MapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735DD2675313000B22780 /* MapInfo.swift */; };
+		3D7735E12675313000B22780 /* Mover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735DE2675313000B22780 /* Mover.swift */; };
+		3D7735E42675313F00B22780 /* SceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E22675313F00B22780 /* SceneViewModel.swift */; };
+		3D7735E52675313F00B22780 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E32675313F00B22780 /* GameViewModel.swift */; };
+		3D7735E82675314C00B22780 /* testFuncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E62675314C00B22780 /* testFuncView.swift */; };
+		3D7735E92675314C00B22780 /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E72675314C00B22780 /* testSceneView.swift */; };
+		3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameSceneView.swift */; };
 		3DD018AE2672500E00C7E4EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018AD2672500E00C7E4EC /* Assets.xcassets */; };
 		3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */; };
 		3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C42672510F00C7E4EC /* assetsNames.swift */; };
@@ -35,6 +48,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D7735D12674C4DD00B22780 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		3D7735D42675308E00B22780 /* deedSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deedSheet.csv; sourceTree = "<group>"; };
+		3D7735D52675308E00B22780 /* MapInfoSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapInfoSheet.csv; sourceTree = "<group>"; };
+		3D7735D82675311400B22780 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		3D7735D92675311400B22780 /* CsvReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsvReader.swift; sourceTree = "<group>"; };
+		3D7735DC2675313000B22780 /* EstateCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstateCards.swift; sourceTree = "<group>"; };
+		3D7735DD2675313000B22780 /* MapInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInfo.swift; sourceTree = "<group>"; };
+		3D7735DE2675313000B22780 /* Mover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mover.swift; sourceTree = "<group>"; };
+		3D7735E22675313F00B22780 /* SceneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneViewModel.swift; sourceTree = "<group>"; };
+		3D7735E32675313F00B22780 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		3D7735E62675314C00B22780 /* testFuncView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testFuncView.swift; sourceTree = "<group>"; };
+		3D7735E72675314C00B22780 /* testSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
+		3D7735EA2675315800B22780 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		3DD018A62672500A00C7E4EC /* MonopolyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonopolyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD018AD2672500E00C7E4EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -78,6 +104,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D7735D32674CC2300B22780 /* TestViews */ = {
+			isa = PBXGroup;
+			children = (
+				3D7735E62675314C00B22780 /* testFuncView.swift */,
+				3D7735E72675314C00B22780 /* testSceneView.swift */,
+				3DD018DB2672511000C7E4EC /* ContentView.swift */,
+			);
+			path = TestViews;
+			sourceTree = "<group>";
+		};
 		3DD0189D2672500A00C7E4EC = {
 			isa = PBXGroup;
 			children = (
@@ -99,13 +135,17 @@
 		3DD018A82672500A00C7E4EC /* MonopolyGame */ = {
 			isa = PBXGroup;
 			children = (
+				3D7735D42675308E00B22780 /* deedSheet.csv */,
+				3D7735D52675308E00B22780 /* MapInfoSheet.csv */,
 				3DD018C52672510F00C7E4EC /* AppDelegate.swift */,
 				3DD018C42672510F00C7E4EC /* assetsNames.swift */,
-				3DD018C82672511000C7E4EC /* Models */,
 				3DD018CA2672511000C7E4EC /* Services */,
+				3DD018C82672511000C7E4EC /* Models */,
 				3DD018C62672511000C7E4EC /* ViewModels */,
+				3D7735D32674CC2300B22780 /* TestViews */,
 				3DD018D32672511000C7E4EC /* Views */,
 				3DD018AD2672500E00C7E4EC /* Assets.xcassets */,
+				3D7735D12674C4DD00B22780 /* art.scnassets */,
 				3DD018B22672500E00C7E4EC /* Info.plist */,
 				3DD018F4267251BD00C7E4EC /* GoogleService-Info.plist */,
 				3DD018AF2672500E00C7E4EC /* Preview Content */,
@@ -124,6 +164,8 @@
 		3DD018C62672511000C7E4EC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3D7735E32675313F00B22780 /* GameViewModel.swift */,
+				3D7735E22675313F00B22780 /* SceneViewModel.swift */,
 				3DD018C72672511000C7E4EC /* FirebaseViewModels.swift */,
 			);
 			path = ViewModels;
@@ -132,6 +174,9 @@
 		3DD018C82672511000C7E4EC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D7735DC2675313000B22780 /* EstateCards.swift */,
+				3D7735DD2675313000B22780 /* MapInfo.swift */,
+				3D7735DE2675313000B22780 /* Mover.swift */,
 				3DD018C92672511000C7E4EC /* Player.swift */,
 			);
 			path = Models;
@@ -140,12 +185,14 @@
 		3DD018CA2672511000C7E4EC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3D7735D82675311400B22780 /* Shaders.metal */,
+				3D7735D92675311400B22780 /* CsvReader.swift */,
 				3DD018CB2672511000C7E4EC /* Stack.swift */,
-				3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */,
 				3DD018CD2672511000C7E4EC /* AuthServices.swift */,
 				3DD018CE2672511000C7E4EC /* ViewSnapShot.swift */,
 				3DD018CF2672511000C7E4EC /* FirebaseServices.swift */,
 				3DD018D02672511000C7E4EC /* UploadPhoto.swift */,
+				3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */,
 				3DD018D12672511000C7E4EC /* Extension_LoginPage.swift */,
 				3DD018D22672511000C7E4EC /* Extension_SignUpPage.swift */,
 			);
@@ -155,15 +202,15 @@
 		3DD018D32672511000C7E4EC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3DD018D82672511000C7E4EC /* FinalProjectApp.swift */,
+				3DD018D62672511000C7E4EC /* PagesControl.swift */,
 				3DD018D42672511000C7E4EC /* SignUpPage.swift */,
 				3DD018D52672511000C7E4EC /* CreateAvatarPage.swift */,
-				3DD018D62672511000C7E4EC /* PagesControl.swift */,
 				3DD018D72672511000C7E4EC /* HomePage.swift */,
-				3DD018D82672511000C7E4EC /* FinalProjectApp.swift */,
 				3DD018D92672511000C7E4EC /* LoginPage.swift */,
 				3DD018DA2672511000C7E4EC /* ProfilePage.swift */,
-				3DD018DB2672511000C7E4EC /* ContentView.swift */,
 				3DD018DC2672511000C7E4EC /* CharactorPage.swift */,
+				3D7735EA2675315800B22780 /* GameSceneView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -174,7 +221,6 @@
 				D462249B411D7377756439C6 /* Pods-MonopolyGame.debug.xcconfig */,
 				C711E027E57D16B3A6683731 /* Pods-MonopolyGame.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -248,8 +294,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */,
+				3D7735D72675308E00B22780 /* MapInfoSheet.csv in Resources */,
+				3D7735D22674C4DD00B22780 /* art.scnassets in Resources */,
 				3DD018AE2672500E00C7E4EC /* Assets.xcassets in Resources */,
 				3DD018F5267251BE00C7E4EC /* GoogleService-Info.plist in Resources */,
+				3D7735D62675308E00B22780 /* deedSheet.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,19 +376,29 @@
 				3DD018E42672511000C7E4EC /* ViewSnapShot.swift in Sources */,
 				3DD018F02672511000C7E4EC /* ContentView.swift in Sources */,
 				3DD018ED2672511000C7E4EC /* FinalProjectApp.swift in Sources */,
+				3D7735DA2675311400B22780 /* Shaders.metal in Sources */,
+				3D7735E42675313F00B22780 /* SceneViewModel.swift in Sources */,
 				3DD018E22672511000C7E4EC /* Extension_CreateAvatarPage.swift in Sources */,
+				3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */,
+				3D7735E92675314C00B22780 /* testSceneView.swift in Sources */,
 				3DD018E52672511000C7E4EC /* FirebaseServices.swift in Sources */,
+				3D7735E12675313000B22780 /* Mover.swift in Sources */,
+				3D7735DB2675311400B22780 /* CsvReader.swift in Sources */,
 				3DD018E02672511000C7E4EC /* Player.swift in Sources */,
 				3DD018E32672511000C7E4EC /* AuthServices.swift in Sources */,
+				3D7735E02675313000B22780 /* MapInfo.swift in Sources */,
 				3DD018EE2672511000C7E4EC /* LoginPage.swift in Sources */,
 				3DD018E62672511000C7E4EC /* UploadPhoto.swift in Sources */,
 				3DD018E12672511000C7E4EC /* Stack.swift in Sources */,
+				3D7735E82675314C00B22780 /* testFuncView.swift in Sources */,
+				3D7735E52675313F00B22780 /* GameViewModel.swift in Sources */,
 				3DD018DE2672511000C7E4EC /* AppDelegate.swift in Sources */,
 				3DD018E72672511000C7E4EC /* Extension_LoginPage.swift in Sources */,
 				3DD018F12672511000C7E4EC /* CharactorPage.swift in Sources */,
 				3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */,
 				3DD018DF2672511000C7E4EC /* FirebaseViewModels.swift in Sources */,
 				3DD018EC2672511000C7E4EC /* HomePage.swift in Sources */,
+				3D7735DF2675313000B22780 /* EstateCards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
