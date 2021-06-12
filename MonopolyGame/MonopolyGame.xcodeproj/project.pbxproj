@@ -20,6 +20,7 @@
 		3D7735E82675314C00B22780 /* testFuncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E62675314C00B22780 /* testFuncView.swift */; };
 		3D7735E92675314C00B22780 /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E72675314C00B22780 /* testSceneView.swift */; };
 		3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameSceneView.swift */; };
+		3D7735ED267548B500B22780 /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EC267548B500B22780 /* GameRoom.swift */; };
 		3DD018AE2672500E00C7E4EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018AD2672500E00C7E4EC /* Assets.xcassets */; };
 		3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */; };
 		3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C42672510F00C7E4EC /* assetsNames.swift */; };
@@ -61,6 +62,7 @@
 		3D7735E62675314C00B22780 /* testFuncView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testFuncView.swift; sourceTree = "<group>"; };
 		3D7735E72675314C00B22780 /* testSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
 		3D7735EA2675315800B22780 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
+		3D7735EC267548B500B22780 /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
 		3DD018A62672500A00C7E4EC /* MonopolyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonopolyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD018AD2672500E00C7E4EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				3D7735DD2675313000B22780 /* MapInfo.swift */,
 				3D7735DE2675313000B22780 /* Mover.swift */,
 				3DD018C92672511000C7E4EC /* Player.swift */,
+				3D7735EC267548B500B22780 /* GameRoom.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D7735ED267548B500B22780 /* GameRoom.swift in Sources */,
 				3DD018E92672511000C7E4EC /* SignUpPage.swift in Sources */,
 				3DD018EF2672511000C7E4EC /* ProfilePage.swift in Sources */,
 				3DD018EB2672511000C7E4EC /* PagesControl.swift in Sources */,

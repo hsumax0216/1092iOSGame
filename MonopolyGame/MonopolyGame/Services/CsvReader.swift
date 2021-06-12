@@ -8,7 +8,7 @@
 import Foundation
 
 class CsvReader{    
-    
+    static let shared = CsvReader()
     func readDataFromCSV(fileName:String, fileType: String)-> String?{
         guard let filepath = Bundle.main.path(forResource: fileName, ofType: fileType)
             else {
@@ -215,6 +215,5 @@ class CsvReader{
     }
 }
 
-let csvReader = CsvReader()
-var testEstates = csvReader.generateEstates()
-var testMapInfos = csvReader.generateMapInfos(testEstates)
+var testEstates = CsvReader.shared.generateEstates()
+var testMapInfos = CsvReader.shared.generateMapInfos(testEstates)

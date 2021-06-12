@@ -34,10 +34,13 @@ class SceneCoordinator: NSObject, SCNSceneRendererDelegate, ObservableObject{
             print("userdefine Error : chess num Out of range.")
             return
         }
-        let desLoc = jailNode.childNode(withName: chessLocName[chessNum], recursively: false)
+        guard let desLoc = jailNode.childNode(withName: chessLocName[chessNum], recursively: false) else{
+            print("Don't found jaiNode/",chessLocName[chessNum])
+            return
+        }
         chessNodes[chessNum].parent?.convertTransform(chessNodes[chessNum].transform, to: desLoc)
         chessNodes[chessNum].removeFromParentNode()
-        desLoc?.addChildNode(chessNodes[chessNum])
+        desLoc.addChildNode(chessNodes[chessNum])
     }
     
     lazy var theScene: SCNScene = {

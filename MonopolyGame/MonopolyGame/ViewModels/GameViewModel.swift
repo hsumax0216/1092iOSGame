@@ -21,7 +21,7 @@ class MonopolyGame: ObservableObject{
     
     var movers:[Mover] = []
     
-    let csvReader = CsvReader()
+    
     init(){
         
     }
@@ -41,9 +41,9 @@ class MonopolyGame: ObservableObject{
         movers.removeAll()
         
         
-        estates = csvReader.generateEstates()
+        estates = CsvReader.shared.generateEstates()
         estates.sort(by:Estate.mapIncreaseOrder)
-        mapInfos = csvReader.generateMapInfos(estates)
+        mapInfos = CsvReader.shared.generateMapInfos(estates)
         
         movers = [Mover](repeating: Mover(), count: 4)
         
