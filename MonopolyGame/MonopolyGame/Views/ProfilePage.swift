@@ -16,6 +16,12 @@ struct ProfilePage: View {
     @State private var tempAge:String = "0"
     @State private var selectedIndex:Int = 2
     let dateFormatter = DateFormatter()
+    
+    //for test begin
+    @State var sharekey: String = ""
+    @State var gameroom: GameRoom?
+    //for test end
+    
     var body: some View {
         //let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         VStack {
@@ -33,7 +39,7 @@ struct ProfilePage: View {
                         .padding(.trailing,15)
                 })
             }
-            if editmode == 0{
+            if editmode == 0{//Profile mode
                 Form {
                     HStack{
                         Spacer()
@@ -87,10 +93,40 @@ struct ProfilePage: View {
                             Text(playerProfile.id ?? "")
                                 //.frame(width:screenWidth/2)
                         }
+                        //for test begin
+                        //HStack{
+                        Button(action:{
+                            gameroom = GameRoom(player: playerProfile)
+                            MultiPlayerFirebase.shared.createGameRoom(gameRoom: gameroom!){ room in
+                                gameroom = room
+                            }
+                        },label:{Text("Create Room").font(.system(size:40,design:.monospaced))})
+                        Button(action:{
+                            MultiPlayerFirebase.shared.quitGameRoom(gameRoom: gameroom!,player: playerProfile)
+                        },label:{Text("Quit Room").font(.system(size:40,design:.monospaced))})
+                        //}
+                        HStack{
+                            Text("Input sharekey:")
+                            TextField("Your sharekey", text: $sharekey
+                                      ,onCommit:{
+                                            MultiPlayerFirebase.shared.getGameRoom(shareKey:sharekey){ token in
+                                                guard let unexist = token else{
+                                                    print("Did not find the Room sharekey: \(sharekey)")
+                                                    return
+                                                }
+                                                gameroom = unexist
+                                                MultiPlayerFirebase.shared.joinGameRoom(gameRoom: unexist, player: playerProfile)
+                                            }
+                                        })
+                                .disableAutocorrection(true)
+                                .autocapitalization(.allCharacters)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        //for test end
                     }
                 }
             }
-            else {
+            else {//Input data mode
                 Form {
                     HStack{
                         Spacer()
@@ -204,7 +240,7 @@ struct ProfilePage: View {
 
 struct ProfilePage_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePage(currentPage: .constant(Pages.ProfilePage),userImage: .constant(nil),playerProfile: .constant(Player()),editmode: .constant(1))
+        ProfilePage(currentPage: .constant(Pages.ProfilePage),userImage: .constant(nil),playerProfile: .constant(Player()),editmode: .constant(0))
     }
 }
 

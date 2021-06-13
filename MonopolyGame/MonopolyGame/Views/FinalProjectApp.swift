@@ -17,11 +17,11 @@ struct FinalProjectApp: App {
             //ContentView()
             //testSceneView()
             //GameSceneView()
-            testFuncView()
-//            PagesControl()
-//            .onOpenURL(perform: { url in
-//             ApplicationDelegate.shared.application(UIApplication.shared, open: url, sourceApplication: nil, annotation: UIApplication.OpenURLOptionsKey.annotation)
-//                            })
+            //testFuncView()
+            PagesControl()
+            .onOpenURL(perform: { url in
+             ApplicationDelegate.shared.application(UIApplication.shared, open: url, sourceApplication: nil, annotation: UIApplication.OpenURLOptionsKey.annotation)
+                            })
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct GameRoom: Codable, Identifiable {
     @DocumentID var id: String?
-    let ownerID: String
+    var ownerID: String
     var shareKey: String
     var playerIDs: [String]
     init(player:Player){
