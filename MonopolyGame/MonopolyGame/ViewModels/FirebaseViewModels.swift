@@ -150,15 +150,21 @@ class MultiPlayerFirebase{
             }
     }
     
-    func joinGameRoom(gameRoom:GameRoom,player:Player,peoples:Int = 4) {//modifyGameRoom
-        guard peoples > 0,let gameRoomID = gameRoom.id, let playerID = player.id else { return }
+    func joinGameRoom(gameRoom:GameRoom,player:Player,peoples:Int = 4,_ completion: @escaping(_ token:GameRoom?) -> Void) {//modifyGameRoom
+        guard peoples > 0,let gameRoomID = gameRoom.id, let playerID = player.id else {
+            completion(nil)
+            return
+        }
         let documentReference =
             store.collection("Rooms").document(gameRoomID)
             documentReference.getDocument { document, error in
                         
                 guard let document = document,
                       document.exists,
-                      var room = try? document.data(as: GameRoom.self) else { return }
+                      var room = try? document.data(as: GameRoom.self) else {
+                    completion(nil)
+                    return
+                }
                 //modify data
                 var playerExist = false
                 for i in room.playerIDs{
@@ -172,11 +178,13 @@ class MultiPlayerFirebase{
                 }
                 else{
                     print("Error: people count > \(peoples).")
+                    completion(nil)
                     return
                 }
                         
                 do {
                     try documentReference.setData(from: room)
+                    completion(room)
                 } catch { print(error) }
         }
     }

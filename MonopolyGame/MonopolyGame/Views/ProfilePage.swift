@@ -114,8 +114,10 @@ struct ProfilePage: View {
                                                     print("Did not find the Room sharekey: \(sharekey)")
                                                     return
                                                 }
-                                                gameroom = unexist
-                                                MultiPlayerFirebase.shared.joinGameRoom(gameRoom: unexist, player: playerProfile)
+                                                MultiPlayerFirebase.shared.joinGameRoom(gameRoom: unexist, player: playerProfile){ room in
+                                                    guard !(room == nil) else{ return }
+                                                    gameroom = room
+                                                }
                                             }
                                         })
                                 .disableAutocorrection(true)
