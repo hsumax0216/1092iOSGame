@@ -95,34 +95,73 @@ struct ProfilePage: View {
                         }
                         //for test begin
                         //HStack{
-                        Button(action:{
-                            gameroom = GameRoom(player: playerProfile)
-                            MultiPlayerFirebase.shared.createGameRoom(gameRoom: gameroom!){ room in
-                                gameroom = room
+                        Group{
+                            Button(action:{
+                                gameroom = GameRoom(player: playerProfile)
+                                MultiPlayerFirestore.shared.createGameRoom(gameRoom: gameroom!){ room in
+                                    gameroom = room
+                                }
+                            },label:{Text("Create Room").font(.system(size:40,design:.monospaced))})
+                            Button(action:{
+                                MultiPlayerFirestore.shared.quitGameRoom(gameRoom: gameroom!,player: playerProfile)
+                            },label:{Text("Quit Room").font(.system(size:40,design:.monospaced))})
+                            //}
+                            HStack{
+                                Text("Input sharekey:")
+                                TextField("Your sharekey", text: $sharekey
+                                          ,onCommit:{
+                                            MultiPlayerFirestore.shared.getGameRoom(shareKey:sharekey){ token in
+                                                    guard let unexist = token else{
+                                                        print("Did not find the Room sharekey: \(sharekey)")
+                                                        return
+                                                    }
+                                                MultiPlayerFirestore.shared.joinGameRoom(gameRoom: unexist, player: playerProfile){ room in
+                                                        guard !(room == nil) else{ return }
+                                                        gameroom = room
+                                                    }
+                                                }
+                                            })
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.allCharacters)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
                             }
-                        },label:{Text("Create Room").font(.system(size:40,design:.monospaced))})
-                        Button(action:{
-                            MultiPlayerFirebase.shared.quitGameRoom(gameRoom: gameroom!,player: playerProfile)
-                        },label:{Text("Quit Room").font(.system(size:40,design:.monospaced))})
-                        //}
-                        HStack{
-                            Text("Input sharekey:")
-                            TextField("Your sharekey", text: $sharekey
-                                      ,onCommit:{
-                                            MultiPlayerFirebase.shared.getGameRoom(shareKey:sharekey){ token in
-                                                guard let unexist = token else{
-                                                    print("Did not find the Room sharekey: \(sharekey)")
-                                                    return
+                            HStack{
+                                Text("Listen sharekey:")
+                                TextField("Your sharekey", text: $sharekey
+                                          ,onCommit:{
+                                            
+                                            MultiPlayerFirestore.shared.fetchGameRoomChange(shareKey:sharekey){ result in
+                                                switch result{
+                                                case .success((let GR, let dataChangeAction)):
+                                                    switch dataChangeAction{
+                                                    case .add:
+                                                        print("add GameRoom ID:",GR.id as Any)
+                                                        print("players ID:")
+                                                        for (i,ID) in GR.playerIDs.enumerated(){
+                                                            print("No.\(i):",ID)
+                                                        }
+                                                    case .modify:
+                                                        print("modify GameRoom ID:",GR.id as Any)
+                                                        print("players ID:")
+                                                        for (i,ID) in GR.playerIDs.enumerated(){
+                                                            print("No.\(i):",ID)
+                                                        }
+                                                        
+                                                    case .remove:
+                                                        print("removed GameRoom ID:",GR.id as Any)
+                                                    }
+                                                case .failure(_):
+                                                    print("fetch sharekey game room failure.")
+                                                    break
                                                 }
-                                                MultiPlayerFirebase.shared.joinGameRoom(gameRoom: unexist, player: playerProfile){ room in
-                                                    guard !(room == nil) else{ return }
-                                                    gameroom = room
-                                                }
+                                              
+                                                
                                             }
-                                        })
-                                .disableAutocorrection(true)
-                                .autocapitalization(.allCharacters)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                            })
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.allCharacters)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            }
                         }
                         //for test end
                     }
@@ -204,7 +243,7 @@ struct ProfilePage: View {
         }
         .onAppear{
             dateFormatter.dateFormat  = "y MMM dd HH:mm"
-            getPlayerData(uid: playerProfile.uid){ player in
+            PlayerFirestore.shared.getPlayerData(uid: playerProfile.uid){ player in
                 guard let player = player else{
                     print("getPlayerData fail.")
                     return
@@ -236,6 +275,13 @@ struct ProfilePage: View {
             if userImage == nil{
                 userImage = UIImage.init()
             }
+            //for test begin
+            //DispatchQueue.global().async(execute: {print("test")})
+//            DispatchQueue.global().async{
+//
+//
+//            }
+            //for test end
         }
     }
 }

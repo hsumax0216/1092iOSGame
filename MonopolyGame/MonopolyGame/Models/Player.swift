@@ -17,6 +17,8 @@ struct Player: Codable, Identifiable {
     var country: String
     var age: Int
     var money: Int
+    //var gameRoomID: String
+    //var lastJoinGameTime: Date?
     var regTime: Date
     init(){
         name = ""
@@ -27,6 +29,7 @@ struct Player: Codable, Identifiable {
         age = 18
         money = 0
         regTime = Date.init()
+        //gameRoomID = ""
     }
     init(name:String, imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date){
         self.name = name
@@ -37,6 +40,7 @@ struct Player: Codable, Identifiable {
         self.money = money
         self.regTime = regTime
         self.uid = ""
+        //self.gameRoomID = ""
     }
     init(uid:String,name:String, imageURL:String,email:String,country:String,age:Int,money:Int,regTime:Date){
         self.name = name
@@ -47,5 +51,6 @@ struct Player: Codable, Identifiable {
         self.money = money
         self.regTime = regTime
         self.uid = uid
+        //self.gameRoomID = ""
     }
 }

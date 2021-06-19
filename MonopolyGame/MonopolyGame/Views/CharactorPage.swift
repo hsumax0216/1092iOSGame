@@ -77,13 +77,13 @@ struct CharactorPage: View {
                     }
                     
                           
-                    searchPlayerData(uid: playerProfile.uid){ taken in
+                    PlayerFirestore.shared.searchPlayerData(uid: playerProfile.uid){ taken in
                         guard let taken = taken else {
                                 return // value is nil; there was an error—consider retrying
                             }
                             if taken {
                                 let player = Player(uid:playerProfile.uid,name:name, imageURL:imageURL,email:playerProfile.email,country:countryName[selectedIndex],age:Int(age),money:Int(money) ?? 0,regTime:Date.init())
-                                createPlayerData(player:player)
+                                PlayerFirestore.shared.createPlayerData(player:player)
                                 settingUserProfile(player: player)
                                 playerProfile = player
                                 

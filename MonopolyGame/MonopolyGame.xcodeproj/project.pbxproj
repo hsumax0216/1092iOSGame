@@ -21,17 +21,17 @@
 		3D7735E92675314C00B22780 /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E72675314C00B22780 /* testSceneView.swift */; };
 		3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameSceneView.swift */; };
 		3D7735ED267548B500B22780 /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EC267548B500B22780 /* GameRoom.swift */; };
+		3D7735EF267E8FC600B22780 /* PlayerFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */; };
 		3DD018AE2672500E00C7E4EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018AD2672500E00C7E4EC /* Assets.xcassets */; };
 		3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */; };
 		3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C42672510F00C7E4EC /* assetsNames.swift */; };
 		3DD018DE2672511000C7E4EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C52672510F00C7E4EC /* AppDelegate.swift */; };
-		3DD018DF2672511000C7E4EC /* FirebaseViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C72672511000C7E4EC /* FirebaseViewModels.swift */; };
+		3DD018DF2672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C72672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift */; };
 		3DD018E02672511000C7E4EC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C92672511000C7E4EC /* Player.swift */; };
 		3DD018E12672511000C7E4EC /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CB2672511000C7E4EC /* Stack.swift */; };
 		3DD018E22672511000C7E4EC /* Extension_CreateAvatarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */; };
 		3DD018E32672511000C7E4EC /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CD2672511000C7E4EC /* AuthServices.swift */; };
 		3DD018E42672511000C7E4EC /* ViewSnapShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CE2672511000C7E4EC /* ViewSnapShot.swift */; };
-		3DD018E52672511000C7E4EC /* FirebaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CF2672511000C7E4EC /* FirebaseServices.swift */; };
 		3DD018E62672511000C7E4EC /* UploadPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018D02672511000C7E4EC /* UploadPhoto.swift */; };
 		3DD018E72672511000C7E4EC /* Extension_LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018D12672511000C7E4EC /* Extension_LoginPage.swift */; };
 		3DD018E82672511000C7E4EC /* Extension_SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018D22672511000C7E4EC /* Extension_SignUpPage.swift */; };
@@ -63,19 +63,19 @@
 		3D7735E72675314C00B22780 /* testSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
 		3D7735EA2675315800B22780 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		3D7735EC267548B500B22780 /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
+		3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFirestoreViewModel.swift; sourceTree = "<group>"; };
 		3DD018A62672500A00C7E4EC /* MonopolyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonopolyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD018AD2672500E00C7E4EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3DD018B22672500E00C7E4EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DD018C42672510F00C7E4EC /* assetsNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assetsNames.swift; sourceTree = "<group>"; };
 		3DD018C52672510F00C7E4EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DD018C72672511000C7E4EC /* FirebaseViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseViewModels.swift; sourceTree = "<group>"; };
+		3DD018C72672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiPlayerFirestoreViewModel.swift; sourceTree = "<group>"; };
 		3DD018C92672511000C7E4EC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3DD018CB2672511000C7E4EC /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension_CreateAvatarPage.swift; sourceTree = "<group>"; };
 		3DD018CD2672511000C7E4EC /* AuthServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		3DD018CE2672511000C7E4EC /* ViewSnapShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSnapShot.swift; sourceTree = "<group>"; };
-		3DD018CF2672511000C7E4EC /* FirebaseServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseServices.swift; sourceTree = "<group>"; };
 		3DD018D02672511000C7E4EC /* UploadPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPhoto.swift; sourceTree = "<group>"; };
 		3DD018D12672511000C7E4EC /* Extension_LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension_LoginPage.swift; sourceTree = "<group>"; };
 		3DD018D22672511000C7E4EC /* Extension_SignUpPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension_SignUpPage.swift; sourceTree = "<group>"; };
@@ -168,7 +168,8 @@
 			children = (
 				3D7735E32675313F00B22780 /* GameViewModel.swift */,
 				3D7735E22675313F00B22780 /* SceneViewModel.swift */,
-				3DD018C72672511000C7E4EC /* FirebaseViewModels.swift */,
+				3DD018C72672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift */,
+				3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -193,7 +194,6 @@
 				3DD018CB2672511000C7E4EC /* Stack.swift */,
 				3DD018CD2672511000C7E4EC /* AuthServices.swift */,
 				3DD018CE2672511000C7E4EC /* ViewSnapShot.swift */,
-				3DD018CF2672511000C7E4EC /* FirebaseServices.swift */,
 				3DD018D02672511000C7E4EC /* UploadPhoto.swift */,
 				3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */,
 				3DD018D12672511000C7E4EC /* Extension_LoginPage.swift */,
@@ -385,7 +385,6 @@
 				3DD018E22672511000C7E4EC /* Extension_CreateAvatarPage.swift in Sources */,
 				3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */,
 				3D7735E92675314C00B22780 /* testSceneView.swift in Sources */,
-				3DD018E52672511000C7E4EC /* FirebaseServices.swift in Sources */,
 				3D7735E12675313000B22780 /* Mover.swift in Sources */,
 				3D7735DB2675311400B22780 /* CsvReader.swift in Sources */,
 				3DD018E02672511000C7E4EC /* Player.swift in Sources */,
@@ -397,10 +396,11 @@
 				3D7735E82675314C00B22780 /* testFuncView.swift in Sources */,
 				3D7735E52675313F00B22780 /* GameViewModel.swift in Sources */,
 				3DD018DE2672511000C7E4EC /* AppDelegate.swift in Sources */,
+				3D7735EF267E8FC600B22780 /* PlayerFirestoreViewModel.swift in Sources */,
 				3DD018E72672511000C7E4EC /* Extension_LoginPage.swift in Sources */,
 				3DD018F12672511000C7E4EC /* CharactorPage.swift in Sources */,
 				3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */,
-				3DD018DF2672511000C7E4EC /* FirebaseViewModels.swift in Sources */,
+				3DD018DF2672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift in Sources */,
 				3DD018EC2672511000C7E4EC /* HomePage.swift in Sources */,
 				3D7735DF2675313000B22780 /* EstateCards.swift in Sources */,
 			);

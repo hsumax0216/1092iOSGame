@@ -47,7 +47,7 @@ extension SignUpPage{
             showAlert = true
             return
         }
-        searchPlayerData(email: email){ unexist in
+        PlayerFirestore.shared.searchPlayerData(email: email){ unexist in
             guard let unexist = unexist else {
                     return // value is nil; there was an error—consider retrying
                 }
@@ -89,7 +89,7 @@ extension SignUpPage{
                         print("\(user.providerID) login")
                         if user.providerData.count > 0 {
                             
-                            searchPlayerData(uid: user.uid){ unexist in
+                            PlayerFirestore.shared.searchPlayerData(uid: user.uid){ unexist in
                                 guard let unexist = unexist else {
                                         return // value is nil; there was an error—consider retrying
                                     }

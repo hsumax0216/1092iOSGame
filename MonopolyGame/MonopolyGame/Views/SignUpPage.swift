@@ -108,7 +108,7 @@ struct SignUpPage: View {
                                     playerProfile.uid = user.uid
                                     playerProfile.name = userInfo.displayName ?? ""
                                     
-                                    searchPlayerData(email: playerProfile.email){ unexist in
+                                    PlayerFirestore.shared.searchPlayerData(email: playerProfile.email){ unexist in
                                         guard let unexist = unexist else {
                                                 return // value is nil; there was an error—consider retrying
                                             }

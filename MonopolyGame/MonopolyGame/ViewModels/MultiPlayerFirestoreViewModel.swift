@@ -1,5 +1,5 @@
 //
-//  FirebaseViewModels.swift
+//  MultiPlayerFirestoreViewModel.swift
 //  FinalProject
 //
 //  Created by 徐浩恩 on 2021/5/17.
@@ -13,8 +13,8 @@ enum DataChangeAction{
     case add,modify,remove
 }
 
-class MultiPlayerFirebase{
-    static let shared = MultiPlayerFirebase()
+class MultiPlayerFirestore{
+    static let shared = MultiPlayerFirestore()
     private let store = Firestore.firestore()
     
     init(){
@@ -129,9 +129,29 @@ class MultiPlayerFirebase{
             }
         }
     }
-    
+    //When addSnapshotListener is active, it will run until the item is removed.
     func fetchGameRoomChange(shareKey:String,_ completion: @escaping (Result<(GameRoom,DataChangeAction),Error>) -> Void) {
             store.collection("Rooms").whereField("shareKey", isEqualTo: shareKey).addSnapshotListener { snapshot, error in
+                guard let snapshot = snapshot else { return }
+                snapshot.documentChanges.forEach { documentChange in
+                    guard let room = try? documentChange.document.data(as: GameRoom.self) else { return }
+                    switch documentChange.type {
+                    case .added:
+                        print("added")
+                        completion(.success((room,.add)))
+                    case .modified:
+                        completion(.success((room,.modify)))
+                        print("modified")
+                    case .removed:
+                        completion(.success((room,.remove)))
+                        print("removed")
+                    }
+                }
+            }
+    }
+    
+    func fetchGameRoomChange(gameRoomID:String,_ completion: @escaping (Result<(GameRoom,DataChangeAction),Error>) -> Void) {
+        store.collection("Rooms").whereField("id", isEqualTo: gameRoomID).addSnapshotListener { snapshot, error in
                 guard let snapshot = snapshot else { return }
                 snapshot.documentChanges.forEach { documentChange in
                     guard let room = try? documentChange.document.data(as: GameRoom.self) else { return }
