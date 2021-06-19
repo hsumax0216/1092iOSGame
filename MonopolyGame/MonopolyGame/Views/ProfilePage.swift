@@ -19,6 +19,7 @@ struct ProfilePage: View {
     
     //for test begin
     @State var sharekey: String = ""
+    @State var GRID: String = ""
     @State var gameroom: GameRoom?
     //for test end
     
@@ -160,6 +161,44 @@ struct ProfilePage: View {
                                             })
                                     .disableAutocorrection(true)
                                     .autocapitalization(.allCharacters)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            }
+                            HStack{
+                                Text("Listen GameRoomID:")
+                                TextField("Your GameRoomID", text: $GRID
+                                          ,onCommit:{
+                                            //print("Listen GameRoomID onCommit")
+                                            MultiPlayerFirestore.shared.fetchGameRoomChange(gameRoomID: GRID){ result in
+                                                //print("fetchGameRoomChange gameroomID closure,result:[\(result)]")
+                                                switch result{
+                                                case .success((let GR, let dataChangeAction)):
+                                                    switch dataChangeAction{
+                                                    case .add:
+                                                        print("add GameRoom ID:",GR.id as Any)
+                                                        print("players ID:")
+                                                        for (i,ID) in GR.playerIDs.enumerated(){
+                                                            print("No.\(i):",ID)
+                                                        }
+                                                    case .modify:
+                                                        print("modify GameRoom ID:",GR.id as Any)
+                                                        print("players ID:")
+                                                        for (i,ID) in GR.playerIDs.enumerated(){
+                                                            print("No.\(i):",ID)
+                                                        }
+                                                        
+                                                    case .remove:
+                                                        print("removed GameRoom ID:",GR.id as Any)
+                                                    }
+                                                case .failure(_):
+                                                    print("fetch GameRoomID game room failure.")
+                                                    break
+                                                }
+                                              
+                                                
+                                            }
+                                            })
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                             }
                         }

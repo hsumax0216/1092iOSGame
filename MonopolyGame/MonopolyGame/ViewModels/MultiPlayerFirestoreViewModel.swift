@@ -151,22 +151,27 @@ class MultiPlayerFirestore{
     }
     
     func fetchGameRoomChange(gameRoomID:String,_ completion: @escaping (Result<(GameRoom,DataChangeAction),Error>) -> Void) {
-        store.collection("Rooms").whereField("id", isEqualTo: gameRoomID).addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else { return }
+        //print("Active fetchGameRoomChange")
+        store.collection("Rooms").whereField(.documentID(),isEqualTo: gameRoomID).addSnapshotListener { snapshot, error in
+                //print("In fetchGameRoomChange gameroomID")
+                guard let snapshot = snapshot else { print("snapshot is nil");return }
+                //print("pass guard let snapshot = snapshot")
+            
                 snapshot.documentChanges.forEach { documentChange in
-                    guard let room = try? documentChange.document.data(as: GameRoom.self) else { return }
-                    switch documentChange.type {
-                    case .added:
-                        print("added")
-                        completion(.success((room,.add)))
-                    case .modified:
-                        completion(.success((room,.modify)))
-                        print("modified")
-                    case .removed:
-                        completion(.success((room,.remove)))
-                        print("removed")
+                        guard let room = try? documentChange.document.data(as: GameRoom.self) else { return }
+                        switch documentChange.type {
+                        case .added:
+                            print("added")
+                            completion(.success((room,.add)))
+                        case .modified:
+                            completion(.success((room,.modify)))
+                            print("modified")
+                        case .removed:
+                            completion(.success((room,.remove)))
+                            print("removed")
+                        }
                     }
-                }
+                //print("End snapshot.documentChanges.forEach")
             }
     }
     
