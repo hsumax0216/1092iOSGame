@@ -191,6 +191,7 @@ class MultiPlayerFirestore{
                     return
                 }
                 //modify data
+                let originRoom = room
                 var playerExist = false
                 for i in room.playerIDs{
                     if i == player.id{
@@ -202,6 +203,11 @@ class MultiPlayerFirestore{
                     room.playerIDs.append(playerID)
                 }
                 else{
+                    if playerExist && room.playerIDs.count < peoples{
+                       print("player already exist.")
+                        completion(originRoom)
+                        return
+                    }
                     print("Error: people count > \(peoples).")
                     completion(nil)
                     return
@@ -245,8 +251,13 @@ class MultiPlayerFirestore{
                 } catch { print(error) }
             }
             else{
-                print("quitGameRoom: delete room.")
-                 documentReference.delete()
+                if room.ownerID == playerID{
+                    print("quitGameRoom: delete room.")
+                    documentReference.delete()
+                }
+                else{
+                    print("Player [",playerID,"], You cannot exit the room where you are not in there.")
+                }
             }
         }
     }

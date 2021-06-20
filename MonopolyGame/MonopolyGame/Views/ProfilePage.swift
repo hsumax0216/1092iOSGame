@@ -104,7 +104,8 @@ struct ProfilePage: View {
                                 }
                             },label:{Text("Create Room").font(.system(size:40,design:.monospaced))})
                             Button(action:{
-                                MultiPlayerFirestore.shared.quitGameRoom(gameRoom: gameroom!,player: playerProfile)
+                                guard let gameR = gameroom else{ print("@State var gameroom is nil.");return }
+                                MultiPlayerFirestore.shared.quitGameRoom(gameRoom: gameR,player: playerProfile)
                             },label:{Text("Quit Room").font(.system(size:40,design:.monospaced))})
                             //}
                             HStack{
