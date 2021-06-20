@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Pages{
-    case HomePage, CharactorPage, CreateAvatarPage,ProfilePage,LoginPage,SignUpPage//,GoogleSignInPage
+    case HomePage, CharactorPage, CreateAvatarPage,ProfilePage,LoginPage,SignUpPage,GameRoomWaitPage//,GoogleSignInPage
 }
 var lastPageStack = Stack<Pages>()
 struct PagesControl: View {
@@ -33,6 +33,8 @@ struct PagesControl: View {
                 CharactorPage(currentPage: $currentPage, userImage: $userImage,playerProfile: $playerProfile)
             case Pages.ProfilePage:
                 ProfilePage(currentPage: $currentPage, userImage: $userImage,playerProfile:$playerProfile,editmode: $editmode)
+            case Pages.GameRoomWaitPage:
+                GameRoomWaitPage(currentPage: $currentPage,playerProfile: $playerProfile,userImage: $userImage)
             }
         }
         .onAppear{

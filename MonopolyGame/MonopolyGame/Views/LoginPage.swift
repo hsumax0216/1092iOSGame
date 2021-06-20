@@ -32,9 +32,10 @@ struct LoginPage: View {
         print("fullName:",fullName ?? "No full name")
         print("email:",email ?? "No email\n")
     }
-    
+    let UIscreenWidth = UIScreen.main.bounds.size.width
+    let UIscreenHeight = UIScreen.main.bounds.size.height
+    var screenWidth:CGFloat { UIscreenWidth < UIscreenHeight ? UIscreenWidth : UIscreenHeight }
     var body: some View{
-        let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack(alignment: .bottom){
             VStack{
                 HStack{
@@ -54,26 +55,17 @@ struct LoginPage: View {
             }
             VStack(alignment: .center){
                 VStack{
-                    HStack{
-                        Spacer()
-                        Text("email:")
-                        TextField("Your Email", text: $email,onCommit:emailLoginAction)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .frame(width:screenWidth/2)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.trailing,screenWidth/5)
-                    }
-                    HStack{
-                        Spacer()
-                        Text("password:")
-                        TextField("Your password", text: $password,onCommit:emailLoginAction)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .frame(width:screenWidth/2)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.trailing,screenWidth/5)
-                    }
+                    TextField("Your Email", text: $email,onCommit:emailLoginAction)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .frame(width:screenWidth/2)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Your password", text: $password,onCommit:emailLoginAction)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .frame(width:screenWidth/2)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom,screenWidth/16)
                     Button(action: {
                         emailLoginAction()
                     }, label: {
@@ -81,13 +73,13 @@ struct LoginPage: View {
                             .font(.system(size: 20,weight:.bold,design:.monospaced))
                             .foregroundColor(Color.blue)
                             .multilineTextAlignment(.center)
-                            .frame(width:screenWidth / 2, height: 40)
+                            .frame(width:screenWidth / 4, height: 40)
                             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, style: StrokeStyle(lineWidth: 3)))
                     })
                     .alert(isPresented: $showAlert)
                       { () -> Alert in alertSwitch() }
+                    .padding(.bottom,screenWidth/20)
                 }
-                .padding(.bottom,100)
                 VStack{
                     Text("Login with...")
                         .font(.system(size: 20,weight:.bold,design:.monospaced))
@@ -99,7 +91,7 @@ struct LoginPage: View {
                             Image("facebook-logo")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width:screenWidth/4,height: screenWidth/4)
+                                .frame(width:screenWidth/10,height: screenWidth/10)
                                 .padding(.trailing)
                         })
                         Button(action: {
@@ -109,7 +101,7 @@ struct LoginPage: View {
                             Image("google-logo")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width:screenWidth/4,height: screenWidth/4)
+                                .frame(width:screenWidth/10,height: screenWidth/10)
                                 .padding(.leading)
                         })
                         .onReceive(GoogleSignedInNoti, perform: { _ in
@@ -142,11 +134,17 @@ struct LoginPage: View {
                 }
             }
         }
+//        .onAppear{
+//            print("UIscreenWidth:\(UIscreenWidth), UIscreenHeight:\(UIscreenHeight)")
+//        }
     }
 }
 
 struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPage(currentPage: .constant(Pages.LoginPage),playerProfile: .constant(Player()))
+        Landscape{
+            LoginPage(currentPage: .constant(Pages.LoginPage),playerProfile: .constant(Player()))
+        }
+//        LoginPage(currentPage: .constant(Pages.LoginPage),playerProfile: .constant(Player()))
     }
 }

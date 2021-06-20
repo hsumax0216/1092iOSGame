@@ -55,24 +55,26 @@ struct HomePage: View {
                 Spacer()
             }
             VStack{
-                Text("Avatar create")
+                Text("Monopoly")
                    .font(.system(size: 40,weight:.bold,design:.monospaced))
                    .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
                    .multilineTextAlignment(.center)
                    .frame(width:screenWidth, height: 60)
                    .padding(.top,110)
-                Button(action: {
-                    lastPageStack.push(currentPage)
-                    currentPage = Pages.SignUpPage
-                }, label: {
-                    Text("Sign up")
-                        .font(.system(size: 20,weight:.bold,design:.monospaced))
-                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
-                        .multilineTextAlignment(.center)
-                        .frame(width:screenWidth * 0.75, height: 60)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-                })
-                .padding(.top,70)
+                if !signInState{
+                    Button(action: {
+                        lastPageStack.push(currentPage)
+                        currentPage = Pages.SignUpPage
+                    }, label: {
+                        Text("Sign up")
+                            .font(.system(size: 20,weight:.bold,design:.monospaced))
+                            .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                            .multilineTextAlignment(.center)
+                            .frame(width:screenWidth * 0.75, height: 60)
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+                    })
+                    .padding(.top,70)
+                }
                 Button(action: {
                     if(signInState){
                         lastPageStack.push(currentPage)
@@ -92,6 +94,38 @@ struct HomePage: View {
                         .frame(width:screenWidth * 0.75, height: 60)
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
                 })
+                .padding(.top,50)
+                Button(action: {
+                    lastPageStack.push(currentPage)
+                    currentPage = Pages.GameRoomWaitPage
+                }, label: {
+                    Text("Create Game Room")
+                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                        .opacity(signInState ? 1 : 0.3)
+                        .multilineTextAlignment(.center)
+                        .frame(width:screenWidth * 0.75, height: 60)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5))
+                                    .opacity(signInState ? 1 : 0.3))
+                })
+                .disabled(!signInState)
+                .padding(.top,50)
+                Button(action: {
+//                    lastPageStack.push(currentPage)
+//                    currentPage = Pages.GameRoomWaitPage
+                }, label: {
+                    Text("Join Game Room")
+                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+                        .opacity(signInState ? 1 : 0.3)
+                        .multilineTextAlignment(.center)
+                        .frame(width:screenWidth * 0.75, height: 60)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5))
+                                    .opacity(signInState ? 1 : 0.3))
+                })
+                .disabled(!signInState)
                 .padding(.top,50)
             }
         }

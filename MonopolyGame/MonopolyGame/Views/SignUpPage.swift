@@ -20,8 +20,10 @@ struct SignUpPage: View {
     @State var alertSelect:Int = 0
     let GoogleSignedInNoti = NotificationCenter.default.publisher(for: Notification.Name("GoogleSignInSuccess"))
     
+    let UIscreenWidth = UIScreen.main.bounds.size.width
+    let UIscreenHeight = UIScreen.main.bounds.size.height
+    var screenWidth:CGFloat { UIscreenWidth < UIscreenHeight ? UIscreenWidth : UIscreenHeight }
     var body: some View{
-        let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack(alignment:.bottom){
             VStack{
                 HStack{
@@ -39,43 +41,33 @@ struct SignUpPage: View {
                 }
                 Spacer()
             }
-            VStack{
+            VStack(alignment:.center){
                 VStack{
-                    HStack{
-                        Spacer()
-                        Text("email:")
-                        TextField("Your Email", text: $email,onCommit:emailSignUpAction)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .frame(width:screenWidth/2)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.trailing,screenWidth/5)
-                    }
-                    HStack{
-                        Spacer()
-                        Text("password:")
-                        TextField("Your password", text: $password,onCommit:emailSignUpAction)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .frame(width:screenWidth/2)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.trailing,screenWidth/5)
-                    }
+                    TextField("Your Email", text: $email,onCommit:emailSignUpAction)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .frame(width:screenWidth/2)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Your password", text: $password,onCommit:emailSignUpAction)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .frame(width:screenWidth/2)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom,screenWidth/16)
                     Button(action: {
-                        emailSignUpAction()
-                    }, label: {
-                        Text("SignUp")
-                            .font(.system(size: 20,weight:.bold,design:.monospaced))
-                            .foregroundColor(.purple)
-                            .multilineTextAlignment(.center)
-                            .frame(width:screenWidth / 2, height: 40)
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, style: StrokeStyle(lineWidth: 3)))
-                    })
-                    .alert(isPresented: $showAlert)
-                      { () -> Alert in alertSwitch() }
-                    
+                            emailSignUpAction()
+                        }, label: {
+                            Text("SignUp")
+                                .font(.system(size: 20,weight:.bold,design:.monospaced))
+                                .foregroundColor(.purple)
+                                .multilineTextAlignment(.center)
+                                .frame(width:screenWidth / 4, height: 40)
+                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, style: StrokeStyle(lineWidth: 3)))
+                        })
+                        .alert(isPresented: $showAlert)
+                          { () -> Alert in alertSwitch() }
+                        .padding(.bottom,screenWidth/20)
                 }
-                .padding(.bottom,100)
                 VStack{
                     Text("SignUp with...")
                         .font(.system(size: 20,weight:.bold,design:.monospaced))
@@ -87,7 +79,7 @@ struct SignUpPage: View {
                             Image("facebook-logo")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width:screenWidth/4,height: screenWidth/4)
+                                .frame(width:screenWidth/10,height: screenWidth/10)
                         })
                         .padding(.trailing)
                         Button(action: {
@@ -97,7 +89,7 @@ struct SignUpPage: View {
                             Image("google-logo")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width:screenWidth/4,height: screenWidth/4)
+                                .frame(width:screenWidth/10,height: screenWidth/10)
                                 .padding(.leading)
                         })
                         .onReceive(GoogleSignedInNoti, perform: { _ in
@@ -159,7 +151,10 @@ struct SignUpPage: View {
 
 struct SignUpPage_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpPage(currentPage: .constant(Pages.LoginPage),playerProfile: .constant(Player()))
+        Landscape{
+            SignUpPage(currentPage: .constant(Pages.SignUpPage),playerProfile: .constant(Player()))
+        }
+        //SignUpPage(currentPage: .constant(Pages.SignUpPage),playerProfile: .constant(Player()))
     }
 }
 

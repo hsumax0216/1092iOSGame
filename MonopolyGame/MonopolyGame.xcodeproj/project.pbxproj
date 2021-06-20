@@ -22,6 +22,8 @@
 		3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameSceneView.swift */; };
 		3D7735ED267548B500B22780 /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EC267548B500B22780 /* GameRoom.swift */; };
 		3D7735EF267E8FC600B22780 /* PlayerFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */; };
+		3D7735F1267FA2DD00B22780 /* GameRoomWaitPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F0267FA2DD00B22780 /* GameRoomWaitPage.swift */; };
+		3D7735F3267FC1F400B22780 /* PreviewOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F2267FC1F300B22780 /* PreviewOrientation.swift */; };
 		3DD018AE2672500E00C7E4EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018AD2672500E00C7E4EC /* Assets.xcassets */; };
 		3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */; };
 		3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C42672510F00C7E4EC /* assetsNames.swift */; };
@@ -64,6 +66,8 @@
 		3D7735EA2675315800B22780 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		3D7735EC267548B500B22780 /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
 		3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFirestoreViewModel.swift; sourceTree = "<group>"; };
+		3D7735F0267FA2DD00B22780 /* GameRoomWaitPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomWaitPage.swift; sourceTree = "<group>"; };
+		3D7735F2267FC1F300B22780 /* PreviewOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewOrientation.swift; sourceTree = "<group>"; };
 		3DD018A62672500A00C7E4EC /* MonopolyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonopolyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD018AD2672500E00C7E4EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */,
 				3DD018D12672511000C7E4EC /* Extension_LoginPage.swift */,
 				3DD018D22672511000C7E4EC /* Extension_SignUpPage.swift */,
+				3D7735F2267FC1F300B22780 /* PreviewOrientation.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				3DD018DA2672511000C7E4EC /* ProfilePage.swift */,
 				3DD018DC2672511000C7E4EC /* CharactorPage.swift */,
 				3D7735EA2675315800B22780 /* GameSceneView.swift */,
+				3D7735F0267FA2DD00B22780 /* GameRoomWaitPage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -372,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D7735ED267548B500B22780 /* GameRoom.swift in Sources */,
+				3D7735F1267FA2DD00B22780 /* GameRoomWaitPage.swift in Sources */,
 				3DD018E92672511000C7E4EC /* SignUpPage.swift in Sources */,
 				3DD018EF2672511000C7E4EC /* ProfilePage.swift in Sources */,
 				3DD018EB2672511000C7E4EC /* PagesControl.swift in Sources */,
@@ -379,6 +386,7 @@
 				3DD018E82672511000C7E4EC /* Extension_SignUpPage.swift in Sources */,
 				3DD018E42672511000C7E4EC /* ViewSnapShot.swift in Sources */,
 				3DD018F02672511000C7E4EC /* ContentView.swift in Sources */,
+				3D7735F3267FC1F400B22780 /* PreviewOrientation.swift in Sources */,
 				3DD018ED2672511000C7E4EC /* FinalProjectApp.swift in Sources */,
 				3D7735DA2675311400B22780 /* Shaders.metal in Sources */,
 				3D7735E42675313F00B22780 /* SceneViewModel.swift in Sources */,
