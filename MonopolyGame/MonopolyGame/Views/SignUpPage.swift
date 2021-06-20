@@ -44,7 +44,7 @@ struct SignUpPage: View {
                     HStack{
                         Spacer()
                         Text("email:")
-                        TextField("Your Email", text: $email)
+                        TextField("Your Email", text: $email,onCommit:emailSignUpAction)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
                             .frame(width:screenWidth/2)
@@ -54,7 +54,7 @@ struct SignUpPage: View {
                     HStack{
                         Spacer()
                         Text("password:")
-                        TextField("Your password", text: $password)
+                        TextField("Your password", text: $password,onCommit:emailSignUpAction)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
                             .frame(width:screenWidth/2)
