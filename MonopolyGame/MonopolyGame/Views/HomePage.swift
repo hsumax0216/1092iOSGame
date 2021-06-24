@@ -14,8 +14,10 @@ struct HomePage: View {
     @Binding var userImage:UIImage?
     @State private var signInState:Bool = false//true
     @State private var showLogoutAlert:Bool = false
+    let UIscreenWidth = UIScreen.main.bounds.size.width
+    let UIscreenHeight = UIScreen.main.bounds.size.height
+    var screenWidth:CGFloat { UIscreenWidth < UIscreenHeight ? UIscreenWidth : UIscreenHeight }
     var body: some View{
-        let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         ZStack{
             VStack{
                 HStack{

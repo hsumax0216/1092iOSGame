@@ -43,7 +43,6 @@ struct CharactorPage: View {
     }
     
     var body: some View {
-        let screenWidth:CGFloat = UIScreen.main.bounds.size.width
         VStack{
             HStack{
                 Button(action: {
@@ -130,7 +129,6 @@ struct CharactorPage: View {
                         Image(systemName: "envelope.circle.fill")
                         Text("email:")
                         Text(playerProfile.email)
-                            .frame(width:screenWidth/2)
                     }
                     HStack{
                         Image(systemName: "person.fill")
