@@ -12,42 +12,61 @@ struct GameCreateJoinRoomPage: View {
 //    @State var usersImages:[UIImage]
     
 //    let testPlayer = [Player(name: "test01", imageURL: "", email: "", country: "", age: 0, money: 0, regTime: Date.init()),Player(name: "test02", imageURL: "", email: "", country: "", age: 0, money: 0, regTime: Date.init())]
-    let testPlayer = [Player(),Player()]
+    let testPlayer = [Player(),Player(),nil,nil]
     let UIscreenWidth = UIScreen.main.bounds.size.width
     let UIscreenHeight = UIScreen.main.bounds.size.height
     
     
-    var frameWidth:CGFloat {UIscreenWidth/4-30;}
-    var frameHeight:CGFloat {UIscreenHeight-300;}
-    let framePadding:CGFloat = 5
+    var frameWidth:CGFloat {UIscreenWidth/4-50;}
+    var frameHeight:CGFloat {UIscreenHeight-500;}
+    let framePadding:CGFloat = 10
     var body: some View {
-        HStack{
-            PlayerProfileView(playerProfile: .constant(testPlayer[0]),userImage: .constant(nil))
-                .frame(width: frameWidth, height: frameHeight)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-                .padding(framePadding)
-            PlayerProfileView(playerProfile: .constant(testPlayer[1]),userImage: .constant(nil))
-                .frame(width: frameWidth, height: frameHeight)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-                .padding(framePadding)
-            PlayerProfileView(playerProfile: .constant(nil), userImage: .constant(nil))
-                .frame(width:frameWidth, height: frameHeight)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-                .padding(framePadding)
-            PlayerProfileView(playerProfile: .constant(nil), userImage: .constant(nil))
-                .frame(width:frameWidth, height: frameHeight)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-                .padding(framePadding)
+        VStack{
+            HStack{
+                Spacer()
+                Text("Share Key: KKKK")
+                    .font(.system(size: 50,weight:.bold,design:.monospaced))
+                    .padding()
+                    .frame(height:100)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+                    .padding(framePadding*3)
+            }
+            HStack(alignment: .center,spacing:framePadding*3){
+                Group{
+                    ForEach(testPlayer.indices,id:\.self){
+                        (index) in
+                        PlayerProfileView(playerProfile: .constant(testPlayer[index]),userImage: .constant(nil))
+                            .frame(width: frameWidth, height: frameHeight)
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+                    }
+                }
+//                PlayerProfileView(playerProfile: .constant(testPlayer[0]),userImage: .constant(nil))
+//                    .frame(width: frameWidth, height: frameHeight)
+//                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+//                    .padding(framePadding)
+//                PlayerProfileView(playerProfile: .constant(testPlayer[1]),userImage: .constant(nil))
+//                    .frame(width: frameWidth, height: frameHeight)
+//                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+//                    .padding(framePadding)
+//                PlayerProfileView(playerProfile: .constant(nil), userImage: .constant(nil))
+//                    .frame(width:frameWidth, height: frameHeight)
+//                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+//                    .padding(framePadding)
+//                PlayerProfileView(playerProfile: .constant(nil), userImage: .constant(nil))
+//                    .frame(width:frameWidth, height: frameHeight)
+//                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+//                    .padding(framePadding)
+            }
         }
     }
 }
 
 struct GameCreateJoinRoomPage_Previews: PreviewProvider {
     static var previews: some View {
-//        Landscape{
-//            GameCreateJoinRoomPage()
-//        }
-        GameCreateJoinRoomPage()
+        Landscape{
+            GameCreateJoinRoomPage()
+        }
+//        GameCreateJoinRoomPage()
     }
 }
 
