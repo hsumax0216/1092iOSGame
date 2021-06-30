@@ -19,13 +19,15 @@ struct FinalProjectApp: App {
             //GameSceneView()
             //testFuncView()
             
-            GameCreateJoinRoomPage()
+            //GameRoomWaitPage(currentPage: .constant(Pages.GameCreateJoinRoomPage), playerProfile: .constant(Player()), userImage: .constant(nil), gameroom: .constant(GameRoom(player: Player())))
+            
+//            GameCreateJoinRoomPage(currentPage: .constant(Pages.GameCreateJoinRoomPage),playerProfile: .constant(Player()),userImage: .constant(nil))
             
             /*Main App*/
-//            PagesControl()
-//                .onOpenURL(perform: { url in
-//                        ApplicationDelegate.shared.application(UIApplication.shared, open: url, sourceApplication: nil, annotation: UIApplication.OpenURLOptionsKey.annotation)
-//                            })
+            PagesControl()
+                .onOpenURL(perform: { url in
+                        ApplicationDelegate.shared.application(UIApplication.shared, open: url, sourceApplication: nil, annotation: UIApplication.OpenURLOptionsKey.annotation)
+                            })
             /*Main App*/
             
         }

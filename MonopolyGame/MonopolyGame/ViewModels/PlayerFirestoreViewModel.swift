@@ -59,6 +59,19 @@ class PlayerFirestore{
         }
         print("searchPlayerData end")
     }
+    
+    func getPlayerData(playerID:String,_ completion: @escaping (_ taken: Player?) -> Void){
+        let documentReference = store.collection("players").document(playerID)
+        documentReference.getDocument{ document,error in
+            guard let document = document,
+                  document.exists,
+                  let getplayer = try? document.data(as: Player.self)
+            else{ return }
+            completion(getplayer)
+            
+        }
+    }
+    
     func getPlayerData(uid:String,_ completion: @escaping (_ taken: Player?) -> Void){
         print("getPlayerData uid: [\(uid)]")
         store.collection("players").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, error in
@@ -132,5 +145,20 @@ class PlayerFirestore{
             print(error)
         }
     }
-
+    
+    func updatePlayerData(playerID:String,_ completion: @escaping (_ player: Player) -> Player) {
+        let documentReference = store.collection("players").document(playerID)
+        documentReference.getDocument{ document,error in
+            guard let document = document,
+                  document.exists,
+                  let getplayer = try? document.data(as: Player.self)
+            else{ return }
+            
+            let player = completion(getplayer)
+            
+            do {
+                try documentReference.setData(from: player)
+            } catch { print(error) }
+        }
+    }
 }

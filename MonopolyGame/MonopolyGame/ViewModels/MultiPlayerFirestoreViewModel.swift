@@ -1,5 +1,5 @@
 //
-//  MultiPlayerFirestoreViewModel.swift
+//  GameRoomFirestoreViewModel.swift
 //  FinalProject
 //
 //  Created by 徐浩恩 on 2021/5/17.
@@ -13,8 +13,8 @@ enum DataChangeAction{
     case add,modify,remove
 }
 
-class MultiPlayerFirestore{
-    static let shared = MultiPlayerFirestore()
+class GameRoomFirestore{
+    static let shared = GameRoomFirestore()
     private let store = Firestore.firestore()
     
     init(){
@@ -78,6 +78,19 @@ class MultiPlayerFirestore{
                 print("dataList:\(dataList)")
                 completion(dataList[0])
             }
+        }
+    }
+    
+    func getGameRoom(gameRoomID:String,_ completion: @escaping(_ token:GameRoom?) -> Void) {
+        store.collection("Rooms").document(gameRoomID).getDocument { document, error in
+            guard let document = document,
+                  document.exists,
+                  let room = try? document.data(as: GameRoom.self) else {
+                print("getGameRoom gameRoomID Guard")
+                completion(nil)
+                return
+            }
+            completion(room)
         }
     }
     
@@ -150,9 +163,9 @@ class MultiPlayerFirestore{
             }
     }
     
-    func fetchGameRoomChange(gameRoomID:String,_ completion: @escaping (Result<(GameRoom,DataChangeAction),Error>) -> Void) {
+    func fetchGameRoomChange(gameRoomID:String,_ completion: @escaping (Result<(GameRoom,DataChangeAction),Error>) -> Void) -> ListenerRegistration {
         //print("Active fetchGameRoomChange")
-        store.collection("Rooms").whereField(.documentID(),isEqualTo: gameRoomID).addSnapshotListener { snapshot, error in
+        let tmp = store.collection("Rooms").whereField(.documentID(),isEqualTo: gameRoomID).addSnapshotListener { snapshot, error in
                 //print("In fetchGameRoomChange gameroomID")
                 guard let snapshot = snapshot else { print("snapshot is nil");return }
                 //print("pass guard let snapshot = snapshot")
@@ -173,6 +186,59 @@ class MultiPlayerFirestore{
                     }
                 //print("End snapshot.documentChanges.forEach")
             }
+        return tmp
+    }
+    
+    func joinGameRoom(shareKey:String,playerID:String,peoples:Int = 4,_ completion: @escaping(_ token:GameRoom?) -> Void) {//modifyGameRoom
+        guard peoples > 0 else {
+            completion(nil)
+            return
+        }
+        getGameRoom(shareKey: shareKey){ room in
+            guard let room = room,let gameRoomID = room.id else {
+                completion(nil)
+                return
+            }
+            
+            let documentReference =
+                self.store.collection("Rooms").document(gameRoomID)
+                documentReference.getDocument { document, error in
+                            
+                    guard let document = document,
+                          document.exists,
+                          var room = try? document.data(as: GameRoom.self) else {
+                        completion(nil)
+                        return
+                    }
+                    //modify data
+                    let originRoom = room
+                    var playerExist = false
+                    for i in room.playerIDs{
+                        if i == playerID{
+                            playerExist = true
+                            break
+                        }
+                    }
+                    if !playerExist && room.playerIDs.count < peoples{
+                        room.playerIDs.append(playerID)
+                    }
+                    else{
+                        if playerExist && room.playerIDs.count < peoples{
+                           print("player already exist.")
+                            completion(originRoom)
+                            return
+                        }
+                        print("Error: people count > \(peoples).")
+                        completion(nil)
+                        return
+                    }
+                            
+                    do {
+                        try documentReference.setData(from: room)
+                        completion(room)
+                    } catch { print(error) }
+            }
+        }
     }
     
     func joinGameRoom(gameRoom:GameRoom,player:Player,peoples:Int = 4,_ completion: @escaping(_ token:GameRoom?) -> Void) {//modifyGameRoom
@@ -220,8 +286,9 @@ class MultiPlayerFirestore{
         }
     }
     
-    func quitGameRoom(gameRoom: GameRoom,player:Player){
-        guard let gameRoomID = gameRoom.id, let playerID = player.id else {
+    func quitGameRoom(player:Player){
+        let gameRoomID = player.gameRoomID
+        guard gameRoomID != "", let playerID = player.id else {
             print("quitGameRoom: guarded.")
             return
         }

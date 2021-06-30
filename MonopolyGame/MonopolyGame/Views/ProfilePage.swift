@@ -99,25 +99,25 @@ struct ProfilePage: View {
                         Group{
                             Button(action:{
                                 gameroom = GameRoom(player: playerProfile)
-                                MultiPlayerFirestore.shared.createGameRoom(gameRoom: gameroom!){ room in
+                                GameRoomFirestore.shared.createGameRoom(gameRoom: gameroom!){ room in
                                     gameroom = room
                                 }
                             },label:{Text("Create Room").font(.system(size:40,design:.monospaced))})
                             Button(action:{
                                 guard let gameR = gameroom else{ print("@State var gameroom is nil.");return }
-                                MultiPlayerFirestore.shared.quitGameRoom(gameRoom: gameR,player: playerProfile)
+                                GameRoomFirestore.shared.quitGameRoom(player: playerProfile)
                             },label:{Text("Quit Room").font(.system(size:40,design:.monospaced))})
                             //}
                             HStack{
                                 Text("Input sharekey:")
                                 TextField("Your sharekey", text: $sharekey
                                           ,onCommit:{
-                                            MultiPlayerFirestore.shared.getGameRoom(shareKey:sharekey){ token in
+                                            GameRoomFirestore.shared.getGameRoom(shareKey:sharekey){ token in
                                                     guard let unexist = token else{
                                                         print("Did not find the Room sharekey: \(sharekey)")
                                                         return
                                                     }
-                                                MultiPlayerFirestore.shared.joinGameRoom(gameRoom: unexist, player: playerProfile){ room in
+                                                GameRoomFirestore.shared.joinGameRoom(gameRoom: unexist, player: playerProfile){ room in
                                                         guard !(room == nil) else{ return }
                                                         gameroom = room
                                                     }
@@ -132,7 +132,7 @@ struct ProfilePage: View {
                                 TextField("Your sharekey", text: $sharekey
                                           ,onCommit:{
                                             
-                                            MultiPlayerFirestore.shared.fetchGameRoomChange(shareKey:sharekey){ result in
+                                            GameRoomFirestore.shared.fetchGameRoomChange(shareKey:sharekey){ result in
                                                 switch result{
                                                 case .success((let GR, let dataChangeAction)):
                                                     switch dataChangeAction{
@@ -169,7 +169,7 @@ struct ProfilePage: View {
                                 TextField("Your GameRoomID", text: $GRID
                                           ,onCommit:{
                                             //print("Listen GameRoomID onCommit")
-                                            MultiPlayerFirestore.shared.fetchGameRoomChange(gameRoomID: GRID){ result in
+                                            GameRoomFirestore.shared.fetchGameRoomChange(gameRoomID: GRID){ result in
                                                 //print("fetchGameRoomChange gameroomID closure,result:[\(result)]")
                                                 switch result{
                                                 case .success((let GR, let dataChangeAction)):

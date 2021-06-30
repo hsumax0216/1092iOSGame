@@ -8,13 +8,14 @@
 import SwiftUI
 
 enum Pages{
-    case HomePage, CharactorPage, CreateAvatarPage,ProfilePage,LoginPage,SignUpPage,GameRoomWaitPage//,GoogleSignInPage
+    case HomePage, CharactorPage, CreateAvatarPage,ProfilePage,LoginPage,SignUpPage,GameCreateJoinRoomPage,GameRoomWaitPage//,GoogleSignInPage
 }
 var lastPageStack = Stack<Pages>()
 struct PagesControl: View {
     @State var currentPage = Pages.HomePage
     @State var userImage:UIImage? = UIImage.init()
     @State var playerProfile:Player = Player()
+    @State var userGameRoom: GameRoom?
     @State var editmode: Int = 0
     var body: some View{
         ZStack{
@@ -33,8 +34,10 @@ struct PagesControl: View {
                 CharactorPage(currentPage: $currentPage, userImage: $userImage,playerProfile: $playerProfile)
             case Pages.ProfilePage:
                 ProfilePage(currentPage: $currentPage, userImage: $userImage,playerProfile:$playerProfile,editmode: $editmode)
+            case Pages.GameCreateJoinRoomPage:
+                GameCreateJoinRoomPage(currentPage: $currentPage,playerProfile: $playerProfile,userImage: $userImage,userGameRoom: $userGameRoom)
             case Pages.GameRoomWaitPage:
-                GameRoomWaitPage(currentPage: $currentPage,playerProfile: $playerProfile,userImage: $userImage)
+                GameRoomWaitPage(currentPage: $currentPage, playerProfile: $playerProfile, userImage: $userImage, userGameRoom: $userGameRoom)
             }
         }
         .onAppear{

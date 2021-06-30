@@ -99,9 +99,9 @@ struct HomePage: View {
                 .padding(.top,50)
                 Button(action: {
                     lastPageStack.push(currentPage)
-                    currentPage = Pages.GameRoomWaitPage
+                    currentPage = Pages.GameCreateJoinRoomPage
                 }, label: {
-                    Text("Create Game Room")
+                    Text("Start Game")
                         .font(.system(size: 20,weight:.bold,design:.monospaced))
                         .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
                         .opacity(signInState ? 1 : 0.3)
@@ -113,22 +113,22 @@ struct HomePage: View {
                 })
                 .disabled(!signInState)
                 .padding(.top,50)
-                Button(action: {
-//                    lastPageStack.push(currentPage)
-//                    currentPage = Pages.GameRoomWaitPage
-                }, label: {
-                    Text("Join Game Room")
-                        .font(.system(size: 20,weight:.bold,design:.monospaced))
-                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
-                        .opacity(signInState ? 1 : 0.3)
-                        .multilineTextAlignment(.center)
-                        .frame(width:screenWidth * 0.75, height: 60)
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5))
-                                    .opacity(signInState ? 1 : 0.3))
-                })
-                .disabled(!signInState)
-                .padding(.top,50)
+//                Button(action: {
+////                    lastPageStack.push(currentPage)
+////                    currentPage = Pages.GameRoomWaitPage
+//                }, label: {
+//                    Text("Join Game Room")
+//                        .font(.system(size: 20,weight:.bold,design:.monospaced))
+//                        .foregroundColor(Color(red: 153/255, green: 0/255, blue: 255/255))
+//                        .opacity(signInState ? 1 : 0.3)
+//                        .multilineTextAlignment(.center)
+//                        .frame(width:screenWidth * 0.75, height: 60)
+//                        .overlay(RoundedRectangle(cornerRadius: 10)
+//                                    .stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5))
+//                                    .opacity(signInState ? 1 : 0.3))
+//                })
+//                .disabled(!signInState)
+//                .padding(.top,50)
             }
         }
         .onAppear{

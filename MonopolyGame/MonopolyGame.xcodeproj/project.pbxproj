@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D37A2AA268BDC90000AEFE4 /* Extension_Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D37A2A9268BDC90000AEFE4 /* Extension_Binding.swift */; };
 		3D7735D22674C4DD00B22780 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D7735D12674C4DD00B22780 /* art.scnassets */; };
 		3D7735D62675308E00B22780 /* deedSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D7735D42675308E00B22780 /* deedSheet.csv */; };
 		3D7735D72675308E00B22780 /* MapInfoSheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D7735D52675308E00B22780 /* MapInfoSheet.csv */; };
@@ -22,9 +23,9 @@
 		3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameSceneView.swift */; };
 		3D7735ED267548B500B22780 /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EC267548B500B22780 /* GameRoom.swift */; };
 		3D7735EF267E8FC600B22780 /* PlayerFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */; };
-		3D7735F1267FA2DD00B22780 /* GameRoomWaitPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F0267FA2DD00B22780 /* GameRoomWaitPage.swift */; };
+		3D7735F1267FA2DD00B22780 /* GameCreateJoinRoomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F0267FA2DD00B22780 /* GameCreateJoinRoomPage.swift */; };
 		3D7735F3267FC1F400B22780 /* PreviewOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F2267FC1F300B22780 /* PreviewOrientation.swift */; };
-		3D7735F52684AA4600B22780 /* GameCreateJoinRoomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F42684AA4500B22780 /* GameCreateJoinRoomPage.swift */; };
+		3D7735F52684AA4600B22780 /* GameRoomWaitPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F42684AA4500B22780 /* GameRoomWaitPage.swift */; };
 		3DA4F00126851FF400FF0ED0 /* ListDisableScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4F00026851FF400FF0ED0 /* ListDisableScroll.swift */; };
 		3DD018AE2672500E00C7E4EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018AD2672500E00C7E4EC /* Assets.xcassets */; };
 		3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D37A2A9268BDC90000AEFE4 /* Extension_Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_Binding.swift; sourceTree = "<group>"; };
 		3D7735D12674C4DD00B22780 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		3D7735D42675308E00B22780 /* deedSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deedSheet.csv; sourceTree = "<group>"; };
 		3D7735D52675308E00B22780 /* MapInfoSheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapInfoSheet.csv; sourceTree = "<group>"; };
@@ -68,9 +70,9 @@
 		3D7735EA2675315800B22780 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		3D7735EC267548B500B22780 /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
 		3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFirestoreViewModel.swift; sourceTree = "<group>"; };
-		3D7735F0267FA2DD00B22780 /* GameRoomWaitPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomWaitPage.swift; sourceTree = "<group>"; };
+		3D7735F0267FA2DD00B22780 /* GameCreateJoinRoomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateJoinRoomPage.swift; sourceTree = "<group>"; };
 		3D7735F2267FC1F300B22780 /* PreviewOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewOrientation.swift; sourceTree = "<group>"; };
-		3D7735F42684AA4500B22780 /* GameCreateJoinRoomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateJoinRoomPage.swift; sourceTree = "<group>"; };
+		3D7735F42684AA4500B22780 /* GameRoomWaitPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomWaitPage.swift; sourceTree = "<group>"; };
 		3DA4F00026851FF400FF0ED0 /* ListDisableScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDisableScroll.swift; sourceTree = "<group>"; };
 		3DD018A62672500A00C7E4EC /* MonopolyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonopolyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD018AD2672500E00C7E4EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				3DD018D22672511000C7E4EC /* Extension_SignUpPage.swift */,
 				3D7735F2267FC1F300B22780 /* PreviewOrientation.swift */,
 				3DA4F00026851FF400FF0ED0 /* ListDisableScroll.swift */,
+				3D37A2A9268BDC90000AEFE4 /* Extension_Binding.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -223,8 +226,8 @@
 				3DD018D92672511000C7E4EC /* LoginPage.swift */,
 				3DD018DA2672511000C7E4EC /* ProfilePage.swift */,
 				3DD018DC2672511000C7E4EC /* CharactorPage.swift */,
-				3D7735F42684AA4500B22780 /* GameCreateJoinRoomPage.swift */,
-				3D7735F0267FA2DD00B22780 /* GameRoomWaitPage.swift */,
+				3D7735F0267FA2DD00B22780 /* GameCreateJoinRoomPage.swift */,
+				3D7735F42684AA4500B22780 /* GameRoomWaitPage.swift */,
 				3D7735EA2675315800B22780 /* GameSceneView.swift */,
 			);
 			path = Views;
@@ -384,11 +387,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D7735ED267548B500B22780 /* GameRoom.swift in Sources */,
-				3D7735F1267FA2DD00B22780 /* GameRoomWaitPage.swift in Sources */,
+				3D7735F1267FA2DD00B22780 /* GameCreateJoinRoomPage.swift in Sources */,
 				3DD018E92672511000C7E4EC /* SignUpPage.swift in Sources */,
 				3DD018EF2672511000C7E4EC /* ProfilePage.swift in Sources */,
 				3DD018EB2672511000C7E4EC /* PagesControl.swift in Sources */,
 				3DA4F00126851FF400FF0ED0 /* ListDisableScroll.swift in Sources */,
+				3D37A2AA268BDC90000AEFE4 /* Extension_Binding.swift in Sources */,
 				3DD018EA2672511000C7E4EC /* CreateAvatarPage.swift in Sources */,
 				3DD018E82672511000C7E4EC /* Extension_SignUpPage.swift in Sources */,
 				3DD018E42672511000C7E4EC /* ViewSnapShot.swift in Sources */,
@@ -415,7 +419,7 @@
 				3DD018E72672511000C7E4EC /* Extension_LoginPage.swift in Sources */,
 				3DD018F12672511000C7E4EC /* CharactorPage.swift in Sources */,
 				3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */,
-				3D7735F52684AA4600B22780 /* GameCreateJoinRoomPage.swift in Sources */,
+				3D7735F52684AA4600B22780 /* GameRoomWaitPage.swift in Sources */,
 				3DD018DF2672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift in Sources */,
 				3DD018EC2672511000C7E4EC /* HomePage.swift in Sources */,
 				3D7735DF2675313000B22780 /* EstateCards.swift in Sources */,
