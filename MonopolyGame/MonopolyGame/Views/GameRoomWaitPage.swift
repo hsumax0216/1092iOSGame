@@ -33,19 +33,25 @@ struct GameRoomWaitPage: View {
         guard let playerlist = userGameRoom?.playerIDs else{ return }
         players.removeAll()
         usersImages.removeAll()
+        
         self.showPlayers.players = PlayerContainer().players
         self.showUsersImages = [nil,nil,nil,nil]
-       
+//        if playerlist.count < 4{
+//            for i in playerlist.count..<4{
+//                self.showPlayers.players[i] = nil
+//                self.showUsersImages[i] = nil
+//            }
+//        }
+        
         //players.append(playerProfile)
         //usersImages.append(userImage)
-        
         
         for i in playerlist{
             PlayerFirestore.shared.getPlayerData(playerID: i){ oPlayer in
                 print("playerID: \(i)")
                 var img:UIImage? = nil
                 print("getPlayerData finished.")
-                let url = URL(string: oPlayer?.imageURL ?? "")
+                let url = URL(string: oPlayer.imageURL)
                 DispatchQueue.global().async {
                     if let data = try? Data(contentsOf: url!) {
                         print("image get data finished.")
@@ -61,23 +67,33 @@ struct GameRoomWaitPage: View {
                         print("image get data fail.")
                     }
                     DispatchQueue.main.async{
-                        self.players.append(oPlayer)
-                        self.usersImages.append(img)
-                        let loc = self.players.count - 1
-                        print("fetchGameRoomMembers loc: \(loc).\nPlayerObject: ",oPlayer as Any)
-                        print("img is nil = ",img == nil)
-                        self.showPlayers.players[loc] = oPlayer
-                        self.showUsersImages[loc] = img
+                        if playerProfile.id == oPlayer.id{
+                            self.showPlayers.players[0] = oPlayer
+                            self.showUsersImages[0] = img
+                        }
+                        else{
+                            self.players.append(oPlayer)
+                            self.usersImages.append(img)
+                            let loc = self.players.count - 1
+                            print("fetchGameRoomMembers loc: \(loc).\nPlayerObject: ",oPlayer as Any)
+                            print("img is nil = ",img == nil)
+                            self.showPlayers.players[loc+1] = oPlayer
+                            self.showUsersImages[loc+1] = img
+                        }
                     }
                 }
             }
         }
-        if playerlist.count < 4{
-            for i in playerlist.count..<4{
-                self.showPlayers.players[i] = nil
-                self.showUsersImages[i] = nil
-            }
-        }
+        
+        
+//        showPlayers.players[0] = userTmp
+//        showUsersImages[0] = userImgTmp
+//
+//        for i in 1..<playerlist.count{
+//            showPlayers.players[i] = players[i-1]
+//            showUsersImages[i] = usersImages[i-1]
+//        }
+        
 //        showPlayers = players
 //        showUsersImages = usersImages
 //        tmp.sort{ ( A, B ) -> Bool in
@@ -132,7 +148,6 @@ struct GameRoomWaitPage: View {
                         .padding(framePadding*3)
                 }
                 HStack(alignment: .center,spacing:framePadding*3){
-                    //Group{
                         ForEach(showPlayers.players.indices,id:\.self){
                                 (index) in
                                     PlayerProfileView(playerProfile: $showPlayers.players[index],userImage: $showUsersImages[index])

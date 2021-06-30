@@ -60,7 +60,7 @@ class PlayerFirestore{
         print("searchPlayerData end")
     }
     
-    func getPlayerData(playerID:String,_ completion: @escaping (_ taken: Player?) -> Void){
+    func getPlayerData(playerID:String,_ completion: @escaping (_ taken: Player) -> Void){
         let documentReference = store.collection("players").document(playerID)
         documentReference.getDocument{ document,error in
             guard let document = document,
