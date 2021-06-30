@@ -110,6 +110,10 @@ struct GameRoomWaitPage: View {
         
     }
     
+//    func quitOtherPlayerOfRoom(){
+//        
+//    }
+    
     var body: some View {
         ZStack{
             VStack{
@@ -148,15 +152,33 @@ struct GameRoomWaitPage: View {
                         .padding(framePadding*3)
                 }
                 HStack(alignment: .center,spacing:framePadding*3){
-                        ForEach(showPlayers.players.indices,id:\.self){
-                                (index) in
+                    ForEach(showPlayers.players.indices,id:\.self){
+                            (index) in
+                                VStack{
                                     PlayerProfileView(playerProfile: $showPlayers.players[index],userImage: $showUsersImages[index])
-                                        .frame(width: frameWidth, height: frameHeight)
-                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
-                            }
-                            .onAppear{
-                                print("ForEach(showPlayers) onAppear")
-                            }
+                                    .frame(width: frameWidth, height: frameHeight)
+                                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 5)))
+//                                    if true {
+//                                        if index != 0{
+//                                            Button(action: {quitOtherPlayerOfRoom()}, label: {
+//                                                Image("ban")
+//                                                    .resizable()
+//                                                    .scaledToFit()
+//                                                    .frame(height:framePadding*3)
+//                                                    .padding(10)
+//                                            })
+//                                        }
+//                                        else{
+//                                            VStack{}
+//                                                .frame(height:framePadding*3)
+//                                                .padding(10)
+//                                        }
+//                                    }
+                                }
+                        }
+                        .onAppear{
+                            print("ForEach(showPlayers) onAppear")
+                        }
                     //}
 //                    PlayerProfileView(playerProfile: $showPlayers.players[0],userImage: $showUsersImages[0])
 //                        .frame(width: frameWidth, height: frameHeight)
