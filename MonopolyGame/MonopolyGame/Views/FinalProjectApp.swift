@@ -16,7 +16,7 @@ struct FinalProjectApp: App {
         WindowGroup {
             //ContentView()
             //testSceneView()
-            //GameSceneView()
+            //GameScenePage()
             //testFuncView()
             
             //GameRoomWaitPage(currentPage: .constant(Pages.GameCreateJoinRoomPage), playerProfile: .constant(Player()), userImage: .constant(nil), gameroom: .constant(GameRoom(player: Player())))

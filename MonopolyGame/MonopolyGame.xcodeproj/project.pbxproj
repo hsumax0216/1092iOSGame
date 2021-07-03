@@ -20,7 +20,7 @@
 		3D7735E52675313F00B22780 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E32675313F00B22780 /* GameViewModel.swift */; };
 		3D7735E82675314C00B22780 /* testFuncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E62675314C00B22780 /* testFuncView.swift */; };
 		3D7735E92675314C00B22780 /* testSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735E72675314C00B22780 /* testSceneView.swift */; };
-		3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameSceneView.swift */; };
+		3D7735EB2675315800B22780 /* GameScenePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EA2675315800B22780 /* GameScenePage.swift */; };
 		3D7735ED267548B500B22780 /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EC267548B500B22780 /* GameRoom.swift */; };
 		3D7735EF267E8FC600B22780 /* PlayerFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */; };
 		3D7735F1267FA2DD00B22780 /* GameCreateJoinRoomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7735F0267FA2DD00B22780 /* GameCreateJoinRoomPage.swift */; };
@@ -31,7 +31,7 @@
 		3DD018B12672500E00C7E4EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD018B02672500E00C7E4EC /* Preview Assets.xcassets */; };
 		3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C42672510F00C7E4EC /* assetsNames.swift */; };
 		3DD018DE2672511000C7E4EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C52672510F00C7E4EC /* AppDelegate.swift */; };
-		3DD018DF2672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C72672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift */; };
+		3DD018DF2672511000C7E4EC /* GameRoomFirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C72672511000C7E4EC /* GameRoomFirestoreViewModel.swift */; };
 		3DD018E02672511000C7E4EC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018C92672511000C7E4EC /* Player.swift */; };
 		3DD018E12672511000C7E4EC /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CB2672511000C7E4EC /* Stack.swift */; };
 		3DD018E22672511000C7E4EC /* Extension_CreateAvatarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */; };
@@ -67,7 +67,7 @@
 		3D7735E32675313F00B22780 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		3D7735E62675314C00B22780 /* testFuncView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testFuncView.swift; sourceTree = "<group>"; };
 		3D7735E72675314C00B22780 /* testSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testSceneView.swift; sourceTree = "<group>"; };
-		3D7735EA2675315800B22780 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
+		3D7735EA2675315800B22780 /* GameScenePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScenePage.swift; sourceTree = "<group>"; };
 		3D7735EC267548B500B22780 /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
 		3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFirestoreViewModel.swift; sourceTree = "<group>"; };
 		3D7735F0267FA2DD00B22780 /* GameCreateJoinRoomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateJoinRoomPage.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		3DD018B22672500E00C7E4EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DD018C42672510F00C7E4EC /* assetsNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = assetsNames.swift; sourceTree = "<group>"; };
 		3DD018C52672510F00C7E4EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DD018C72672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiPlayerFirestoreViewModel.swift; sourceTree = "<group>"; };
+		3DD018C72672511000C7E4EC /* GameRoomFirestoreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomFirestoreViewModel.swift; sourceTree = "<group>"; };
 		3DD018C92672511000C7E4EC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3DD018CB2672511000C7E4EC /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3DD018CC2672511000C7E4EC /* Extension_CreateAvatarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension_CreateAvatarPage.swift; sourceTree = "<group>"; };
@@ -178,7 +178,7 @@
 			children = (
 				3D7735E32675313F00B22780 /* GameViewModel.swift */,
 				3D7735E22675313F00B22780 /* SceneViewModel.swift */,
-				3DD018C72672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift */,
+				3DD018C72672511000C7E4EC /* GameRoomFirestoreViewModel.swift */,
 				3D7735EE267E8FC600B22780 /* PlayerFirestoreViewModel.swift */,
 			);
 			path = ViewModels;
@@ -228,7 +228,7 @@
 				3DD018DC2672511000C7E4EC /* CharactorPage.swift */,
 				3D7735F0267FA2DD00B22780 /* GameCreateJoinRoomPage.swift */,
 				3D7735F42684AA4500B22780 /* GameRoomWaitPage.swift */,
-				3D7735EA2675315800B22780 /* GameSceneView.swift */,
+				3D7735EA2675315800B22780 /* GameScenePage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 				3D7735DA2675311400B22780 /* Shaders.metal in Sources */,
 				3D7735E42675313F00B22780 /* SceneViewModel.swift in Sources */,
 				3DD018E22672511000C7E4EC /* Extension_CreateAvatarPage.swift in Sources */,
-				3D7735EB2675315800B22780 /* GameSceneView.swift in Sources */,
+				3D7735EB2675315800B22780 /* GameScenePage.swift in Sources */,
 				3D7735E92675314C00B22780 /* testSceneView.swift in Sources */,
 				3D7735E12675313000B22780 /* Mover.swift in Sources */,
 				3D7735DB2675311400B22780 /* CsvReader.swift in Sources */,
@@ -420,7 +420,7 @@
 				3DD018F12672511000C7E4EC /* CharactorPage.swift in Sources */,
 				3DD018DD2672511000C7E4EC /* assetsNames.swift in Sources */,
 				3D7735F52684AA4600B22780 /* GameRoomWaitPage.swift in Sources */,
-				3DD018DF2672511000C7E4EC /* MultiPlayerFirestoreViewModel.swift in Sources */,
+				3DD018DF2672511000C7E4EC /* GameRoomFirestoreViewModel.swift in Sources */,
 				3DD018EC2672511000C7E4EC /* HomePage.swift in Sources */,
 				3D7735DF2675313000B22780 /* EstateCards.swift in Sources */,
 			);

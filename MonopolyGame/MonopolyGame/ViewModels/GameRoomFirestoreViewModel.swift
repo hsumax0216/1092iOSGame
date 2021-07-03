@@ -120,6 +120,22 @@ class GameRoomFirestore{
         }
     }
     
+    func updateGameRoom(gameRoomID:String,_ completion: @escaping (_ gameRoom: GameRoom) -> GameRoom) {
+        let documentReference = store.collection("Rooms").document(gameRoomID)
+        documentReference.getDocument{ document,error in
+            guard let document = document,
+                  document.exists,
+                  let getRoom = try? document.data(as: GameRoom.self)
+            else{ return }
+            
+            let room = completion(getRoom)
+            
+            do {
+                try documentReference.setData(from: room)
+            } catch { print(error) }
+        }
+    }
+    
     func createGameRoom(gameRoom:GameRoom,_ completion: @escaping(_ token:GameRoom?) -> Void){
         searchGameRoom(ownerID: gameRoom.ownerID){ unexist in
             if unexist == false{
@@ -219,11 +235,11 @@ class GameRoomFirestore{
                             break
                         }
                     }
-                    if !playerExist && room.playerIDs.count < peoples{
+                    if !playerExist && room.playerIDs.count < peoples && !room.gameRunning{
                         room.playerIDs.append(playerID)
                     }
                     else{
-                        if playerExist && room.playerIDs.count < peoples{
+                        if playerExist && room.playerIDs.count < peoples && !room.gameRunning{
                            print("player already exist.")
                             completion(originRoom)
                             return
@@ -265,11 +281,11 @@ class GameRoomFirestore{
                         break
                     }
                 }
-                if !playerExist && room.playerIDs.count < peoples{
+                if !playerExist && room.playerIDs.count < peoples && !room.gameRunning{
                     room.playerIDs.append(playerID)
                 }
                 else{
-                    if playerExist && room.playerIDs.count < peoples{
+                    if playerExist && room.playerIDs.count < peoples && !room.gameRunning{
                        print("player already exist.")
                         completion(originRoom)
                         return

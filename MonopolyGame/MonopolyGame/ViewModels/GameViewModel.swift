@@ -5,11 +5,13 @@
 //  Created by 徐浩恩 on 2021/6/8.
 //
 
+import Firebase
+import FirebaseFirestoreSwift
 import Foundation
 
 class MonopolyGame: ObservableObject{
-    @Published var dice_one:Int = 0
-    @Published var dice_two:Int = 0
+    @Published var dice_one:Int = 1
+    @Published var dice_two:Int = 1
     var estates: [Estate] = []
     var mapInfos: [MapInfo] = []
     var currentPlay:Int = 0
@@ -21,6 +23,7 @@ class MonopolyGame: ObservableObject{
     
     var movers:[Mover] = []
     
+    //var roomListener: ListenerRegistration?
     
     init(){
         

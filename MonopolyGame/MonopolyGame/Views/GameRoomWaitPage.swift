@@ -46,9 +46,9 @@ struct GameRoomWaitPage: View {
         //players.append(playerProfile)
         //usersImages.append(userImage)
         
-        for i in playerlist{
+        for (num,i) in playerlist.enumerated(){
+            print("Firestore order No.\(num) player\n\tID: \(i)")
             PlayerFirestore.shared.getPlayerData(playerID: i){ oPlayer in
-                print("playerID: \(i)")
                 var img:UIImage? = nil
                 print("getPlayerData finished.")
                 let url = URL(string: oPlayer.imageURL)
@@ -111,8 +111,26 @@ struct GameRoomWaitPage: View {
     }
     
 //    func quitOtherPlayerOfRoom(){
-//        
+//
 //    }
+    
+    func detectStartGameUpdate(){
+        guard let isGameRunning = userGameRoom?.gameRunning else { return }
+        if isGameRunning {
+            //lastPageStack.popAll()
+            currentPage = Pages.GameScenePage
+        }
+    }
+    
+    func startGameUpdate(){
+        guard let roomID = userGameRoom?.id else { return }
+        GameRoomFirestore.shared.updateGameRoom(gameRoomID: roomID){ room in
+            userGameRoom = room
+            userGameRoom?.gameRunning = true
+            
+            return userGameRoom ?? room
+        }
+    }
     
     var body: some View {
         ZStack{
@@ -140,6 +158,23 @@ struct GameRoomWaitPage: View {
                     Spacer()
                 }
                 Spacer()
+                HStack{
+                    Spacer()
+                    if playerProfile.id == userGameRoom?.ownerID {
+                        Button(action: {
+                            startGameUpdate()
+                            //lastPageStack.popAll()
+                            currentPage = Pages.GameScenePage
+                        }, label: {
+                            Text("Start")
+                                .font(.system(size: 40,weight:.bold,design:.monospaced))
+                                .padding()
+                                .frame(height:60)
+                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 153/255, green: 0/255, blue: 255/255), style: StrokeStyle(lineWidth: 3)))
+                                .padding(framePadding*3)
+                        })
+                    }
+                }
             }
             VStack{
                 HStack{
@@ -175,9 +210,6 @@ struct GameRoomWaitPage: View {
 //                                        }
 //                                    }
                                 }
-                        }
-                        .onAppear{
-                            print("ForEach(showPlayers) onAppear")
                         }
                     //}
 //                    PlayerProfileView(playerProfile: $showPlayers.players[0],userImage: $showUsersImages[0])
@@ -223,6 +255,7 @@ struct GameRoomWaitPage: View {
                             print("No.\(i):",ID)
                         }
                         fetchGameRoomMembers()
+                        detectStartGameUpdate()
                     case .modify:
                         print("modify GameRoom ID:",GR.id as Any)
                         print("players ID:")
@@ -230,6 +263,7 @@ struct GameRoomWaitPage: View {
                             print("No.\(i):",ID)
                         }
                         fetchGameRoomMembers()
+                        detectStartGameUpdate()
                     case .remove:
                         print("removed GameRoom ID:",GR.id as Any)
                         break

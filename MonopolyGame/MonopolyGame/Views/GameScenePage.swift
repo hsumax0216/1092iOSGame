@@ -1,5 +1,5 @@
 //
-//  GameSceneView.swift
+//  GameScenePage.swift
 //  3D-Game-test-SwiftUI
 //
 //  Created by  on 2021/5/21.
@@ -9,7 +9,7 @@ import SwiftUI
 import SceneKit
 import SceneKit.ModelIO
 
-struct GameSceneView: View {
+struct GameScenePage: View {
     @StateObject var coordinator = SceneCoordinator()
     @State var desIdx = 0
     var body: some View {
@@ -32,8 +32,8 @@ struct GameSceneView: View {
     }
 }
 
-struct GameSceneView_Previews: PreviewProvider {
+struct GameScenePage_Previews: PreviewProvider {
     static var previews: some View {
-        GameSceneView()
+        GameScenePage()
     }
 }
